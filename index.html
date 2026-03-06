@@ -135,8 +135,8 @@
         </button>
       </div>
 
-      <!-- Mobile menu dropdown – each link has consistent padding, container gets extra bottom padding when open via JS -->
-      <div id="mobileMenu" class="mobile-menu-enter w-full md:hidden flex flex-col glass rounded-xl px-4 text-slate-400 font-medium" style="max-height:0; opacity:0; overflow:hidden;padding-bottom:0.1rem;">
+      <!-- Mobile menu dropdown – each link has consistent padding -->
+      <div id="mobileMenu" class="mobile-menu-enter w-full md:hidden flex flex-col glass rounded-xl px-4 text-slate-400 font-medium" style="max-height:0; opacity:0; overflow:hidden;">
         <a href="#services" class="py-3 border-b border-white/5 hover:text-white transition-colors">Services</a>
         <a href="#projects" class="py-3 border-b border-white/5 hover:text-white transition-colors">Work</a>
         <a href="#stack" class="py-3 border-b border-white/5 hover:text-white transition-colors">Stack</a>
@@ -468,7 +468,7 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal, .reveal-group').forEach(el => observer.observe(el));
 
-    // Mobile menu toggle (fixed bottom padding)
+    // Mobile menu toggle (fixed bottom padding – now 0.1rem)
     const menuBtn = document.getElementById('mobileMenuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
     let menuOpen = false;
@@ -478,9 +478,9 @@
       else menuOpen = !menuOpen;
       
       if (menuOpen) {
-        // Apply padding to the container for better spacing, especially at the bottom
+        // Apply minimal bottom padding as requested (0.1rem)
         mobileMenu.style.paddingTop = '0.75rem';
-        mobileMenu.style.paddingBottom = '1rem';  // increased bottom padding
+        mobileMenu.style.paddingBottom = '0.1rem';  // changed from 1rem to 0.1rem
         mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
         mobileMenu.style.opacity = '1';
         mobileMenu.style.marginTop = '1rem';
