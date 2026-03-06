@@ -59,6 +59,21 @@
     /* mobile menu animation */
     .mobile-menu-enter { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease; }
     .mobile-menu-enter.active { max-height: 300px; opacity: 1; margin-top: 1rem; }
+
+    /* typing cursor */
+    .typed-cursor {
+      display: inline-block;
+      width: 4px;
+      height: 1em;
+      background-color: #818cf8;
+      margin-left: 4px;
+      vertical-align: middle;
+      animation: blink 0.7s infinite;
+    }
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
   </style>
 </head>
 <body class="selection:bg-indigo-500/30">
@@ -112,7 +127,12 @@
 
     <div class="relative z-10 text-center px-4 reveal-group active">
       <h1 class="reveal-item font-heading text-6xl md:text-9xl font-bold tracking-tighter mb-6">
-        Modern <br /><span class="gradient-text">Engineering</span>
+        Modern <br />
+        <!-- Typing effect container -->
+        <span class="gradient-text inline-flex items-center">
+          <span id="typed-word"></span>
+          <span class="typed-cursor"></span>
+        </span>
       </h1>
       <p class="reveal-item max-w-2xl mx-auto text-slate-400 text-lg md:text-xl mb-10 leading-relaxed">
         Bespoke PHP development fueled by AI-acceleration. High-performance backends meet surgical frontend precision.
@@ -254,7 +274,7 @@
     </div>
   </section>
 
-  <!-- ========== NEW SECTION: TECH STACK / SKILLS ========== -->
+  <!-- NEW SECTION: TECH STACK / SKILLS (retained) -->
   <section id="stack" class="py-32 px-4 max-w-7xl mx-auto">
     <div class="text-left mb-16 reveal">
       <span class="text-indigo-400 font-mono text-xs uppercase tracking-widest">[ Core Toolchain ]</span>
@@ -409,19 +429,63 @@
       toggleMenu();
     });
 
-    // Close menu when any mobile link is clicked
     mobileMenu.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         toggleMenu(false);
       });
     });
 
-    // Close on outside click (optional)
     document.addEventListener('click', (e) => {
       if (!menuBtn.contains(e.target) && !mobileMenu.contains(e.target) && menuOpen) {
         toggleMenu(false);
       }
     });
+
+    // ========== TYPING EFFECT FOR HERO ==========
+    const words = ["Engineering", "Backends", "APIs", "Solutions", "Performance"];
+    const typedWordSpan = document.getElementById('typed-word');
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let typingDelay = 150; // ms per character
+    let eraseDelay = 80;
+    let newWordDelay = 2000; // pause when word is complete
+
+    function typeEffect() {
+      const currentWord = words[wordIndex];
+      
+      if (isDeleting) {
+        // remove a character
+        typedWordSpan.textContent = currentWord.substring(0, charIndex - 1);
+        charIndex--;
+      } else {
+        // add a character
+        typedWordSpan.textContent = currentWord.substring(0, charIndex + 1);
+        charIndex++;
+      }
+
+      // If word is complete, start deleting after a pause
+      if (!isDeleting && charIndex === currentWord.length) {
+        isDeleting = true;
+        setTimeout(typeEffect, newWordDelay);
+        return;
+      }
+
+      // If fully deleted, move to next word
+      if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        wordIndex = (wordIndex + 1) % words.length;
+        setTimeout(typeEffect, typingDelay);
+        return;
+      }
+
+      // schedule next character
+      const speed = isDeleting ? eraseDelay : typingDelay;
+      setTimeout(typeEffect, speed);
+    }
+
+    // Start typing effect after loader disappears (or immediately)
+    setTimeout(typeEffect, 2000); // delay to let loader finish, but can be adjusted
   </script>
 </body>
 </html>
