@@ -13,27 +13,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   
-  <!-- Defer non-critical CSS: Google Fonts stylesheet (load async) -->
-  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@300..600&display=swap" />
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@300..600&display=swap" /></noscript>
+  <!-- Load stylesheets normally (blocking) to ensure layout is correct -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@300..600&display=swap" rel="stylesheet" />
+  <link href="https://cdn.tailwindcss.com" rel="stylesheet" />
   
-  <!-- Defer Tailwind CDN (load async) -->
-  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://cdn.tailwindcss.com" />
-  <noscript><link rel="stylesheet" href="https://cdn.tailwindcss.com" /></noscript>
-  
-  <!-- Inline critical styles (minimal to prevent FOUC) – but we keep the rest async -->
-  <style>
-    /* Critical inline styles to ensure basic layout before CSS loads */
-    body { background-color: #030712; color: #f8fafc; overflow-x: hidden; margin: 0; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
-    .glass { background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
-    /* Minimal styling for above-the-fold content */
-    .font-heading { font-family: 'Space Grotesk', system-ui, sans-serif; }
-  </style>
-  
-  <!-- Defer Cloudflare email decoder script -->
+  <!-- Defer Cloudflare email decoder script (non-critical) -->
   <script src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js" defer></script>
   
-  <!-- Tailwind config (inline script, not render-blocking) -->
+  <!-- Tailwind config (inline script) -->
   <script>
     tailwind.config = {
       theme: {
@@ -56,11 +43,14 @@
   </script>
   
   <style>
-    /* Additional styles that were previously in the style block (kept for functionality) */
+    /* Additional styles for loader, animations, etc. (kept) */
+    body { background-color: #030712; color: #f8fafc; overflow-x: hidden; }
+    
     #loader { position: fixed; inset: 0; background: #030712; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.6s ease, visibility 0.6s; }
     .loader-line { width: 240px; height: 2px; background: rgba(255,255,255,0.05); position: relative; overflow: hidden; border-radius: 4px; }
     .loader-progress { position: absolute; left: 0; top: 0; height: 100%; background: #6366f1; width: 0%; transition: width 1.8s cubic-bezier(0.65, 0, 0.35, 1); }
 
+    .glass { background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
     .glass-hover:hover { background: rgba(30, 41, 59, 0.6); border-color: rgba(99, 102, 241, 0.5); transform: translateY(-8px); transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
     
     .gradient-text { background: linear-gradient(to right, #818cf8, #22d3ee, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200% auto; animation: shimmer 4s linear infinite; }
@@ -196,7 +186,7 @@
     </div>
   </header>
 
-  <!-- Marquee text contrast improved: changed from text-slate-600 to text-slate-300 -->
+  <!-- Marquee text contrast improved -->
   <div class="py-10 border-y border-white/5 bg-slate-950/30 overflow-hidden">
     <div class="marquee-container animate-marquee">
       <div class="marquee-content font-mono text-[10px] text-slate-300 flex items-center gap-12 uppercase tracking-[0.3em]">
@@ -291,7 +281,7 @@
     </div>
     
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal-group reveal">
-      <!-- Changed h4 to h3 for proper heading hierarchy -->
+      <!-- Proper heading hierarchy: h3 for project titles -->
       <div class="reveal-item group cursor-pointer">
         <div class="glass rounded-[2rem] p-4 group-hover:bg-slate-900/50 transition-all border border-transparent group-hover:border-indigo-500/30">
           <div class="aspect-video bg-slate-900 rounded-2xl mb-6 flex items-center justify-center font-bold text-slate-800 text-4xl">BM</div>
@@ -328,7 +318,7 @@
     </div>
   </section>
 
-  <!-- STACK SECTION (updated: removed Laravel/Symfony, added Python/Bash) -->
+  <!-- STACK SECTION (updated) -->
   <section id="stack" class="py-32 px-4 max-w-7xl mx-auto">
     <div class="text-left mb-16 reveal">
       <span class="text-indigo-400 font-mono text-xs uppercase tracking-widest">[ Core Toolchain ]</span>
@@ -367,7 +357,7 @@
     </div>
   </section>
 
-  <!-- NEW SECTION: CUSTOM SCRIPTING & SEO AUDITS (updated bullet) -->
+  <!-- CUSTOM SCRIPTING & SEO AUDITS -->
   <section id="scripts-seo" class="py-32 px-4 max-w-7xl mx-auto bg-slate-950/30">
     <div class="text-left mb-16 reveal">
       <span class="text-indigo-400 font-mono text-xs uppercase tracking-widest">[ Specialized Services ]</span>
@@ -464,7 +454,7 @@
     </div>
   </section>
 
-  <!-- Footer contrast improved: changed from text-slate-700 to text-slate-400 -->
+  <!-- Footer -->
   <footer class="py-12 border-t border-white/5 text-center">
     <p class="text-[10px] text-slate-400 font-mono uppercase tracking-[0.5em]">© 2026 ELVIR KAQANOLLI • STACK: PHP 8.3 / MYSQL / TAILWIND / AI</p>
   </footer>
