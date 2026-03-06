@@ -94,6 +94,7 @@
         <a href="#services" class="hover:text-white transition-colors">Services</a>
         <a href="#projects" class="hover:text-white transition-colors">Work</a>
         <a href="#stack" class="hover:text-white transition-colors">Stack</a>
+        <a href="#scripts-seo" class="hover:text-white transition-colors">Scripts/SEO</a> <!-- NEW LINK -->
         <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
       </div>
 
@@ -114,6 +115,7 @@
         <a href="#services" class="py-3 border-b border-white/5 hover:text-white transition-colors">Services</a>
         <a href="#projects" class="py-3 border-b border-white/5 hover:text-white transition-colors">Work</a>
         <a href="#stack" class="py-3 border-b border-white/5 hover:text-white transition-colors">Stack</a>
+        <a href="#scripts-seo" class="py-3 border-b border-white/5 hover:text-white transition-colors">Scripts/SEO</a>
         <a href="#faq" class="py-3 hover:text-white transition-colors">FAQ</a>
       </div>
     </div>
@@ -274,7 +276,7 @@
     </div>
   </section>
 
-  <!-- NEW SECTION: TECH STACK / SKILLS (retained) -->
+  <!-- STACK SECTION (unchanged) -->
   <section id="stack" class="py-32 px-4 max-w-7xl mx-auto">
     <div class="text-left mb-16 reveal">
       <span class="text-indigo-400 font-mono text-xs uppercase tracking-widest">[ Core Toolchain ]</span>
@@ -293,7 +295,6 @@
       <div class="reveal-item glass p-5 rounded-2xl text-center font-medium hover:border-indigo-500/50 transition-all">Git / CI/CD</div>
     </div>
 
-    <!-- extra mini stats -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12 reveal-group">
       <div class="reveal-item text-center">
         <div class="text-4xl font-heading font-bold gradient-text">7+</div>
@@ -311,6 +312,48 @@
         <div class="text-4xl font-heading font-bold gradient-text">24/7</div>
         <div class="text-xs text-slate-500 uppercase tracking-wider mt-2">AI assistance</div>
       </div>
+    </div>
+  </section>
+
+  <!-- ========== NEW SECTION: CUSTOM SCRIPTING & SEO AUDITS ========== -->
+  <section id="scripts-seo" class="py-32 px-4 max-w-7xl mx-auto bg-slate-950/30">
+    <div class="text-left mb-16 reveal">
+      <span class="text-indigo-400 font-mono text-xs uppercase tracking-widest">[ Specialized Services ]</span>
+      <h2 class="font-heading text-4xl md:text-5xl font-bold mt-4">Custom Scripting <span class="text-slate-500 italic">&</span> SEO Audits.</h2>
+      <p class="text-slate-400 mt-4 max-w-2xl">Beyond full‑stack development: bespoke automation scripts and deep technical SEO analysis to make your site faster, smarter, and visible.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 reveal-group">
+      <!-- Custom Scripting Card -->
+      <div class="reveal-item glass p-10 rounded-[2.5rem] glass-hover h-full flex flex-col">
+        <div class="text-5xl mb-6">⚙️</div>
+        <h3 class="text-2xl font-bold mb-4">Bespoke Scripting</h3>
+        <p class="text-slate-400 text-sm leading-relaxed mb-6">Tailored PHP scripts, cron jobs, and CLI tools to automate your workflows, migrate legacy data, or integrate third‑party APIs seamlessly.</p>
+        <ul class="text-[11px] font-mono text-indigo-300 space-y-2 mt-auto">
+          <li>+ ETL PIPELINES & DATA PARSING</li>
+          <li>+ CUSTOM WORDPRESS/WOOCOMMERCE PLUGINS</li>
+          <li>+ WEBHOOK HANDLERS & API PROXIES</li>
+        </ul>
+      </div>
+
+      <!-- SEO Audits Card -->
+      <div class="reveal-item glass p-10 rounded-[2.5rem] glass-hover h-full flex flex-col">
+        <div class="text-5xl mb-6">🔍</div>
+        <h3 class="text-2xl font-bold mb-4">Technical SEO Audits</h3>
+        <p class="text-slate-400 text-sm leading-relaxed mb-6">I look beyond keywords – analyze site structure, meta tags, schema, page speed, and crawlability to boost your organic rankings.</p>
+        <ul class="text-[11px] font-mono text-cyan-300 space-y-2 mt-auto">
+          <li>+ STRUCTURED DATA (SCHEMA.ORG)</li>
+          <li>+ CORE WEB VITALS OPTIMIZATION</li>
+          <li>+ LOG FILE ANALYSIS & CRAWL BUDGET</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- extra CTA / highlight -->
+    <div class="mt-12 text-center reveal">
+      <p class="text-slate-500 text-sm max-w-2xl mx-auto italic">
+        “Scripting and SEO are force multipliers. I automate the boring and fix what search engines actually see.”
+      </p>
     </div>
   </section>
 
@@ -447,31 +490,27 @@
     let wordIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
-    let typingDelay = 150; // ms per character
+    let typingDelay = 150;
     let eraseDelay = 80;
-    let newWordDelay = 2000; // pause when word is complete
+    let newWordDelay = 2000;
 
     function typeEffect() {
       const currentWord = words[wordIndex];
       
       if (isDeleting) {
-        // remove a character
         typedWordSpan.textContent = currentWord.substring(0, charIndex - 1);
         charIndex--;
       } else {
-        // add a character
         typedWordSpan.textContent = currentWord.substring(0, charIndex + 1);
         charIndex++;
       }
 
-      // If word is complete, start deleting after a pause
       if (!isDeleting && charIndex === currentWord.length) {
         isDeleting = true;
         setTimeout(typeEffect, newWordDelay);
         return;
       }
 
-      // If fully deleted, move to next word
       if (isDeleting && charIndex === 0) {
         isDeleting = false;
         wordIndex = (wordIndex + 1) % words.length;
@@ -479,13 +518,11 @@
         return;
       }
 
-      // schedule next character
       const speed = isDeleting ? eraseDelay : typingDelay;
       setTimeout(typeEffect, speed);
     }
 
-    // Start typing effect after loader disappears (or immediately)
-    setTimeout(typeEffect, 2000); // delay to let loader finish, but can be adjusted
+    setTimeout(typeEffect, 2000);
   </script>
 </body>
 </html>
