@@ -9,14 +9,15 @@
   <!-- Robots meta tag to allow indexing -->
   <meta name="robots" content="index, follow" />
   
-  <!-- Preconnect to critical origins (including Tailwind CDN) -->
+  <!-- Preconnect to critical origins -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin />
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  
   <!-- Load stylesheets normally (blocking) to ensure layout is correct -->
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@300..600&display=swap" rel="stylesheet" />
   <link href="https://cdn.tailwindcss.com" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   
   <!-- Fallback inline styles in case external CSS fails (ensures basic layout) -->
   <style>
@@ -50,9 +51,10 @@
   <!-- Defer Cloudflare email decoder script (non-critical) -->
   <script src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js" defer></script>
   
-  <!-- Tailwind config (inline script) -->
+  <!-- Tailwind config - ensure window.tailwind exists to avoid "tailwind is not defined" error -->
   <script>
-    tailwind.config = {
+    window.tailwind = window.tailwind || {};
+    window.tailwind.config = {
       theme: {
         extend: {
           fontFamily: { sans: ['Inter', 'sans-serif'], heading: ['Space Grotesk', 'sans-serif'] },
