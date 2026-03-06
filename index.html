@@ -3,623 +3,314 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Elvir K. — AI Developer</title>
+  <title>Elvir Kaqanolli. // PHP & AI Engineer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@300..600&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-          },
-          colors: {
-            slate: {
-              950: '#0f172a',
-            }
-          },
+          fontFamily: { sans: ['Inter', 'sans-serif'], heading: ['Space Grotesk', 'sans-serif'] },
+          colors: { slate: { 950: '#030712' }, accent: { 500: '#6366f1', 400: '#818cf8' } },
           animation: {
-            'fade-up': 'fadeUp 0.7s ease-out forwards',
-            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'shimmer': 'shimmer 2s linear infinite',
             'float': 'float 6s ease-in-out infinite',
+            'marquee': 'marquee 40s linear infinite',
           },
           keyframes: {
-            fadeUp: {
-              '0%': { opacity: '0', transform: 'translateY(30px)' },
-              '100%': { opacity: '1', transform: 'translateY(0)' },
-            },
-            float: {
-              '0%, 100%': { transform: 'translateY(0px)' },
-              '50%': { transform: 'translateY(-20px)' },
-            }
+            shimmer: { '0%': { backgroundPosition: '-200% 0' }, '100%': { backgroundPosition: '200% 0' } },
+            float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-15px)' } },
+            marquee: { '0%': { transform: 'translateX(0%)' }, '100%': { transform: 'translateX(-100%)' } }
           }
         }
       }
     }
   </script>
   <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #0f172a;
-    }
+    body { background-color: #030712; color: #f8fafc; overflow-x: hidden; }
+    
+    #loader { position: fixed; inset: 0; background: #030712; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.6s ease, visibility 0.6s; }
+    .loader-line { width: 240px; height: 2px; background: rgba(255,255,255,0.05); position: relative; overflow: hidden; border-radius: 4px; }
+    .loader-progress { position: absolute; left: 0; top: 0; height: 100%; background: #6366f1; width: 0%; transition: width 1.8s cubic-bezier(0.65, 0, 0.35, 1); }
 
-    /* Fade-in animation classes applied by Intersection Observer */
-    .fade-in-section {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-    }
-    .fade-in-section.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .glass { background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+    .glass-hover:hover { background: rgba(30, 41, 59, 0.6); border-color: rgba(99, 102, 241, 0.5); transform: translateY(-8px); transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    
+    .gradient-text { background: linear-gradient(to right, #818cf8, #22d3ee, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200% auto; animation: shimmer 4s linear infinite; }
+    
+    .reveal { opacity: 0; transform: translateY(30px); transition: 1s all cubic-bezier(0.22, 1, 0.36, 1); }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    
+    .reveal-group.active .reveal-item { opacity: 1; transform: translateY(0); }
+    .reveal-item { opacity: 0; transform: translateY(20px); transition: 0.8s all cubic-bezier(0.22, 1, 0.36, 1); }
 
-    /* Gradient text */
-    .gradient-text {
-      background: linear-gradient(135deg, #818cf8 0%, #06b6d4 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
+    .progress-bar { height: 6px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; position: relative; }
+    .progress-fill { position: absolute; height: 100%; background: #6366f1; width: 0%; transition: width 2s cubic-bezier(0.1, 1, 0.1, 1); }
+    .active .progress-fill { width: var(--target); }
 
-    /* Hero gradient glow */
-    .hero-glow {
-      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(99,102,241,0.25) 0%, transparent 70%);
-    }
+    .marquee-container { display: flex; width: 200%; }
+    .marquee-content { display: flex; justify-content: space-around; width: 100%; }
 
-    /* Glassmorphism card */
-    .glass-card {
-      background: rgba(30, 41, 59, 0.6);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(71, 85, 105, 0.5);
-      transition: all 0.35s ease;
-    }
-    .glass-card:hover {
-      background: rgba(30, 41, 59, 0.85);
-      border-color: rgba(99, 102, 241, 0.6);
-      transform: translateY(-6px);
-      box-shadow: 0 20px 60px rgba(99, 102, 241, 0.18), 0 0 0 1px rgba(99, 102, 241, 0.3);
-    }
-
-    /* Project card glow on hover */
-    .project-card:hover {
-      box-shadow: 0 0 40px rgba(6, 182, 212, 0.15), 0 20px 60px rgba(99, 102, 241, 0.18), 0 0 0 1px rgba(99, 102, 241, 0.4);
-    }
-
-    /* Orb blobs */
-    .orb {
-      position: absolute;
-      border-radius: 9999px;
-      filter: blur(80px);
-      pointer-events: none;
-    }
-
-    /* Navbar blur */
-    .nav-blur {
-      background: rgba(15, 23, 42, 0.75);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(71, 85, 105, 0.35);
-    }
-
-    /* Button hover animation */
-    .btn-primary {
-      background: linear-gradient(135deg, #6366f1, #06b6d4);
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    .btn-primary::before {
-      content: '';
-      position: absolute;
-      top: 0; left: -100%;
-      width: 100%; height: 100%;
-      background: linear-gradient(135deg, #818cf8, #22d3ee);
-      transition: left 0.35s ease;
-    }
-    .btn-primary:hover::before {
-      left: 0;
-    }
-    .btn-primary span {
-      position: relative;
-      z-index: 1;
-    }
-
-    /* Service icon circle */
-    .service-icon {
-      background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(6,182,212,0.2));
-      border: 1px solid rgba(99,102,241,0.3);
-    }
-
-    /* Stat card */
-    .stat-card {
-      background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(6,182,212,0.05));
-      border: 1px solid rgba(99,102,241,0.2);
-    }
-
-    /* Mobile nav menu */
-    #mobile-menu {
-      display: none;
-    }
-    #mobile-menu.open {
-      display: block;
-    }
-
-    /* Visit site button */
-    .visit-btn {
-      background: transparent;
-      border: 1px solid rgba(99,102,241,0.5);
-      color: #818cf8;
-      transition: all 0.3s ease;
-    }
-    .visit-btn:hover {
-      background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(6,182,212,0.15));
-      border-color: rgba(6,182,212,0.7);
-      color: #22d3ee;
-    }
-
-    /* Section stagger animation delays */
-    .stagger-1 { transition-delay: 0.1s; }
-    .stagger-2 { transition-delay: 0.2s; }
-    .stagger-3 { transition-delay: 0.3s; }
-    .stagger-4 { transition-delay: 0.4s; }
-    .stagger-5 { transition-delay: 0.5s; }
+    details > summary { list-style: none; }
+    details > summary::-webkit-details-marker { display: none; }
   </style>
 </head>
-<body class="text-slate-50 antialiased overflow-x-hidden">
+<body class="selection:bg-indigo-500/30">
 
-  <!-- ===================== NAVBAR ===================== -->
-  <header id="navbar" class="fixed top-0 left-0 right-0 z-50 nav-blur">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
-        <!-- Logo / Name -->
-        <a href="#hero" class="text-xl font-bold gradient-text tracking-tight">Elvir K.</a>
+  <div id="loader">
+    <div class="font-heading font-bold text-3xl tracking-tighter mb-4">Elvir<span class="text-accent-400"> K</span></div>
+    <div class="loader-line"><div class="loader-progress" id="progress"></div></div>
+    <div class="mt-4 font-mono text-[10px] text-slate-500 uppercase tracking-[0.4em]" id="loader-text">Initializing Backend...</div>
+  </div>
 
-        <!-- Desktop Nav -->
-        <nav class="hidden md:flex items-center gap-8">
-          <a href="#about" class="text-slate-400 hover:text-slate-50 text-sm font-medium transition-colors duration-200">About</a>
-          <a href="#projects" class="text-slate-400 hover:text-slate-50 text-sm font-medium transition-colors duration-200">Projects</a>
-          <a href="#services" class="text-slate-400 hover:text-slate-50 text-sm font-medium transition-colors duration-200">Services</a>
-          <a href="#contact" class="text-slate-400 hover:text-slate-50 text-sm font-medium transition-colors duration-200">Contact</a>
-          <a href="#contact" class="btn-primary text-sm font-semibold text-white px-5 py-2 rounded-full"><span>Get in Touch</span></a>
-        </nav>
-
-        <!-- Mobile Hamburger -->
-        <button id="hamburger" class="md:hidden text-slate-400 hover:text-slate-50 focus:outline-none" aria-label="Open menu">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path id="ham-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-            <path id="ham-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-          </svg>
-        </button>
+  <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-4xl">
+    <div class="glass px-6 py-3 rounded-2xl flex items-center justify-between shadow-2xl">
+      <a href="#" class="font-heading font-bold text-xl tracking-tighter">Elvir<span class="text-accent-400"> K</span></a>
+      <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400">
+        <a href="#services" class="hover:text-white transition-colors">Services</a>
+        <a href="#projects" class="hover:text-white transition-colors">Work</a>
+        <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
       </div>
+      <a href="#contact" class="bg-white text-black px-4 py-2 rounded-xl text-xs font-bold hover:bg-accent-400 transition-all">LET'S TALK</a>
+    </div>
+  </nav>
+
+  <header class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <div class="absolute top-[10%] left-[10%] w-96 h-96 bg-indigo-600/10 blur-[120px] rounded-full animate-float"></div>
+      <div class="absolute bottom-[10%] right-[10%] w-96 h-96 bg-cyan-600/5 blur-[120px] rounded-full animate-float" style="animation-delay: -3s"></div>
     </div>
 
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="md:hidden border-t border-slate-700/50">
-      <div class="px-4 py-4 space-y-3">
-        <a href="#about" class="block text-slate-300 hover:text-slate-50 font-medium transition-colors" onclick="closeMobileMenu()">About</a>
-        <a href="#projects" class="block text-slate-300 hover:text-slate-50 font-medium transition-colors" onclick="closeMobileMenu()">Projects</a>
-        <a href="#services" class="block text-slate-300 hover:text-slate-50 font-medium transition-colors" onclick="closeMobileMenu()">Services</a>
-        <a href="#contact" class="block text-slate-300 hover:text-slate-50 font-medium transition-colors" onclick="closeMobileMenu()">Contact</a>
-        <a href="#contact" class="inline-block btn-primary text-sm font-semibold text-white px-5 py-2 rounded-full" onclick="closeMobileMenu()"><span>Get in Touch</span></a>
+    <div class="relative z-10 text-center px-4 reveal-group active">
+      <h1 class="reveal-item font-heading text-6xl md:text-9xl font-bold tracking-tighter mb-6">
+        Modern <br /><span class="gradient-text">Engineering</span>
+      </h1>
+      <p class="reveal-item max-w-2xl mx-auto text-slate-400 text-lg md:text-xl mb-10 leading-relaxed">
+        Bespoke PHP development fueled by AI-acceleration. High-performance backends meet surgical frontend precision.
+      </p>
+      <div class="reveal-item flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#projects" class="bg-indigo-600 hover:bg-indigo-500 px-8 py-4 rounded-2xl font-bold transition-all shadow-xl shadow-indigo-500/20">View My Code</a>
+        <a href="#contact" class="glass px-8 py-4 rounded-2xl font-bold hover:bg-white/5 transition-all">Start a Project</a>
       </div>
     </div>
   </header>
 
-  <!-- ===================== HERO SECTION ===================== -->
-  <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
-    <!-- Background gradient -->
-    <div class="absolute inset-0 hero-glow"></div>
-
-    <!-- Orb blobs -->
-    <div class="orb w-96 h-96 bg-indigo-600/30 top-1/4 -left-24 animate-pulse-slow"></div>
-    <div class="orb w-72 h-72 bg-cyan-500/20 bottom-1/4 -right-16 animate-pulse-slow" style="animation-delay:2s;"></div>
-    <div class="orb w-56 h-56 bg-violet-600/20 top-1/3 right-1/4" style="filter:blur(60px);"></div>
-
-    <!-- Grid pattern overlay -->
-    <div class="absolute inset-0 opacity-5" style="background-image: linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px); background-size: 64px 64px;"></div>
-
-    <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <!-- Badge -->
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-indigo-500/40 bg-indigo-500/10 text-indigo-300 text-sm font-medium mb-8">
-        <span class="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></span>
-        Available for new projects
+  <div class="py-10 border-y border-white/5 bg-slate-950/30 overflow-hidden">
+    <div class="marquee-container animate-marquee">
+      <div class="marquee-content font-mono text-[10px] text-slate-600 flex items-center gap-12 uppercase tracking-[0.3em]">
+        <span>PHP 8.3 CORE</span> <span>•</span> <span>MySQL Optimization</span> <span>•</span> <span>Tailwind CSS</span> <span>•</span> 
+        <span>RESTful API Architecture</span> <span>•</span> <span>Secure Auth</span> <span>•</span> <span>AI-Assisted Workflow</span> <span>•</span>
       </div>
-
-      <!-- Name -->
-      <h1 class="text-6xl sm:text-7xl md:text-8xl font-black tracking-tight text-slate-50 mb-4 leading-none">
-        Elvir<span class="gradient-text"> K.</span>
-      </h1>
-
-      <!-- Title -->
-      <p class="text-2xl sm:text-3xl font-semibold text-indigo-400 mb-6 tracking-wide">AI Developer</p>
-
-      <!-- Tagline -->
-      <p class="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-        Building websites &amp; platforms faster, smarter, and more affordably — powered by cutting-edge AI tools that deliver premium results without the premium price tag.
-      </p>
-
-      <!-- CTAs -->
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href="#projects" class="btn-primary text-white font-semibold px-8 py-3.5 rounded-full text-base shadow-lg shadow-indigo-500/25">
-          <span>View My Work ↓</span>
-        </a>
-        <a href="#contact" class="text-slate-300 hover:text-slate-50 font-semibold px-8 py-3.5 rounded-full border border-slate-600 hover:border-slate-400 transition-all duration-300 text-base">
-          Get in Touch
-        </a>
+      <div class="marquee-content font-mono text-[10px] text-slate-600 flex items-center gap-12 uppercase tracking-[0.3em]">
+        <span>PHP 8.3 CORE</span> <span>•</span> <span>MySQL Optimization</span> <span>•</span> <span>Tailwind CSS</span> <span>•</span> 
+        <span>RESTful API Architecture</span> <span>•</span> <span>Secure Auth</span> <span>•</span> <span>AI-Assisted Workflow</span> <span>•</span>
       </div>
+    </div>
+  </div>
 
-      <!-- Scroll indicator -->
-      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-500">
-        <span class="text-xs tracking-widest uppercase">Scroll</span>
-        <div class="w-px h-12 bg-gradient-to-b from-slate-500 to-transparent animate-pulse"></div>
+  <section id="services" class="py-32 px-4 max-w-7xl mx-auto">
+    <div class="text-left mb-16 reveal">
+      <span class="text-indigo-400 font-mono text-xs uppercase tracking-widest">[ Capabilities ]</span>
+      <h2 class="font-heading text-4xl md:text-5xl font-bold mt-4">The Custom <span class="text-slate-500 italic">Built</span> Edge.</h2>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal-group reveal">
+      <div class="reveal-item glass p-10 rounded-[2.5rem] glass-hover">
+        <h3 class="text-xl font-bold mb-4">Enterprise Backends</h3>
+        <p class="text-slate-400 text-sm leading-relaxed mb-6">Scalable PHP engines built for heavy traffic. Custom routing, multi-tenant databases, and sub-second execution.</p>
+        <ul class="text-[11px] font-mono text-indigo-300 space-y-2">
+          <li>+ MVC ARCHITECTURE</li>
+          <li>+ API DEVELOPMENT</li>
+          <li>+ CUSTOM CMS</li>
+        </ul>
+      </div>
+      <div class="reveal-item glass p-10 rounded-[2.5rem] glass-hover">
+        <h3 class="text-xl font-bold mb-4">Database Mastery</h3>
+        <p class="text-slate-400 text-sm leading-relaxed mb-6">Optimized MySQL schemas and complex query tuning. I handle millions of rows without breaking a sweat.</p>
+        <ul class="text-[11px] font-mono text-cyan-300 space-y-2">
+          <li>+ DATA NORMALIZATION</li>
+          <li>+ QUERY OPTIMIZATION</li>
+          <li>+ SECURE BACKUPS</li>
+        </ul>
+      </div>
+      <div class="reveal-item glass p-10 rounded-[2.5rem] glass-hover">
+        <h3 class="text-xl font-bold mb-4">AI Integration</h3>
+        <p class="text-slate-400 text-sm leading-relaxed mb-6">Integrating LLM capabilities directly into your web applications for automated content or data processing.</p>
+        <ul class="text-[11px] font-mono text-purple-300 space-y-2">
+          <li>+ LLM API HOOKS</li>
+          <li>+ AUTOMATED WORKFLOWS</li>
+          <li>+ AI AGENT LOGIC</li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <!-- ===================== ABOUT SECTION ===================== -->
-  <section id="about" class="relative py-24 sm:py-32 overflow-hidden">
-    <!-- Background orb -->
-    <div class="orb w-80 h-80 bg-indigo-700/20 top-0 right-0 translate-x-1/2"></div>
-
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <!-- Section header -->
-      <div class="fade-in-section text-center mb-16">
-        <p class="text-indigo-400 text-sm font-semibold tracking-widest uppercase mb-3">About Me</p>
-        <h2 class="text-4xl sm:text-5xl font-bold text-slate-50 mb-4">AI-Powered <span class="gradient-text">Development</span></h2>
-        <p class="text-slate-400 max-w-xl mx-auto text-lg">The future of software development — today.</p>
-      </div>
-
-      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-        <!-- Text content -->
-        <div class="fade-in-section space-y-6">
-          <p class="text-slate-300 text-lg leading-relaxed">
-            I'm an AI Developer who harnesses the latest artificial intelligence tools to build high-quality websites and platforms — in a fraction of the time and cost of traditional development.
-          </p>
-          <p class="text-slate-400 leading-relaxed">
-            My approach is simple: leverage AI at every stage of the development process — from design ideation to code generation and testing — so you get a polished, professional product without the bloated agency price tag. Clients get more value, faster turnaround, and a partner who stays on the cutting edge of technology.
-          </p>
-          <p class="text-slate-400 leading-relaxed">
-            Whether it's a sleek marketing site, a full e-commerce platform, or a custom web application, I deliver results that compete with large teams — powered by the tools reshaping the industry.
-          </p>
-          <div class="pt-2">
-            <a href="https://github.com/elvir-k" target="_blank" rel="noopener noreferrer"
-               class="inline-flex items-center gap-2 text-indigo-400 hover:text-cyan-400 font-medium transition-colors duration-200">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.92.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/>
-              </svg>
-              View GitHub Profile →
-            </a>
-          </div>
-        </div>
-
-        <!-- Stats cards -->
-        <div class="fade-in-section grid grid-cols-2 gap-4">
-          <div class="stat-card rounded-2xl p-6 text-center">
-            <div class="text-4xl font-black gradient-text mb-2">5+</div>
-            <div class="text-slate-300 font-semibold text-sm">Projects Delivered</div>
-            <div class="text-slate-500 text-xs mt-1">Live &amp; running</div>
-          </div>
-          <div class="stat-card rounded-2xl p-6 text-center">
-            <div class="text-4xl font-black gradient-text mb-2">AI</div>
-            <div class="text-slate-300 font-semibold text-sm">Powered Workflow</div>
-            <div class="text-slate-500 text-xs mt-1">Every project</div>
-          </div>
-          <div class="stat-card rounded-2xl p-6 text-center">
-            <div class="text-4xl font-black gradient-text mb-2">↓</div>
-            <div class="text-slate-300 font-semibold text-sm">Cost-Effective</div>
-            <div class="text-slate-500 text-xs mt-1">vs. traditional agencies</div>
-          </div>
-          <div class="stat-card rounded-2xl p-6 text-center">
-            <div class="text-4xl font-black gradient-text mb-2">⚡</div>
-            <div class="text-slate-300 font-semibold text-sm">Fast Delivery</div>
-            <div class="text-slate-500 text-xs mt-1">Quick turnaround</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== PROJECTS SECTION ===================== -->
-  <section id="projects" class="relative py-24 sm:py-32 overflow-hidden">
-    <!-- Background orbs -->
-    <div class="orb w-96 h-96 bg-cyan-700/15 -bottom-24 -left-24"></div>
-    <div class="orb w-64 h-64 bg-indigo-700/15 top-16 right-8"></div>
-
-    <!-- Subtle section divider gradient -->
-    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent"></div>
-
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <!-- Section header -->
-      <div class="fade-in-section text-center mb-16">
-        <p class="text-indigo-400 text-sm font-semibold tracking-widest uppercase mb-3">Portfolio</p>
-        <h2 class="text-4xl sm:text-5xl font-bold text-slate-50 mb-4">Featured <span class="gradient-text">Projects</span></h2>
-        <p class="text-slate-400 max-w-xl mx-auto text-lg">Live websites and platforms delivered for clients — each built with AI-accelerated workflows.</p>
-      </div>
-
-      <!-- Project Cards Grid -->
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-
-        <!-- Card 1 -->
-        <div class="glass-card project-card rounded-2xl p-6 flex flex-col fade-in-section stagger-1">
-          <div class="flex items-start justify-between mb-4">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-500 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">01</div>
-            <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Live</span>
-          </div>
-          <h3 class="text-lg font-bold text-slate-50 mb-2">BigMall Center</h3>
-          <p class="text-slate-400 text-sm leading-relaxed flex-1 mb-5">A comprehensive shopping mall platform with dynamic listings, promotions, and an intuitive user experience designed to drive engagement and conversions.</p>
-          <a href="https://bigmallcenter.com" target="_blank" rel="noopener noreferrer" class="visit-btn inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold">
-            Visit Site <span aria-hidden="true">→</span>
-          </a>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="glass-card project-card rounded-2xl p-6 flex flex-col fade-in-section stagger-2">
-          <div class="flex items-start justify-between mb-4">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-500 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">02</div>
-            <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Live</span>
-          </div>
-          <h3 class="text-lg font-bold text-slate-50 mb-2">Client Project 4</h3>
-          <p class="text-slate-400 text-sm leading-relaxed flex-1 mb-5">A professionally crafted web platform built with modern design principles and AI-powered development for optimal performance and user experience.</p>
-          <a href="https://elvirk4.sg-host.com/" target="_blank" rel="noopener noreferrer" class="visit-btn inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold">
-            Visit Site <span aria-hidden="true">→</span>
-          </a>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="glass-card project-card rounded-2xl p-6 flex flex-col fade-in-section stagger-3">
-          <div class="flex items-start justify-between mb-4">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">03</div>
-            <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Live</span>
-          </div>
-          <h3 class="text-lg font-bold text-slate-50 mb-2">Client Project 3</h3>
-          <p class="text-slate-400 text-sm leading-relaxed flex-1 mb-5">A custom-built website leveraging AI tools to deliver a polished, responsive, and high-performing digital presence for the client's business.</p>
-          <a href="https://elvirk3.sg-host.com/" target="_blank" rel="noopener noreferrer" class="visit-btn inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold">
-            Visit Site <span aria-hidden="true">→</span>
-          </a>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="glass-card project-card rounded-2xl p-6 flex flex-col fade-in-section stagger-4">
-          <div class="flex items-start justify-between mb-4">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">04</div>
-            <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Live</span>
-          </div>
-          <h3 class="text-lg font-bold text-slate-50 mb-2">Client Project 2</h3>
-          <p class="text-slate-400 text-sm leading-relaxed flex-1 mb-5">An efficient, scalable web solution built rapidly using AI-accelerated development — delivering professional quality at a fraction of traditional costs.</p>
-          <a href="https://elvirk2.sg-host.com/" target="_blank" rel="noopener noreferrer" class="visit-btn inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold">
-            Visit Site <span aria-hidden="true">→</span>
-          </a>
-        </div>
-
-        <!-- Card 5 -->
-        <div class="glass-card project-card rounded-2xl p-6 flex flex-col fade-in-section stagger-5">
-          <div class="flex items-start justify-between mb-4">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-cyan-400 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">05</div>
-            <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Live</span>
-          </div>
-          <h3 class="text-lg font-bold text-slate-50 mb-2">Client Project 1</h3>
-          <p class="text-slate-400 text-sm leading-relaxed flex-1 mb-5">A foundational client engagement — a complete website built with a clean, modern aesthetic and optimized for speed, accessibility, and conversion.</p>
-          <a href="https://elvirk1.sg-host.com/" target="_blank" rel="noopener noreferrer" class="visit-btn inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold">
-            Visit Site <span aria-hidden="true">→</span>
-          </a>
-        </div>
-
-        <!-- "More Coming" placeholder card -->
-        <div class="glass-card rounded-2xl p-6 flex flex-col items-center justify-center fade-in-section stagger-5 text-center border border-dashed border-slate-700 hover:border-indigo-500/50 transition-colors duration-300">
-          <div class="w-12 h-12 rounded-full bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center mb-4">
-            <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-            </svg>
-          </div>
-          <p class="text-slate-400 font-medium text-sm mb-1">More projects coming</p>
-          <p class="text-slate-600 text-xs">Currently in development</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== SERVICES SECTION ===================== -->
-  <section id="services" class="relative py-24 sm:py-32 overflow-hidden">
-    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent"></div>
-    <!-- Background orb -->
-    <div class="orb w-96 h-96 bg-violet-700/15 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
-
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <!-- Section header -->
-      <div class="fade-in-section text-center mb-16">
-        <p class="text-indigo-400 text-sm font-semibold tracking-widest uppercase mb-3">What I Offer</p>
-        <h2 class="text-4xl sm:text-5xl font-bold text-slate-50 mb-4">My <span class="gradient-text">Services</span></h2>
-        <p class="text-slate-400 max-w-xl mx-auto text-lg">Comprehensive web solutions powered by the latest AI tools and best-in-class development practices.</p>
-      </div>
-
-      <!-- Service Cards -->
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-
-        <!-- Service 1 -->
-        <div class="glass-card rounded-2xl p-6 fade-in-section stagger-1">
-          <div class="service-icon w-14 h-14 rounded-2xl flex items-center justify-center mb-5">
-            <svg class="w-7 h-7 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-            </svg>
-          </div>
-          <h3 class="text-slate-50 font-bold text-base mb-3">AI-Powered Web Development</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">Modern, responsive websites built with AI assistance — faster development cycles, higher quality output, lower cost for clients.</p>
-        </div>
-
-        <!-- Service 2 -->
-        <div class="glass-card rounded-2xl p-6 fade-in-section stagger-2">
-          <div class="service-icon w-14 h-14 rounded-2xl flex items-center justify-center mb-5">
-            <svg class="w-7 h-7 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-            </svg>
-          </div>
-          <h3 class="text-slate-50 font-bold text-base mb-3">Custom Platform Development</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">Tailored web platforms built to your exact specifications — from landing pages to full-featured business applications and portals.</p>
-        </div>
-
-        <!-- Service 3 -->
-        <div class="glass-card rounded-2xl p-6 fade-in-section stagger-3">
-          <div class="service-icon w-14 h-14 rounded-2xl flex items-center justify-center mb-5">
-            <svg class="w-7 h-7 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
-            </svg>
-          </div>
-          <h3 class="text-slate-50 font-bold text-base mb-3">E-Commerce Solutions</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">Complete online store setups with product management, secure checkout, and conversion-optimized design to grow your sales.</p>
-        </div>
-
-        <!-- Service 4 -->
-        <div class="glass-card rounded-2xl p-6 fade-in-section stagger-4">
-          <div class="service-icon w-14 h-14 rounded-2xl flex items-center justify-center mb-5">
-            <svg class="w-7 h-7 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-            </svg>
-          </div>
-          <h3 class="text-slate-50 font-bold text-base mb-3">Fast &amp; Cost-Effective Delivery</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">AI-powered workflows slash development time dramatically — so you get agency-quality results at a price that makes sense for your budget.</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== CONTACT / FOOTER SECTION ===================== -->
-  <section id="contact" class="relative py-24 sm:py-32 overflow-hidden">
-    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent"></div>
-    <!-- Orbs -->
-    <div class="orb w-80 h-80 bg-indigo-700/25 bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2"></div>
-
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <!-- Section header -->
-      <div class="fade-in-section mb-12">
-        <p class="text-indigo-400 text-sm font-semibold tracking-widest uppercase mb-3">Contact</p>
-        <h2 class="text-4xl sm:text-5xl font-bold text-slate-50 mb-6">Let's Work <span class="gradient-text">Together</span></h2>
-        <p class="text-slate-400 text-lg max-w-xl mx-auto leading-relaxed">
-          Have a project in mind? Whether it's a new website, a platform upgrade, or an ambitious idea — let's bring it to life with AI-powered development.
+  <section class="py-32 bg-slate-950/50">
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+      <div class="reveal">
+        <h2 class="font-heading text-4xl font-bold mb-8">Modern PHP is <span class="gradient-text">Fast</span>.</h2>
+        <p class="text-slate-400 mb-6 text-lg leading-relaxed">
+          While others chase the latest hype, I leverage the stability and speed of modern PHP 8.x. It powers 77% of the web for a reason—it's battle-tested and lightning-fast when engineered correctly.
         </p>
-      </div>
-
-      <!-- Contact card -->
-      <div class="fade-in-section glass-card rounded-3xl p-8 sm:p-10 mb-12 text-left sm:text-center">
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-center gap-6 sm:gap-10">
-          <!-- GitHub -->
-          <a href="https://github.com/elvir-k" target="_blank" rel="noopener noreferrer"
-             class="flex items-center gap-3 text-slate-300 hover:text-slate-50 group transition-all duration-200">
-            <div class="w-10 h-10 rounded-xl bg-slate-700/60 flex items-center justify-center group-hover:bg-indigo-500/20 transition-colors duration-200 border border-slate-600 group-hover:border-indigo-500/40">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.92.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/>
-              </svg>
-            </div>
-            <div>
-              <div class="text-xs text-slate-500 mb-0.5">GitHub</div>
-              <div class="font-semibold">github.com/elvir-k</div>
-            </div>
-          </a>
-
-          <!-- Divider -->
-          <div class="hidden sm:block w-px h-12 bg-slate-700/60"></div>
-
-          <!-- Email CTA -->
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-slate-700/60 flex items-center justify-center border border-slate-600">
-              <svg class="w-5 h-5 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-              </svg>
-            </div>
-            <div>
-              <div class="text-xs text-slate-500 mb-0.5">Interested?</div>
-              <div class="font-semibold text-slate-300">Reach out via GitHub</div>
-            </div>
+        <div class="space-y-4">
+          <div class="flex items-start gap-4">
+            <div class="w-6 h-6 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400 mt-1">✓</div>
+            <div><span class="font-bold text-white">Native Speed:</span> PHP 8's JIT compiler rivals traditional compiled languages.</div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="w-6 h-6 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400 mt-1">✓</div>
+            <div><span class="font-bold text-white">Cost Effective:</span> Deployment is simpler, cheaper, and more reliable.</div>
           </div>
         </div>
       </div>
-
-      <!-- CTA -->
-      <div class="fade-in-section">
-        <a href="https://github.com/elvir-k" target="_blank" rel="noopener noreferrer"
-           class="btn-primary inline-flex items-center gap-2 text-white font-semibold px-10 py-4 rounded-full text-base shadow-xl shadow-indigo-500/20">
-          <span>View My GitHub</span>
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-            <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.92.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/>
-          </svg>
-        </a>
+      <div class="reveal relative">
+        <div class="glass p-8 rounded-3xl font-mono text-sm text-indigo-300 relative z-10 overflow-hidden">
+          <div class="flex gap-2 mb-4">
+            <div class="w-3 h-3 rounded-full bg-red-500/50"></div>
+            <div class="w-3 h-3 rounded-full bg-yellow-500/50"></div>
+            <div class="w-3 h-3 rounded-full bg-green-500/50"></div>
+          </div>
+          <p class="text-slate-500 mb-2">// Optimizing query for Website...</p>
+          <p><span class="text-purple-400">SELECT</span> * <span class="text-purple-400">FROM</span> products</p>
+          <p><span class="text-purple-400">JOIN</span> vendors <span class="text-purple-400">ON</span> vendors.id = products.v_id</p>
+          <p><span class="text-purple-400">WHERE</span> status = <span class="text-green-400">'active'</span></p>
+          <p><span class="text-purple-400">ORDER BY</span> created_at <span class="text-purple-400">DESC</span>;</p>
+          <p class="mt-4 text-emerald-400">// Result: 0.0004s execution time</p>
+        </div>
+        <div class="absolute -inset-4 bg-indigo-500/20 blur-3xl -z-10 rounded-full"></div>
       </div>
     </div>
+  </section>
 
-    <!-- Footer -->
-    <div class="mt-20 border-t border-slate-800/60">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p class="text-slate-500 text-sm">© 2026 Elvir K. All rights reserved.</p>
-        <div class="flex items-center gap-6">
-          <a href="#about" class="text-slate-500 hover:text-slate-300 text-sm transition-colors">About</a>
-          <a href="#projects" class="text-slate-500 hover:text-slate-300 text-sm transition-colors">Projects</a>
-          <a href="#services" class="text-slate-500 hover:text-slate-300 text-sm transition-colors">Services</a>
-          <a href="https://github.com/elvir-k" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:text-slate-300 text-sm transition-colors">GitHub</a>
+  <section id="projects" class="py-32 px-4 max-w-7xl mx-auto">
+    <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal gap-4">
+        <h2 class="font-heading text-4xl font-bold">Deployments</h2>
+        <a href="https://github.com/elvir-k" class="text-indigo-400 font-mono text-sm hover:underline">VIEW ALL SOURCE CODE →</a>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal-group reveal">
+      <div class="reveal-item group cursor-pointer">
+        <div class="glass rounded-[2rem] p-4 group-hover:bg-slate-900/50 transition-all border border-transparent group-hover:border-indigo-500/30">
+          <div class="aspect-video bg-slate-900 rounded-2xl mb-6 flex items-center justify-center font-bold text-slate-800 text-4xl">BM</div>
+          <h4 class="font-bold text-xl mb-2">BigMall Center</h4>
+          <p class="text-slate-500 text-sm mb-6">A massive marketplace engine managing thousands of vendors with real-time stock logic.</p>
+          <div class="flex gap-2">
+            <span class="bg-indigo-500/10 text-indigo-400 text-[10px] px-3 py-1 rounded-full font-mono">PHP-CORE</span>
+            <span class="bg-cyan-500/10 text-cyan-400 text-[10px] px-3 py-1 rounded-full font-mono">SQL-MAX</span>
+          </div>
+        </div>
+      </div>
+      <div class="reveal-item group cursor-pointer">
+        <div class="glass rounded-[2rem] p-4 group-hover:bg-slate-900/50 transition-all border border-transparent group-hover:border-cyan-500/30">
+          <div class="aspect-video bg-slate-900 rounded-2xl mb-6 flex items-center justify-center font-bold text-slate-800 text-4xl">P4</div>
+          <h4 class="font-bold text-xl mb-2">Portal IV Analytics</h4>
+          <p class="text-slate-500 text-sm mb-6">SaaS dashboard visualizing secure data streams for enterprise-level clients.</p>
+          <div class="flex gap-2">
+            <span class="bg-cyan-500/10 text-cyan-400 text-[10px] px-3 py-1 rounded-full font-mono">DASHBOARD</span>
+            <span class="bg-purple-500/10 text-purple-400 text-[10px] px-3 py-1 rounded-full font-mono">CHARTS.JS</span>
+          </div>
+        </div>
+      </div>
+      <div class="reveal-item group cursor-pointer">
+        <div class="glass rounded-[2rem] p-4 group-hover:bg-slate-900/50 transition-all border border-transparent group-hover:border-purple-500/30">
+          <div class="aspect-video bg-slate-900 rounded-2xl mb-6 flex items-center justify-center font-bold text-slate-800 text-4xl">P3</div>
+          <h4 class="font-bold text-xl mb-2">Marketing Node III</h4>
+          <p class="text-slate-500 text-sm mb-6">Conversion-optimized landing ecosystem with AI lead-scoring integration.</p>
+          <div class="flex gap-2">
+            <span class="bg-purple-500/10 text-purple-400 text-[10px] px-3 py-1 rounded-full font-mono">AI-SYNC</span>
+            <span class="bg-indigo-500/10 text-indigo-400 text-[10px] px-3 py-1 rounded-full font-mono">LEADS</span>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===================== JAVASCRIPT ===================== -->
-  <script>
-    // ─── Mobile menu toggle ───────────────────────────────────────────────────
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const hamOpen    = document.getElementById('ham-open');
-    const hamClose   = document.getElementById('ham-close');
+  <section id="faq" class="py-32 px-4 max-w-4xl mx-auto reveal">
+    <div class="text-center mb-16">
+      <h2 class="font-heading text-4xl font-bold">Frequently Asked</h2>
+    </div>
+    <div class="space-y-4">
+      <details class="group glass p-6 rounded-2xl">
+        <summary class="flex justify-between items-center cursor-pointer font-bold">
+          Why use PHP instead of Node.js?
+          <span class="text-indigo-400 group-open:rotate-180 transition-transform">↓</span>
+        </summary>
+        <p class="text-slate-400 mt-4 text-sm leading-relaxed">Modern PHP (8.3) is exceptionally fast and has more mature libraries for stable business logic and database management. For enterprise CRUD apps and e-commerce, it's often the superior choice for reliability and deployment ease.</p>
+      </details>
+      <details class="group glass p-6 rounded-2xl">
+        <summary class="flex justify-between items-center cursor-pointer font-bold">
+          How does AI factor into your development?
+          <span class="text-indigo-400 group-open:rotate-180 transition-transform">↓</span>
+        </summary>
+        <p class="text-slate-400 mt-4 text-sm leading-relaxed">I use AI to handle the "grunt work"—unit testing, boilerplate generation, and initial refactoring. This allows me to focus 100% on the architecture and high-level logic, delivering weeks of work in days.</p>
+      </details>
+      <details class="group glass p-6 rounded-2xl">
+        <summary class="flex justify-between items-center cursor-pointer font-bold">
+          Do you work with existing MySQL databases?
+          <span class="text-indigo-400 group-open:rotate-180 transition-transform">↓</span>
+        </summary>
+        <p class="text-slate-400 mt-4 text-sm leading-relaxed">Yes. I specialize in taking legacy, slow databases and optimizing them via indexing, normalization, and query refactoring without data loss.</p>
+      </details>
+    </div>
+  </section>
 
-    hamburger.addEventListener('click', () => {
-      const isOpen = mobileMenu.classList.toggle('open');
-      hamOpen.classList.toggle('hidden', isOpen);
-      hamClose.classList.toggle('hidden', !isOpen);
+  <section id="contact" class="py-32 px-4">
+    <div class="max-w-5xl mx-auto glass p-8 md:p-16 rounded-[3rem] reveal relative overflow-hidden">
+        <div class="absolute top-0 right-0 p-10 opacity-10">
+            <svg class="w-40 h-40" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 relative z-10">
+            <div>
+                <h2 class="font-heading text-5xl font-bold mb-6 italic">Let's <span class="gradient-text">Build</span>.</h2>
+                <p class="text-slate-400 mb-8">Ready to transition from idea to deployment? Fill out the brief or reach out directly.</p>
+                <div class="space-y-4 font-mono text-sm">
+                    <p class="flex items-center gap-3"><span class="text-indigo-400">@</span> contact@elvir.al</p>
+                    <p class="flex items-center gap-3"><span class="text-indigo-400">#</span> GitHub/elvir-k</p>
+                </div>
+            </div>
+            
+            <form class="space-y-4">
+                <input type="text" placeholder="Full Name" class="w-full bg-slate-900/50 border border-white/10 rounded-xl px-6 py-4 focus:outline-none focus:border-indigo-500 transition-all">
+                <input type="email" placeholder="Email Address" class="w-full bg-slate-900/50 border border-white/10 rounded-xl px-6 py-4 focus:outline-none focus:border-indigo-500 transition-all">
+                <textarea placeholder="Tell me about your project stack..." rows="4" class="w-full bg-slate-900/50 border border-white/10 rounded-xl px-6 py-4 focus:outline-none focus:border-indigo-500 transition-all"></textarea>
+                <button type="submit" class="w-full bg-white text-black font-bold py-4 rounded-xl hover:bg-indigo-500 hover:text-white transition-all">SEND DISCOVERY REQUEST</button>
+            </form>
+        </div>
+    </div>
+  </section>
+
+  <footer class="py-12 border-t border-white/5 text-center">
+    <p class="text-[10px] text-slate-700 font-mono uppercase tracking-[0.5em]">© 2026 ELVIR KAQANOLLI • STACK: PHP 8.3 / MYSQL / TAILWIND / AI</p>
+  </footer>
+
+  <script>
+    window.addEventListener('load', () => {
+      const progress = document.getElementById('progress');
+      const loaderText = document.getElementById('loader-text');
+      const loader = document.getElementById('loader');
+      
+      progress.style.width = '100%';
+      setTimeout(() => { loaderText.innerText = 'Analyzing SQL Schemas...'; }, 600);
+      setTimeout(() => { loaderText.innerText = 'Optimizing UI Assets...'; }, 1200);
+
+      setTimeout(() => {
+        loader.style.opacity = '0';
+        loader.style.visibility = 'hidden';
+      }, 1900);
     });
 
-    function closeMobileMenu() {
-      mobileMenu.classList.remove('open');
-      hamOpen.classList.remove('hidden');
-      hamClose.classList.add('hidden');
-    }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
 
-    // ─── Intersection Observer — fade-in sections ─────────────────────────────
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
-    );
-
-    document.querySelectorAll('.fade-in-section').forEach(el => observer.observe(el));
-
-    // ─── Active nav link highlight on scroll ─────────────────────────────────
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('header nav a[href^="#"]');
-
-    const sectionObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const id = entry.target.getAttribute('id');
-            navLinks.forEach(link => {
-              const isActive = link.getAttribute('href') === `#${id}`;
-              link.classList.toggle('text-slate-50', isActive);
-              link.classList.toggle('text-slate-400', !isActive);
-            });
-          }
-        });
-      },
-      { threshold: 0.4 }
-    );
-
-    sections.forEach(section => sectionObserver.observe(section));
+    document.querySelectorAll('.reveal, .reveal-group').forEach(el => observer.observe(el));
   </script>
 </body>
 </html>
