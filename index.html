@@ -8,10 +8,32 @@
   <meta name="description" content="Elvir Kaqanolli: PHP & AI Engineer specializing in bespoke backends, database optimization, AI integration, custom scripting, and technical SEO audits. High-performance web development." />
   <!-- Robots meta tag to allow indexing -->
   <meta name="robots" content="index, follow" />
+  
+  <!-- Preconnect to critical origins -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@300..600&display=swap" rel="stylesheet" />
-  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Defer non-critical CSS: Google Fonts stylesheet (load async) -->
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@300..600&display=swap" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@300..600&display=swap" /></noscript>
+  
+  <!-- Defer Tailwind CDN (load async) -->
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://cdn.tailwindcss.com" />
+  <noscript><link rel="stylesheet" href="https://cdn.tailwindcss.com" /></noscript>
+  
+  <!-- Inline critical styles (minimal to prevent FOUC) – but we keep the rest async -->
+  <style>
+    /* Critical inline styles to ensure basic layout before CSS loads */
+    body { background-color: #030712; color: #f8fafc; overflow-x: hidden; margin: 0; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
+    .glass { background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+    /* Minimal styling for above-the-fold content */
+    .font-heading { font-family: 'Space Grotesk', system-ui, sans-serif; }
+  </style>
+  
+  <!-- Defer Cloudflare email decoder script -->
+  <script src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js" defer></script>
+  
+  <!-- Tailwind config (inline script, not render-blocking) -->
   <script>
     tailwind.config = {
       theme: {
@@ -32,14 +54,13 @@
       }
     }
   </script>
+  
   <style>
-    body { background-color: #030712; color: #f8fafc; overflow-x: hidden; }
-    
+    /* Additional styles that were previously in the style block (kept for functionality) */
     #loader { position: fixed; inset: 0; background: #030712; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.6s ease, visibility 0.6s; }
     .loader-line { width: 240px; height: 2px; background: rgba(255,255,255,0.05); position: relative; overflow: hidden; border-radius: 4px; }
     .loader-progress { position: absolute; left: 0; top: 0; height: 100%; background: #6366f1; width: 0%; transition: width 1.8s cubic-bezier(0.65, 0, 0.35, 1); }
 
-    .glass { background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
     .glass-hover:hover { background: rgba(30, 41, 59, 0.6); border-color: rgba(99, 102, 241, 0.5); transform: translateY(-8px); transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
     
     .gradient-text { background: linear-gradient(to right, #818cf8, #22d3ee, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200% auto; animation: shimmer 4s linear infinite; }
