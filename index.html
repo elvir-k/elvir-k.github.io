@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Elvir Kaqanolli. // PHP & AI Engineer</title>
+  <title>Elvir Kaqanolli // PHP & AI Engineer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@300..600&display=swap" rel="stylesheet" />
@@ -55,6 +55,10 @@
 
     details > summary { list-style: none; }
     details > summary::-webkit-details-marker { display: none; }
+
+    /* mobile menu animation */
+    .mobile-menu-enter { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease; }
+    .mobile-menu-enter.active { max-height: 300px; opacity: 1; margin-top: 1rem; }
   </style>
 </head>
 <body class="selection:bg-indigo-500/30">
@@ -65,15 +69,38 @@
     <div class="mt-4 font-mono text-[10px] text-slate-500 uppercase tracking-[0.4em]" id="loader-text">Initializing Backend...</div>
   </div>
 
+  <!-- ========== NAVBAR (Enhanced Mobile) ========== -->
   <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-4xl">
-    <div class="glass px-6 py-3 rounded-2xl flex items-center justify-between shadow-2xl">
+    <div class="glass px-6 py-3 rounded-2xl flex flex-wrap items-center justify-between shadow-2xl relative">
       <a href="#" class="font-heading font-bold text-xl tracking-tighter">Elvir<span class="text-accent-400"> K</span></a>
+      
+      <!-- Desktop navigation (hidden on mobile) -->
       <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400">
         <a href="#services" class="hover:text-white transition-colors">Services</a>
         <a href="#projects" class="hover:text-white transition-colors">Work</a>
+        <a href="#stack" class="hover:text-white transition-colors">Stack</a>
         <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
       </div>
-      <a href="#contact" class="bg-white text-black px-4 py-2 rounded-xl text-xs font-bold hover:bg-accent-400 transition-all">LET'S TALK</a>
+
+      <!-- Right side: CTA + mobile hamburger -->
+      <div class="flex items-center gap-3">
+        <a href="#contact" class="bg-white text-black px-4 py-2 rounded-xl text-xs font-bold hover:bg-accent-400 transition-all whitespace-nowrap">LET'S TALK</a>
+        
+        <!-- Mobile menu button (hamburger) -->
+        <button id="mobileMenuBtn" class="md:hidden w-10 h-10 flex items-center justify-center rounded-xl glass hover:bg-white/10 transition-all">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile menu dropdown (hidden by default) -->
+      <div id="mobileMenu" class="mobile-menu-enter w-full md:hidden flex flex-col glass rounded-xl px-4 py-0 gap-3 text-slate-400 font-medium" style="max-height:0; opacity:0; overflow:hidden;">
+        <a href="#services" class="py-3 border-b border-white/5 hover:text-white transition-colors">Services</a>
+        <a href="#projects" class="py-3 border-b border-white/5 hover:text-white transition-colors">Work</a>
+        <a href="#stack" class="py-3 border-b border-white/5 hover:text-white transition-colors">Stack</a>
+        <a href="#faq" class="py-3 hover:text-white transition-colors">FAQ</a>
+      </div>
     </div>
   </nav>
 
@@ -227,6 +254,46 @@
     </div>
   </section>
 
+  <!-- ========== NEW SECTION: TECH STACK / SKILLS ========== -->
+  <section id="stack" class="py-32 px-4 max-w-7xl mx-auto">
+    <div class="text-left mb-16 reveal">
+      <span class="text-indigo-400 font-mono text-xs uppercase tracking-widest">[ Core Toolchain ]</span>
+      <h2 class="font-heading text-4xl md:text-5xl font-bold mt-4">Precision <span class="text-slate-500 italic">stack</span> for every layer.</h2>
+      <p class="text-slate-400 mt-4 max-w-2xl">Modern PHP, optimized databases, and AI-assisted workflows — these are the tools I use to ship fast, reliable systems.</p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 reveal-group">
+      <div class="reveal-item glass p-5 rounded-2xl text-center font-medium hover:border-indigo-500/50 transition-all">PHP 8.3 / 8.4</div>
+      <div class="reveal-item glass p-5 rounded-2xl text-center font-medium hover:border-indigo-500/50 transition-all">MySQL / MariaDB</div>
+      <div class="reveal-item glass p-5 rounded-2xl text-center font-medium hover:border-indigo-500/50 transition-all">Laravel / Symfony</div>
+      <div class="reveal-item glass p-5 rounded-2xl text-center font-medium hover:border-indigo-500/50 transition-all">Tailwind / Alpine</div>
+      <div class="reveal-item glass p-5 rounded-2xl text-center font-medium hover:border-indigo-500/50 transition-all">REST / GraphQL</div>
+      <div class="reveal-item glass p-5 rounded-2xl text-center font-medium hover:border-indigo-500/50 transition-all">AI SDKs (OpenAI, etc)</div>
+      <div class="reveal-item glass p-5 rounded-2xl text-center font-medium hover:border-indigo-500/50 transition-all">Docker / Forge</div>
+      <div class="reveal-item glass p-5 rounded-2xl text-center font-medium hover:border-indigo-500/50 transition-all">Git / CI/CD</div>
+    </div>
+
+    <!-- extra mini stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12 reveal-group">
+      <div class="reveal-item text-center">
+        <div class="text-4xl font-heading font-bold gradient-text">7+</div>
+        <div class="text-xs text-slate-500 uppercase tracking-wider mt-2">Years PHP depth</div>
+      </div>
+      <div class="reveal-item text-center">
+        <div class="text-4xl font-heading font-bold gradient-text">50+</div>
+        <div class="text-xs text-slate-500 uppercase tracking-wider mt-2">Projects shipped</div>
+      </div>
+      <div class="reveal-item text-center">
+        <div class="text-4xl font-heading font-bold gradient-text">0.2s</div>
+        <div class="text-xs text-slate-500 uppercase tracking-wider mt-2">Avg query time</div>
+      </div>
+      <div class="reveal-item text-center">
+        <div class="text-4xl font-heading font-bold gradient-text">24/7</div>
+        <div class="text-xs text-slate-500 uppercase tracking-wider mt-2">AI assistance</div>
+      </div>
+    </div>
+  </section>
+
   <section id="faq" class="py-32 px-4 max-w-4xl mx-auto reveal">
     <div class="text-center mb-16">
       <h2 class="font-heading text-4xl font-bold">Frequently Asked</h2>
@@ -287,6 +354,7 @@
   </footer>
 
   <script>
+    // Loader
     window.addEventListener('load', () => {
       const progress = document.getElementById('progress');
       const loaderText = document.getElementById('loader-text');
@@ -302,6 +370,7 @@
       }, 1900);
     });
 
+    // Intersection observer for reveals
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -309,8 +378,50 @@
         }
       });
     }, { threshold: 0.1 });
-
     document.querySelectorAll('.reveal, .reveal-group').forEach(el => observer.observe(el));
+
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    let menuOpen = false;
+
+    function toggleMenu(force) {
+      if (force !== undefined) menuOpen = force;
+      else menuOpen = !menuOpen;
+      
+      if (menuOpen) {
+        mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
+        mobileMenu.style.opacity = '1';
+        mobileMenu.style.marginTop = '1rem';
+        mobileMenu.style.paddingTop = '0.5rem';
+        mobileMenu.style.paddingBottom = '0.5rem';
+      } else {
+        mobileMenu.style.maxHeight = '0';
+        mobileMenu.style.opacity = '0';
+        mobileMenu.style.marginTop = '0';
+        mobileMenu.style.paddingTop = '0';
+        mobileMenu.style.paddingBottom = '0';
+      }
+    }
+
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMenu();
+    });
+
+    // Close menu when any mobile link is clicked
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        toggleMenu(false);
+      });
+    });
+
+    // Close on outside click (optional)
+    document.addEventListener('click', (e) => {
+      if (!menuBtn.contains(e.target) && !mobileMenu.contains(e.target) && menuOpen) {
+        toggleMenu(false);
+      }
+    });
   </script>
 </body>
 </html>
