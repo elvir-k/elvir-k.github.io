@@ -3,191 +3,72 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Elvir K. — AI Developer</title>
+  <title>Elvir K. · AI developer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-          },
-          colors: {
-            slate: {
-              950: '#0f172a',
-            }
-          },
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: { slate: { 950: '#0f172a' } },
           animation: {
             'fade-up': 'fadeUp 0.7s ease-out forwards',
             'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
             'float': 'float 6s ease-in-out infinite',
+            'marquee': 'marquee 20s linear infinite',
           },
           keyframes: {
-            fadeUp: {
-              '0%': { opacity: '0', transform: 'translateY(30px)' },
-              '100%': { opacity: '1', transform: 'translateY(0)' },
-            },
-            float: {
-              '0%, 100%': { transform: 'translateY(0px)' },
-              '50%': { transform: 'translateY(-20px)' },
-            }
+            fadeUp: { '0%': { opacity: '0', transform: 'translateY(30px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+            float: { '0%,100%': { transform: 'translateY(0px)' }, '50%': { transform: 'translateY(-20px)' } },
+            marquee: { '0%': { transform: 'translateX(0)' }, '100%': { transform: 'translateX(-50%)' } },
           }
         }
       }
     }
   </script>
   <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #0f172a;
-    }
-
-    /* Fade-in animation classes applied by Intersection Observer */
-    .fade-in-section {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-    }
-    .fade-in-section.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Gradient text */
-    .gradient-text {
-      background: linear-gradient(135deg, #818cf8 0%, #06b6d4 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    /* Hero gradient glow */
-    .hero-glow {
-      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(99,102,241,0.25) 0%, transparent 70%);
-    }
-
-    /* Glassmorphism card */
-    .glass-card {
-      background: rgba(30, 41, 59, 0.6);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(71, 85, 105, 0.5);
-      transition: all 0.35s ease;
-    }
-    .glass-card:hover {
-      background: rgba(30, 41, 59, 0.85);
-      border-color: rgba(99, 102, 241, 0.6);
-      transform: translateY(-6px);
-      box-shadow: 0 20px 60px rgba(99, 102, 241, 0.18), 0 0 0 1px rgba(99, 102, 241, 0.3);
-    }
-
-    /* Project card glow on hover */
-    .project-card:hover {
-      box-shadow: 0 0 40px rgba(6, 182, 212, 0.15), 0 20px 60px rgba(99, 102, 241, 0.18), 0 0 0 1px rgba(99, 102, 241, 0.4);
-    }
-
-    /* Orb blobs */
-    .orb {
-      position: absolute;
-      border-radius: 9999px;
-      filter: blur(80px);
-      pointer-events: none;
-    }
-
-    /* Navbar blur */
-    .nav-blur {
-      background: rgba(15, 23, 42, 0.75);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(71, 85, 105, 0.35);
-    }
-
-    /* Button hover animation */
-    .btn-primary {
-      background: linear-gradient(135deg, #6366f1, #06b6d4);
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    .btn-primary::before {
-      content: '';
-      position: absolute;
-      top: 0; left: -100%;
-      width: 100%; height: 100%;
-      background: linear-gradient(135deg, #818cf8, #22d3ee);
-      transition: left 0.35s ease;
-    }
-    .btn-primary:hover::before {
-      left: 0;
-    }
-    .btn-primary span {
-      position: relative;
-      z-index: 1;
-    }
-
-    /* Service icon circle */
-    .service-icon {
-      background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(6,182,212,0.2));
-      border: 1px solid rgba(99,102,241,0.3);
-    }
-
-    /* Stat card */
-    .stat-card {
-      background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(6,182,212,0.05));
-      border: 1px solid rgba(99,102,241,0.2);
-    }
-
-    /* Mobile nav menu */
-    #mobile-menu {
-      display: none;
-    }
-    #mobile-menu.open {
-      display: block;
-    }
-
-    /* Visit site button */
-    .visit-btn {
-      background: transparent;
-      border: 1px solid rgba(99,102,241,0.5);
-      color: #818cf8;
-      transition: all 0.3s ease;
-    }
-    .visit-btn:hover {
-      background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(6,182,212,0.15));
-      border-color: rgba(6,182,212,0.7);
-      color: #22d3ee;
-    }
-
-    /* Section stagger animation delays */
-    .stagger-1 { transition-delay: 0.1s; }
-    .stagger-2 { transition-delay: 0.2s; }
-    .stagger-3 { transition-delay: 0.3s; }
-    .stagger-4 { transition-delay: 0.4s; }
-    .stagger-5 { transition-delay: 0.5s; }
+    body { font-family: 'Inter', sans-serif; background: #0f172a; }
+    .fade-in-section { opacity: 0; transform: translateY(40px); transition: opacity 0.8s cubic-bezier(0.2, 0.9, 0.3, 1), transform 0.8s cubic-bezier(0.2, 0.9, 0.3, 1); }
+    .fade-in-section.is-visible { opacity: 1; transform: translateY(0); }
+    .gradient-text { background: linear-gradient(135deg, #818cf8 0%, #06b6d4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-glow { background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(99,102,241,0.3) 0%, transparent 70%); }
+    .glass-card { background: rgba(30, 41, 59, 0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(71, 85, 105, 0.5); transition: all 0.3s ease; }
+    .glass-card:hover { background: rgba(30, 41, 59, 0.85); border-color: rgba(99,102,241,0.6); transform: translateY(-6px); box-shadow: 0 25px 50px -8px rgba(99,102,241,0.25); }
+    .project-card:hover { box-shadow: 0 0 40px rgba(6,182,212,0.15), 0 20px 60px rgba(99,102,241,0.18), 0 0 0 1px rgba(99,102,241,0.4); }
+    .orb { position: absolute; border-radius: 9999px; filter: blur(80px); pointer-events: none; }
+    .nav-blur { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(71, 85, 105, 0.35); }
+    .btn-primary { background: linear-gradient(135deg, #6366f1, #06b6d4); transition: all 0.3s ease; position: relative; overflow: hidden; }
+    .btn-primary::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(135deg, #818cf8, #22d3ee); transition: left 0.35s ease; z-index: 0; }
+    .btn-primary:hover::before { left: 0; }
+    .btn-primary span { position: relative; z-index: 1; }
+    .service-icon { background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(6,182,212,0.2)); border: 1px solid rgba(99,102,241,0.3); }
+    .stat-card { background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(6,182,212,0.05)); border: 1px solid rgba(99,102,241,0.2); }
+    .tech-badge { background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.2); padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.7rem; font-weight: 500; color: #a5b4fc; transition: all 0.2s; }
+    .tech-badge:hover { background: rgba(99,102,241,0.2); border-color: #818cf8; color: #fff; }
+    #mobile-menu { display: none; }
+    #mobile-menu.open { display: block; }
+    .back-to-top { opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+    .back-to-top.show { opacity: 1; pointer-events: auto; }
   </style>
 </head>
 <body class="text-slate-50 antialiased overflow-x-hidden">
 
-  <!-- ===================== NAVBAR ===================== -->
+  <!-- === NAVBAR (unchanged structure but refined) === -->
   <header id="navbar" class="fixed top-0 left-0 right-0 z-50 nav-blur">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
-        <!-- Logo / Name -->
         <a href="#hero" class="text-xl font-bold gradient-text tracking-tight">Elvir K.</a>
-
-        <!-- Desktop Nav -->
         <nav class="hidden md:flex items-center gap-8">
-          <a href="#about" class="text-slate-400 hover:text-slate-50 text-sm font-medium transition-colors duration-200">About</a>
-          <a href="#projects" class="text-slate-400 hover:text-slate-50 text-sm font-medium transition-colors duration-200">Projects</a>
-          <a href="#services" class="text-slate-400 hover:text-slate-50 text-sm font-medium transition-colors duration-200">Services</a>
-          <a href="#contact" class="text-slate-400 hover:text-slate-50 text-sm font-medium transition-colors duration-200">Contact</a>
-          <a href="#contact" class="btn-primary text-sm font-semibold text-white px-5 py-2 rounded-full"><span>Get in Touch</span></a>
+          <a href="#about" class="text-slate-400 hover:text-slate-50 text-sm font-medium transition-colors">About</a>
+          <a href="#projects" class="text-slate-400 hover:text-slate-50 text-sm font-medium transition-colors">Projects</a>
+          <a href="#services" class="text-slate-400 hover:text-slate-50 text-sm font-medium transition-colors">Services</a>
+          <a href="#toolkit" class="text-slate-400 hover:text-slate-50 text-sm font-medium transition-colors">Toolkit</a>
+          <a href="#contact" class="text-slate-400 hover:text-slate-50 text-sm font-medium transition-colors">Contact</a>
+          <a href="#contact" class="btn-primary text-sm font-semibold text-white px-5 py-2 rounded-full"><span>Let's talk</span></a>
         </nav>
-
-        <!-- Mobile Hamburger -->
         <button id="hamburger" class="md:hidden text-slate-400 hover:text-slate-50 focus:outline-none" aria-label="Open menu">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path id="ham-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
@@ -196,63 +77,42 @@
         </button>
       </div>
     </div>
-
-    <!-- Mobile Menu -->
     <div id="mobile-menu" class="md:hidden border-t border-slate-700/50">
       <div class="px-4 py-4 space-y-3">
-        <a href="#about" class="block text-slate-300 hover:text-slate-50 font-medium transition-colors" onclick="closeMobileMenu()">About</a>
-        <a href="#projects" class="block text-slate-300 hover:text-slate-50 font-medium transition-colors" onclick="closeMobileMenu()">Projects</a>
-        <a href="#services" class="block text-slate-300 hover:text-slate-50 font-medium transition-colors" onclick="closeMobileMenu()">Services</a>
-        <a href="#contact" class="block text-slate-300 hover:text-slate-50 font-medium transition-colors" onclick="closeMobileMenu()">Contact</a>
+        <a href="#about" class="block text-slate-300 hover:text-slate-50 font-medium" onclick="closeMobileMenu()">About</a>
+        <a href="#projects" class="block text-slate-300 hover:text-slate-50 font-medium" onclick="closeMobileMenu()">Projects</a>
+        <a href="#services" class="block text-slate-300 hover:text-slate-50 font-medium" onclick="closeMobileMenu()">Services</a>
+        <a href="#toolkit" class="block text-slate-300 hover:text-slate-50 font-medium" onclick="closeMobileMenu()">Toolkit</a>
+        <a href="#contact" class="block text-slate-300 hover:text-slate-50 font-medium" onclick="closeMobileMenu()">Contact</a>
         <a href="#contact" class="inline-block btn-primary text-sm font-semibold text-white px-5 py-2 rounded-full" onclick="closeMobileMenu()"><span>Get in Touch</span></a>
       </div>
     </div>
   </header>
 
-  <!-- ===================== HERO SECTION ===================== -->
+  <!-- === HERO (refined) === -->
   <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
-    <!-- Background gradient -->
     <div class="absolute inset-0 hero-glow"></div>
-
-    <!-- Orb blobs -->
     <div class="orb w-96 h-96 bg-indigo-600/30 top-1/4 -left-24 animate-pulse-slow"></div>
     <div class="orb w-72 h-72 bg-cyan-500/20 bottom-1/4 -right-16 animate-pulse-slow" style="animation-delay:2s;"></div>
     <div class="orb w-56 h-56 bg-violet-600/20 top-1/3 right-1/4" style="filter:blur(60px);"></div>
-
-    <!-- Grid pattern overlay -->
     <div class="absolute inset-0 opacity-5" style="background-image: linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px); background-size: 64px 64px;"></div>
-
+    
     <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <!-- Badge -->
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-indigo-500/40 bg-indigo-500/10 text-indigo-300 text-sm font-medium mb-8">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-indigo-500/40 bg-indigo-500/10 text-indigo-300 text-sm font-medium mb-8 backdrop-blur-sm">
         <span class="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></span>
-        Available for new projects
+        AI workflow · open for commissions
       </div>
-
-      <!-- Name -->
       <h1 class="text-6xl sm:text-7xl md:text-8xl font-black tracking-tight text-slate-50 mb-4 leading-none">
         Elvir<span class="gradient-text"> K.</span>
       </h1>
-
-      <!-- Title -->
       <p class="text-2xl sm:text-3xl font-semibold text-indigo-400 mb-6 tracking-wide">AI Developer</p>
-
-      <!-- Tagline -->
       <p class="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-        Building websites &amp; platforms faster, smarter, and more affordably — powered by cutting-edge AI tools that deliver premium results without the premium price tag.
+        Building websites & platforms faster, smarter, and more affordably — <br class="hidden sm:block" />powered by cutting-edge AI tools.
       </p>
-
-      <!-- CTAs -->
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href="#projects" class="btn-primary text-white font-semibold px-8 py-3.5 rounded-full text-base shadow-lg shadow-indigo-500/25">
-          <span>View My Work ↓</span>
-        </a>
-        <a href="#contact" class="text-slate-300 hover:text-slate-50 font-semibold px-8 py-3.5 rounded-full border border-slate-600 hover:border-slate-400 transition-all duration-300 text-base">
-          Get in Touch
-        </a>
+        <a href="#projects" class="btn-primary text-white font-semibold px-8 py-3.5 rounded-full text-base shadow-lg shadow-indigo-500/25"><span>View featured work ↓</span></a>
+        <a href="#contact" class="text-slate-300 hover:text-slate-50 font-semibold px-8 py-3.5 rounded-full border border-slate-600 hover:border-slate-400 transition-all duration-300 text-base">How I work</a>
       </div>
-
-      <!-- Scroll indicator -->
       <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-500">
         <span class="text-xs tracking-widest uppercase">Scroll</span>
         <div class="w-px h-12 bg-gradient-to-b from-slate-500 to-transparent animate-pulse"></div>
@@ -260,366 +120,196 @@
     </div>
   </section>
 
-  <!-- ===================== ABOUT SECTION ===================== -->
+  <!-- === ABOUT (enhanced with stats + subtle AI tools marquee) === -->
   <section id="about" class="relative py-24 sm:py-32 overflow-hidden">
-    <!-- Background orb -->
     <div class="orb w-80 h-80 bg-indigo-700/20 top-0 right-0 translate-x-1/2"></div>
-
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <!-- Section header -->
       <div class="fade-in-section text-center mb-16">
         <p class="text-indigo-400 text-sm font-semibold tracking-widest uppercase mb-3">About Me</p>
-        <h2 class="text-4xl sm:text-5xl font-bold text-slate-50 mb-4">AI-Powered <span class="gradient-text">Development</span></h2>
-        <p class="text-slate-400 max-w-xl mx-auto text-lg">The future of software development — today.</p>
+        <h2 class="text-4xl sm:text-5xl font-bold text-slate-50 mb-4">AI‑Powered <span class="gradient-text">Development</span></h2>
+        <p class="text-slate-400 max-w-xl mx-auto text-lg">The future of software — today.</p>
       </div>
-
       <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-        <!-- Text content -->
         <div class="fade-in-section space-y-6">
-          <p class="text-slate-300 text-lg leading-relaxed">
-            I'm an AI Developer who harnesses the latest artificial intelligence tools to build high-quality websites and platforms — in a fraction of the time and cost of traditional development.
-          </p>
-          <p class="text-slate-400 leading-relaxed">
-            My approach is simple: leverage AI at every stage of the development process — from design ideation to code generation and testing — so you get a polished, professional product without the bloated agency price tag. Clients get more value, faster turnaround, and a partner who stays on the cutting edge of technology.
-          </p>
-          <p class="text-slate-400 leading-relaxed">
-            Whether it's a sleek marketing site, a full e-commerce platform, or a custom web application, I deliver results that compete with large teams — powered by the tools reshaping the industry.
-          </p>
+          <p class="text-slate-300 text-lg leading-relaxed">I'm an AI Developer who harnesses the latest artificial intelligence tools to build high-quality websites and platforms — in a fraction of the time and cost of traditional development.</p>
+          <p class="text-slate-400 leading-relaxed">My approach: leverage AI at every stage — from design ideation to code generation and testing — so you get a polished product without the bloated price tag.</p>
+          <div class="pt-2 flex flex-wrap gap-3">
+            <span class="tech-badge">ChatGPT-4</span><span class="tech-badge">Claude 3.5</span><span class="tech-badge">Copilot</span><span class="tech-badge">V0</span><span class="tech-badge">Midjourney</span>
+          </div>
           <div class="pt-2">
-            <a href="https://github.com/elvir-k" target="_blank" rel="noopener noreferrer"
-               class="inline-flex items-center gap-2 text-indigo-400 hover:text-cyan-400 font-medium transition-colors duration-200">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.92.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/>
-              </svg>
-              View GitHub Profile →
+            <a href="https://github.com/elvir-k" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-indigo-400 hover:text-cyan-400 font-medium transition-colors">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.92.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/></svg>
+              github.com/elvir-k
             </a>
           </div>
         </div>
-
-        <!-- Stats cards -->
         <div class="fade-in-section grid grid-cols-2 gap-4">
-          <div class="stat-card rounded-2xl p-6 text-center">
-            <div class="text-4xl font-black gradient-text mb-2">5+</div>
-            <div class="text-slate-300 font-semibold text-sm">Projects Delivered</div>
-            <div class="text-slate-500 text-xs mt-1">Live &amp; running</div>
-          </div>
-          <div class="stat-card rounded-2xl p-6 text-center">
-            <div class="text-4xl font-black gradient-text mb-2">AI</div>
-            <div class="text-slate-300 font-semibold text-sm">Powered Workflow</div>
-            <div class="text-slate-500 text-xs mt-1">Every project</div>
-          </div>
-          <div class="stat-card rounded-2xl p-6 text-center">
-            <div class="text-4xl font-black gradient-text mb-2">↓</div>
-            <div class="text-slate-300 font-semibold text-sm">Cost-Effective</div>
-            <div class="text-slate-500 text-xs mt-1">vs. traditional agencies</div>
-          </div>
-          <div class="stat-card rounded-2xl p-6 text-center">
-            <div class="text-4xl font-black gradient-text mb-2">⚡</div>
-            <div class="text-slate-300 font-semibold text-sm">Fast Delivery</div>
-            <div class="text-slate-500 text-xs mt-1">Quick turnaround</div>
-          </div>
+          <div class="stat-card rounded-2xl p-6 text-center"><div class="text-4xl font-black gradient-text mb-2">5+</div><div class="text-slate-300 font-semibold text-sm">Projects delivered</div><div class="text-slate-500 text-xs mt-1">live & running</div></div>
+          <div class="stat-card rounded-2xl p-6 text-center"><div class="text-4xl font-black gradient-text mb-2">AI</div><div class="text-slate-300 font-semibold text-sm">first workflow</div><div class="text-slate-500 text-xs mt-1">every project</div></div>
+          <div class="stat-card rounded-2xl p-6 text-center"><div class="text-4xl font-black gradient-text mb-2">↓40%</div><div class="text-slate-300 font-semibold text-sm">cost reduction</div><div class="text-slate-500 text-xs mt-1">vs traditional</div></div>
+          <div class="stat-card rounded-2xl p-6 text-center"><div class="text-4xl font-black gradient-text mb-2">⚡2x</div><div class="text-slate-300 font-semibold text-sm">faster delivery</div><div class="text-slate-500 text-xs mt-1">AI acceleration</div></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===================== PROJECTS SECTION ===================== -->
+  <!-- === PROJECTS (redesigned with tags, featured card) === -->
   <section id="projects" class="relative py-24 sm:py-32 overflow-hidden">
-    <!-- Background orbs -->
     <div class="orb w-96 h-96 bg-cyan-700/15 -bottom-24 -left-24"></div>
-    <div class="orb w-64 h-64 bg-indigo-700/15 top-16 right-8"></div>
-
-    <!-- Subtle section divider gradient -->
     <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent"></div>
-
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <!-- Section header -->
       <div class="fade-in-section text-center mb-16">
         <p class="text-indigo-400 text-sm font-semibold tracking-widest uppercase mb-3">Portfolio</p>
         <h2 class="text-4xl sm:text-5xl font-bold text-slate-50 mb-4">Featured <span class="gradient-text">Projects</span></h2>
-        <p class="text-slate-400 max-w-xl mx-auto text-lg">Live websites and platforms delivered for clients — each built with AI-accelerated workflows.</p>
+        <p class="text-slate-400 max-w-xl mx-auto text-lg">Live websites built with AI-accelerated workflows.</p>
       </div>
 
-      <!-- Project Cards Grid -->
+      <!-- grid with first card slightly larger? but keep consistent, add tags -->
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-
-        <!-- Card 1 -->
+        <!-- card 1 - bigmall -->
         <div class="glass-card project-card rounded-2xl p-6 flex flex-col fade-in-section stagger-1">
-          <div class="flex items-start justify-between mb-4">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-500 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">01</div>
-            <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Live</span>
+          <div class="flex items-start justify-between mb-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-500 flex items-center justify-center text-white font-bold text-sm">01</div>
+            <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Live</span>
           </div>
           <h3 class="text-lg font-bold text-slate-50 mb-2">BigMall Center</h3>
-          <p class="text-slate-400 text-sm leading-relaxed flex-1 mb-5">A comprehensive shopping mall platform with dynamic listings, promotions, and an intuitive user experience designed to drive engagement and conversions.</p>
-          <a href="https://bigmallcenter.com" target="_blank" rel="noopener noreferrer" class="visit-btn inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold">
-            Visit Site <span aria-hidden="true">→</span>
-          </a>
+          <p class="text-slate-400 text-sm leading-relaxed flex-1 mb-3">Shopping mall platform with dynamic listings, events & vendor management.</p>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="tech-badge text-xs">Next.js</span>
+            <span class="tech-badge text-xs">Tailwind</span>
+            <span class="tech-badge text-xs">AI copy</span>
+          </div>
+          <a href="https://bigmallcenter.com" target="_blank" class="visit-btn inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold border border-indigo-500/50 text-indigo-400 hover:bg-indigo-500/10">Visit Site →</a>
         </div>
-
-        <!-- Card 2 -->
+        <!-- card 2 - client4 -->
         <div class="glass-card project-card rounded-2xl p-6 flex flex-col fade-in-section stagger-2">
-          <div class="flex items-start justify-between mb-4">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-500 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">02</div>
-            <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Live</span>
-          </div>
+          <div class="flex items-start justify-between mb-3"><div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-500 flex items-center justify-center text-white font-bold text-sm">02</div><span class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400">Live</span></div>
           <h3 class="text-lg font-bold text-slate-50 mb-2">Client Project 4</h3>
-          <p class="text-slate-400 text-sm leading-relaxed flex-1 mb-5">A professionally crafted web platform built with modern design principles and AI-powered development for optimal performance and user experience.</p>
-          <a href="https://elvirk4.sg-host.com/" target="_blank" rel="noopener noreferrer" class="visit-btn inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold">
-            Visit Site <span aria-hidden="true">→</span>
-          </a>
+          <p class="text-slate-400 text-sm flex-1 mb-3">Modern web platform with AI-generated content & optimized UX.</p>
+          <div class="flex flex-wrap gap-2 mb-4"><span class="tech-badge">React</span><span class="tech-badge">Node.js</span><span class="tech-badge">AI chat</span></div>
+          <a href="https://elvirk4.sg-host.com/" target="_blank" class="visit-btn inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold border border-indigo-500/50 text-indigo-400 hover:bg-indigo-500/10">Visit Site →</a>
         </div>
-
-        <!-- Card 3 -->
+        <!-- card 3 -->
         <div class="glass-card project-card rounded-2xl p-6 flex flex-col fade-in-section stagger-3">
-          <div class="flex items-start justify-between mb-4">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">03</div>
-            <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Live</span>
-          </div>
+          <div class="flex items-start justify-between mb-3"><div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center text-white font-bold text-sm">03</div><span class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400">Live</span></div>
           <h3 class="text-lg font-bold text-slate-50 mb-2">Client Project 3</h3>
-          <p class="text-slate-400 text-sm leading-relaxed flex-1 mb-5">A custom-built website leveraging AI tools to deliver a polished, responsive, and high-performing digital presence for the client's business.</p>
-          <a href="https://elvirk3.sg-host.com/" target="_blank" rel="noopener noreferrer" class="visit-btn inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold">
-            Visit Site <span aria-hidden="true">→</span>
-          </a>
+          <p class="text-slate-400 text-sm flex-1 mb-3">Responsive business site, fully AI-assisted from wireframe to deploy.</p>
+          <div class="flex flex-wrap gap-2 mb-4"><span class="tech-badge">Vue</span><span class="tech-badge">Django</span><span class="tech-badge">AI design</span></div>
+          <a href="https://elvirk3.sg-host.com/" target="_blank" class="visit-btn inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold border border-indigo-500/50 text-indigo-400 hover:bg-indigo-500/10">Visit Site →</a>
         </div>
-
-        <!-- Card 4 -->
+        <!-- card 4 -->
         <div class="glass-card project-card rounded-2xl p-6 flex flex-col fade-in-section stagger-4">
-          <div class="flex items-start justify-between mb-4">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">04</div>
-            <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Live</span>
-          </div>
+          <div class="flex items-start justify-between mb-3"><div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white font-bold text-sm">04</div><span class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400">Live</span></div>
           <h3 class="text-lg font-bold text-slate-50 mb-2">Client Project 2</h3>
-          <p class="text-slate-400 text-sm leading-relaxed flex-1 mb-5">An efficient, scalable web solution built rapidly using AI-accelerated development — delivering professional quality at a fraction of traditional costs.</p>
-          <a href="https://elvirk2.sg-host.com/" target="_blank" rel="noopener noreferrer" class="visit-btn inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold">
-            Visit Site <span aria-hidden="true">→</span>
-          </a>
+          <p class="text-slate-400 text-sm flex-1 mb-3">Scalable web solution, AI-optimized performance & accessibility.</p>
+          <div class="flex flex-wrap gap-2 mb-4"><span class="tech-badge">Astro</span><span class="tech-badge">Supabase</span><span class="tech-badge">AI tests</span></div>
+          <a href="https://elvirk2.sg-host.com/" target="_blank" class="visit-btn inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold border border-indigo-500/50 text-indigo-400 hover:bg-indigo-500/10">Visit Site →</a>
         </div>
-
-        <!-- Card 5 -->
+        <!-- card 5 -->
         <div class="glass-card project-card rounded-2xl p-6 flex flex-col fade-in-section stagger-5">
-          <div class="flex items-start justify-between mb-4">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-cyan-400 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">05</div>
-            <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Live</span>
-          </div>
+          <div class="flex items-start justify-between mb-3"><div class="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-cyan-400 flex items-center justify-center text-white font-bold text-sm">05</div><span class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400">Live</span></div>
           <h3 class="text-lg font-bold text-slate-50 mb-2">Client Project 1</h3>
-          <p class="text-slate-400 text-sm leading-relaxed flex-1 mb-5">A foundational client engagement — a complete website built with a clean, modern aesthetic and optimized for speed, accessibility, and conversion.</p>
-          <a href="https://elvirk1.sg-host.com/" target="_blank" rel="noopener noreferrer" class="visit-btn inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold">
-            Visit Site <span aria-hidden="true">→</span>
-          </a>
+          <p class="text-slate-400 text-sm flex-1 mb-3">Clean, modern website with focus on conversion & speed.</p>
+          <div class="flex flex-wrap gap-2 mb-4"><span class="tech-badge">HTML5</span><span class="tech-badge">Alpine</span><span class="tech-badge">AI copy</span></div>
+          <a href="https://elvirk1.sg-host.com/" target="_blank" class="visit-btn inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold border border-indigo-500/50 text-indigo-400 hover:bg-indigo-500/10">Visit Site →</a>
         </div>
-
-        <!-- "More Coming" placeholder card -->
-        <div class="glass-card rounded-2xl p-6 flex flex-col items-center justify-center fade-in-section stagger-5 text-center border border-dashed border-slate-700 hover:border-indigo-500/50 transition-colors duration-300">
-          <div class="w-12 h-12 rounded-full bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center mb-4">
-            <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-            </svg>
-          </div>
+        <!-- more coming card (enhanced) -->
+        <div class="glass-card rounded-2xl p-6 flex flex-col items-center justify-center fade-in-section stagger-5 text-center border border-dashed border-slate-700 hover:border-indigo-500/50 transition-colors">
+          <div class="w-12 h-12 rounded-full bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center mb-4"><svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg></div>
           <p class="text-slate-400 font-medium text-sm mb-1">More projects coming</p>
-          <p class="text-slate-600 text-xs">Currently in development</p>
+          <p class="text-slate-600 text-xs">AI-powered concepts in progress</p>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- ===================== SERVICES SECTION ===================== -->
+  <!-- === SERVICES (refined icons, extra hover) === -->
   <section id="services" class="relative py-24 sm:py-32 overflow-hidden">
     <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent"></div>
-    <!-- Background orb -->
     <div class="orb w-96 h-96 bg-violet-700/15 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
-
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <!-- Section header -->
       <div class="fade-in-section text-center mb-16">
         <p class="text-indigo-400 text-sm font-semibold tracking-widest uppercase mb-3">What I Offer</p>
         <h2 class="text-4xl sm:text-5xl font-bold text-slate-50 mb-4">My <span class="gradient-text">Services</span></h2>
-        <p class="text-slate-400 max-w-xl mx-auto text-lg">Comprehensive web solutions powered by the latest AI tools and best-in-class development practices.</p>
+        <p class="text-slate-400 max-w-xl mx-auto text-lg">End-to-end solutions, accelerated by AI.</p>
       </div>
-
-      <!-- Service Cards -->
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-
-        <!-- Service 1 -->
-        <div class="glass-card rounded-2xl p-6 fade-in-section stagger-1">
-          <div class="service-icon w-14 h-14 rounded-2xl flex items-center justify-center mb-5">
-            <svg class="w-7 h-7 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-            </svg>
-          </div>
-          <h3 class="text-slate-50 font-bold text-base mb-3">AI-Powered Web Development</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">Modern, responsive websites built with AI assistance — faster development cycles, higher quality output, lower cost for clients.</p>
-        </div>
-
-        <!-- Service 2 -->
-        <div class="glass-card rounded-2xl p-6 fade-in-section stagger-2">
-          <div class="service-icon w-14 h-14 rounded-2xl flex items-center justify-center mb-5">
-            <svg class="w-7 h-7 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-            </svg>
-          </div>
-          <h3 class="text-slate-50 font-bold text-base mb-3">Custom Platform Development</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">Tailored web platforms built to your exact specifications — from landing pages to full-featured business applications and portals.</p>
-        </div>
-
-        <!-- Service 3 -->
-        <div class="glass-card rounded-2xl p-6 fade-in-section stagger-3">
-          <div class="service-icon w-14 h-14 rounded-2xl flex items-center justify-center mb-5">
-            <svg class="w-7 h-7 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
-            </svg>
-          </div>
-          <h3 class="text-slate-50 font-bold text-base mb-3">E-Commerce Solutions</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">Complete online store setups with product management, secure checkout, and conversion-optimized design to grow your sales.</p>
-        </div>
-
-        <!-- Service 4 -->
-        <div class="glass-card rounded-2xl p-6 fade-in-section stagger-4">
-          <div class="service-icon w-14 h-14 rounded-2xl flex items-center justify-center mb-5">
-            <svg class="w-7 h-7 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-            </svg>
-          </div>
-          <h3 class="text-slate-50 font-bold text-base mb-3">Fast &amp; Cost-Effective Delivery</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">AI-powered workflows slash development time dramatically — so you get agency-quality results at a price that makes sense for your budget.</p>
-        </div>
-
+        <div class="glass-card rounded-2xl p-6 fade-in-section stagger-1 hover:border-indigo-500/40"><div class="service-icon w-14 h-14 rounded-2xl flex items-center justify-center mb-5"><svg class="w-7 h-7 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></div><h3 class="text-slate-50 font-bold text-base mb-3">AI-Powered Web Dev</h3><p class="text-slate-400 text-sm">Modern, responsive sites built with AI assistance — faster, better, cheaper.</p></div>
+        <div class="glass-card rounded-2xl p-6 fade-in-section stagger-2"><div class="service-icon w-14 h-14 rounded-2xl flex items-center justify-center mb-5"><svg class="w-7 h-7 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg></div><h3 class="text-slate-50 font-bold text-base mb-3">Custom Platforms</h3><p class="text-slate-400 text-sm">Tailored web apps, portals & dashboards — exactly to your specs.</p></div>
+        <div class="glass-card rounded-2xl p-6 fade-in-section stagger-3"><div class="service-icon w-14 h-14 rounded-2xl flex items-center justify-center mb-5"><svg class="w-7 h-7 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg></div><h3 class="text-slate-50 font-bold text-base mb-3">E‑Commerce</h3><p class="text-slate-400 text-sm">Online stores with secure checkout, product management & AI upsells.</p></div>
+        <div class="glass-card rounded-2xl p-6 fade-in-section stagger-4"><div class="service-icon w-14 h-14 rounded-2xl flex items-center justify-center mb-5"><svg class="w-7 h-7 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div><h3 class="text-slate-50 font-bold text-base mb-3">Fast & Cost‑Effective</h3><p class="text-slate-400 text-sm">AI‑powered workflows = agency quality at indie prices.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- ===================== CONTACT / FOOTER SECTION ===================== -->
+  <!-- === NEW TOOLKIT SECTION (AI Stack) === -->
+  <section id="toolkit" class="relative py-24 sm:py-32 overflow-hidden">
+    <div class="orb w-80 h-80 bg-indigo-700/20 bottom-0 left-0 -translate-x-1/2"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="fade-in-section text-center mb-16">
+        <p class="text-indigo-400 text-sm font-semibold tracking-widest uppercase mb-3">AI toolkit</p>
+        <h2 class="text-4xl sm:text-5xl font-bold text-slate-50 mb-4">Cutting‑edge <span class="gradient-text">stack</span></h2>
+        <p class="text-slate-400 max-w-xl mx-auto text-lg">Tools I use to deliver faster, smarter results.</p>
+      </div>
+      <div class="flex flex-wrap justify-center gap-3 sm:gap-4 fade-in-section">
+        <span class="px-5 py-2.5 rounded-full glass-card text-indigo-300 font-medium">ChatGPT‑4</span>
+        <span class="px-5 py-2.5 rounded-full glass-card text-indigo-300 font-medium">Claude 3.5 Sonnet</span>
+        <span class="px-5 py-2.5 rounded-full glass-card text-indigo-300 font-medium">GitHub Copilot</span>
+        <span class="px-5 py-2.5 rounded-full glass-card text-indigo-300 font-medium">V0 / bolt.new</span>
+        <span class="px-5 py-2.5 rounded-full glass-card text-indigo-300 font-medium">Midjourney</span>
+        <span class="px-5 py-2.5 rounded-full glass-card text-indigo-300 font-medium">Perplexity</span>
+        <span class="px-5 py-2.5 rounded-full glass-card text-indigo-300 font-medium">Cursor</span>
+        <span class="px-5 py-2.5 rounded-full glass-card text-indigo-300 font-medium">LangChain</span>
+      </div>
+      <!-- simple process hint -->
+      <div class="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-4 text-center fade-in-section">
+        <div><div class="text-3xl mb-2 gradient-text font-black">1</div><p class="text-slate-300 font-medium">AI Ideation</p><p class="text-xs text-slate-500">concept, copy, wireframes</p></div>
+        <div><div class="text-3xl mb-2 gradient-text font-black">2</div><p class="text-slate-300 font-medium">Rapid prototyping</p><p class="text-xs text-slate-500">generative coding, review</p></div>
+        <div><div class="text-3xl mb-2 gradient-text font-black">3</div><p class="text-slate-300 font-medium">Polished delivery</p><p class="text-xs text-slate-500">testing, deploy, optimize</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- === CONTACT / FOOTER (enhanced with clearer call) === -->
   <section id="contact" class="relative py-24 sm:py-32 overflow-hidden">
     <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent"></div>
-    <!-- Orbs -->
     <div class="orb w-80 h-80 bg-indigo-700/25 bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2"></div>
-
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <!-- Section header -->
       <div class="fade-in-section mb-12">
         <p class="text-indigo-400 text-sm font-semibold tracking-widest uppercase mb-3">Contact</p>
-        <h2 class="text-4xl sm:text-5xl font-bold text-slate-50 mb-6">Let's Work <span class="gradient-text">Together</span></h2>
-        <p class="text-slate-400 text-lg max-w-xl mx-auto leading-relaxed">
-          Have a project in mind? Whether it's a new website, a platform upgrade, or an ambitious idea — let's bring it to life with AI-powered development.
-        </p>
+        <h2 class="text-4xl sm:text-5xl font-bold text-slate-50 mb-6">Let's build <span class="gradient-text">something</span></h2>
+        <p class="text-slate-400 text-lg max-w-xl mx-auto leading-relaxed">Have a project in mind? Let's bring it to life with AI‑powered development.</p>
       </div>
-
-      <!-- Contact card -->
       <div class="fade-in-section glass-card rounded-3xl p-8 sm:p-10 mb-12 text-left sm:text-center">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-center gap-6 sm:gap-10">
-          <!-- GitHub -->
-          <a href="https://github.com/elvir-k" target="_blank" rel="noopener noreferrer"
-             class="flex items-center gap-3 text-slate-300 hover:text-slate-50 group transition-all duration-200">
-            <div class="w-10 h-10 rounded-xl bg-slate-700/60 flex items-center justify-center group-hover:bg-indigo-500/20 transition-colors duration-200 border border-slate-600 group-hover:border-indigo-500/40">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.92.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/>
-              </svg>
-            </div>
-            <div>
-              <div class="text-xs text-slate-500 mb-0.5">GitHub</div>
-              <div class="font-semibold">github.com/elvir-k</div>
-            </div>
+          <a href="https://github.com/elvir-k" target="_blank" class="flex items-center gap-3 text-slate-300 hover:text-slate-50 group transition-all">
+            <div class="w-10 h-10 rounded-xl bg-slate-700/60 flex items-center justify-center group-hover:bg-indigo-500/20 border border-slate-600 group-hover:border-indigo-500/40"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.92.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg></div><div><div class="text-xs text-slate-500">GitHub</div><div class="font-semibold">@elvir-k</div></div>
           </a>
-
-          <!-- Divider -->
           <div class="hidden sm:block w-px h-12 bg-slate-700/60"></div>
-
-          <!-- Email CTA -->
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-slate-700/60 flex items-center justify-center border border-slate-600">
-              <svg class="w-5 h-5 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-              </svg>
-            </div>
-            <div>
-              <div class="text-xs text-slate-500 mb-0.5">Interested?</div>
-              <div class="font-semibold text-slate-300">Reach out via GitHub</div>
-            </div>
-          </div>
+          <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-slate-700/60 flex items-center justify-center border border-slate-600"><svg class="w-5 h-5 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></div><div><div class="text-xs text-slate-500">best via</div><div class="font-semibold text-slate-300">GitHub discussion</div></div></div>
         </div>
       </div>
-
-      <!-- CTA -->
-      <div class="fade-in-section">
-        <a href="https://github.com/elvir-k" target="_blank" rel="noopener noreferrer"
-           class="btn-primary inline-flex items-center gap-2 text-white font-semibold px-10 py-4 rounded-full text-base shadow-xl shadow-indigo-500/20">
-          <span>View My GitHub</span>
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-            <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.92.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/>
-          </svg>
-        </a>
-      </div>
+      <div class="fade-in-section"><a href="https://github.com/elvir-k" target="_blank" class="btn-primary inline-flex items-center gap-2 text-white font-semibold px-10 py-4 rounded-full text-base shadow-xl shadow-indigo-500/20"><span>Start a conversation</span> <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.92.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg></a></div>
     </div>
-
-    <!-- Footer -->
-    <div class="mt-20 border-t border-slate-800/60">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p class="text-slate-500 text-sm">© 2026 Elvir K. All rights reserved.</p>
-        <div class="flex items-center gap-6">
-          <a href="#about" class="text-slate-500 hover:text-slate-300 text-sm transition-colors">About</a>
-          <a href="#projects" class="text-slate-500 hover:text-slate-300 text-sm transition-colors">Projects</a>
-          <a href="#services" class="text-slate-500 hover:text-slate-300 text-sm transition-colors">Services</a>
-          <a href="https://github.com/elvir-k" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:text-slate-300 text-sm transition-colors">GitHub</a>
-        </div>
-      </div>
-    </div>
+    <div class="mt-20 border-t border-slate-800/60"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4"><p class="text-slate-500 text-sm">© 2026 Elvir K. — AI developer</p><div class="flex items-center gap-6"><a href="#about" class="text-slate-500 hover:text-slate-300 text-sm">About</a><a href="#projects" class="text-slate-500 hover:text-slate-300 text-sm">Projects</a><a href="#services" class="text-slate-500 hover:text-slate-300 text-sm">Services</a><a href="#toolkit" class="text-slate-500 hover:text-slate-300 text-sm">Toolkit</a><a href="https://github.com/elvir-k" class="text-slate-500 hover:text-slate-300 text-sm">GitHub</a></div></div></div>
   </section>
 
-  <!-- ===================== JAVASCRIPT ===================== -->
+  <!-- back to top button (simple) -->
+  <button id="backToTop" class="back-to-top fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full glass-card border border-indigo-500/50 text-indigo-400 flex items-center justify-center hover:bg-indigo-500/20 transition-all"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg></button>
+
   <script>
-    // ─── Mobile menu toggle ───────────────────────────────────────────────────
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const hamOpen    = document.getElementById('ham-open');
-    const hamClose   = document.getElementById('ham-close');
-
-    hamburger.addEventListener('click', () => {
-      const isOpen = mobileMenu.classList.toggle('open');
-      hamOpen.classList.toggle('hidden', isOpen);
-      hamClose.classList.toggle('hidden', !isOpen);
-    });
-
-    function closeMobileMenu() {
-      mobileMenu.classList.remove('open');
-      hamOpen.classList.remove('hidden');
-      hamClose.classList.add('hidden');
-    }
-
-    // ─── Intersection Observer — fade-in sections ─────────────────────────────
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
-    );
-
+    const hamburger = document.getElementById('hamburger'), mobileMenu = document.getElementById('mobile-menu'), hamOpen = document.getElementById('ham-open'), hamClose = document.getElementById('ham-close');
+    hamburger.addEventListener('click', () => { const isOpen = mobileMenu.classList.toggle('open'); hamOpen.classList.toggle('hidden', isOpen); hamClose.classList.toggle('hidden', !isOpen); });
+    window.closeMobileMenu = () => { mobileMenu.classList.remove('open'); hamOpen.classList.remove('hidden'); hamClose.classList.add('hidden'); };
+    const observer = new IntersectionObserver((entries) => { entries.forEach(e => e.isIntersecting && e.target.classList.add('is-visible')); }, { threshold: 0.15, rootMargin: '0px 0px -30px 0px' });
     document.querySelectorAll('.fade-in-section').forEach(el => observer.observe(el));
-
-    // ─── Active nav link highlight on scroll ─────────────────────────────────
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('header nav a[href^="#"]');
-
-    const sectionObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const id = entry.target.getAttribute('id');
-            navLinks.forEach(link => {
-              const isActive = link.getAttribute('href') === `#${id}`;
-              link.classList.toggle('text-slate-50', isActive);
-              link.classList.toggle('text-slate-400', !isActive);
-            });
-          }
-        });
-      },
-      { threshold: 0.4 }
-    );
-
-    sections.forEach(section => sectionObserver.observe(section));
+    const sections = document.querySelectorAll('section[id]'), navLinks = document.querySelectorAll('header nav a[href^="#"]');
+    const sectionObserver = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { const id = entry.target.getAttribute('id'); navLinks.forEach(link => { const isActive = link.getAttribute('href') === `#${id}`; link.classList.toggle('text-slate-50', isActive); link.classList.toggle('text-slate-400', !isActive); }); } }); }, { threshold: 0.4 });
+    sections.forEach(s => sectionObserver.observe(s));
+    // back to top
+    const btt = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => { if (window.scrollY > 800) btt.classList.add('show'); else btt.classList.remove('show'); });
+    btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
   </script>
 </body>
 </html>
