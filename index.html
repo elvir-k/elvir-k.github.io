@@ -9,13 +9,43 @@
   <!-- Robots meta tag to allow indexing -->
   <meta name="robots" content="index, follow" />
   
-  <!-- Preconnect to critical origins -->
+  <!-- Preconnect to critical origins (including Tailwind CDN) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin />
+  
   <!-- Load stylesheets normally (blocking) to ensure layout is correct -->
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@300..600&display=swap" rel="stylesheet" />
   <link href="https://cdn.tailwindcss.com" rel="stylesheet" />
+  
+  <!-- Fallback inline styles in case external CSS fails (ensures basic layout) -->
+  <style>
+    /* Ensure text is visible even if fonts fail */
+    body { background-color: #030712; color: #f8fafc; overflow-x: hidden; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
+    .font-heading { font-family: 'Space Grotesk', system-ui, sans-serif; }
+    /* All other custom styles (loader, glass, etc.) */
+    #loader { position: fixed; inset: 0; background: #030712; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.6s ease, visibility 0.6s; }
+    .loader-line { width: 240px; height: 2px; background: rgba(255,255,255,0.05); position: relative; overflow: hidden; border-radius: 4px; }
+    .loader-progress { position: absolute; left: 0; top: 0; height: 100%; background: #6366f1; width: 0%; transition: width 1.8s cubic-bezier(0.65, 0, 0.35, 1); }
+    .glass { background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+    .glass-hover:hover { background: rgba(30, 41, 59, 0.6); border-color: rgba(99, 102, 241, 0.5); transform: translateY(-8px); transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .gradient-text { background: linear-gradient(to right, #818cf8, #22d3ee, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200% auto; animation: shimmer 4s linear infinite; }
+    @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+    .reveal { opacity: 0; transform: translateY(30px); transition: 1s all cubic-bezier(0.22, 1, 0.36, 1); }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    .reveal-group.active .reveal-item { opacity: 1; transform: translateY(0); }
+    .reveal-item { opacity: 0; transform: translateY(20px); transition: 0.8s all cubic-bezier(0.22, 1, 0.36, 1); }
+    .marquee-container { display: flex; width: 200%; }
+    .marquee-content { display: flex; justify-content: space-around; width: 100%; }
+    details > summary { list-style: none; }
+    details > summary::-webkit-details-marker { display: none; }
+    .mobile-menu-enter { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease; }
+    .mobile-menu-enter.active { max-height: 300px; opacity: 1; margin-top: 1rem; }
+    .typed-cursor { display: inline-block; width: 4px; height: 1em; background-color: #818cf8; margin-left: 4px; vertical-align: middle; animation: blink 0.7s infinite; }
+    @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+    #form-toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #1e293b; border: 1px solid #334155; color: white; padding: 12px 24px; border-radius: 60px; font-size: 14px; font-weight: 500; box-shadow: 0 20px 30px -10px rgba(0,0,0,0.5); z-index: 200; opacity: 0; transition: opacity 0.3s ease; pointer-events: none; backdrop-filter: blur(8px); }
+    #form-toast.show { opacity: 1; }
+  </style>
   
   <!-- Defer Cloudflare email decoder script (non-critical) -->
   <script src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js" defer></script>
@@ -41,77 +71,6 @@
       }
     }
   </script>
-  
-  <style>
-    /* Additional styles for loader, animations, etc. (kept) */
-    body { background-color: #030712; color: #f8fafc; overflow-x: hidden; }
-    
-    #loader { position: fixed; inset: 0; background: #030712; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.6s ease, visibility 0.6s; }
-    .loader-line { width: 240px; height: 2px; background: rgba(255,255,255,0.05); position: relative; overflow: hidden; border-radius: 4px; }
-    .loader-progress { position: absolute; left: 0; top: 0; height: 100%; background: #6366f1; width: 0%; transition: width 1.8s cubic-bezier(0.65, 0, 0.35, 1); }
-
-    .glass { background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
-    .glass-hover:hover { background: rgba(30, 41, 59, 0.6); border-color: rgba(99, 102, 241, 0.5); transform: translateY(-8px); transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
-    
-    .gradient-text { background: linear-gradient(to right, #818cf8, #22d3ee, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200% auto; animation: shimmer 4s linear infinite; }
-    
-    .reveal { opacity: 0; transform: translateY(30px); transition: 1s all cubic-bezier(0.22, 1, 0.36, 1); }
-    .reveal.active { opacity: 1; transform: translateY(0); }
-    
-    .reveal-group.active .reveal-item { opacity: 1; transform: translateY(0); }
-    .reveal-item { opacity: 0; transform: translateY(20px); transition: 0.8s all cubic-bezier(0.22, 1, 0.36, 1); }
-
-    .progress-bar { height: 6px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; position: relative; }
-    .progress-fill { position: absolute; height: 100%; background: #6366f1; width: 0%; transition: width 2s cubic-bezier(0.1, 1, 0.1, 1); }
-    .active .progress-fill { width: var(--target); }
-
-    .marquee-container { display: flex; width: 200%; }
-    .marquee-content { display: flex; justify-content: space-around; width: 100%; }
-
-    details > summary { list-style: none; }
-    details > summary::-webkit-details-marker { display: none; }
-
-    /* mobile menu animation */
-    .mobile-menu-enter { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease; }
-    .mobile-menu-enter.active { max-height: 300px; opacity: 1; margin-top: 1rem; }
-
-    /* typing cursor */
-    .typed-cursor {
-      display: inline-block;
-      width: 4px;
-      height: 1em;
-      background-color: #818cf8;
-      margin-left: 4px;
-      vertical-align: middle;
-      animation: blink 0.7s infinite;
-    }
-    @keyframes blink {
-      0%, 50% { opacity: 1; }
-      51%, 100% { opacity: 0; }
-    }
-
-    /* toast message */
-    #form-toast {
-      position: fixed;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #1e293b;
-      border: 1px solid #334155;
-      color: white;
-      padding: 12px 24px;
-      border-radius: 60px;
-      font-size: 14px;
-      font-weight: 500;
-      box-shadow: 0 20px 30px -10px rgba(0,0,0,0.5);
-      z-index: 200;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      pointer-events: none;
-      backdrop-filter: blur(8px);
-    }
-    #form-toast.show { opacity: 1; }
-  </style>
 </head>
 <body class="selection:bg-indigo-500/30">
 
@@ -318,7 +277,7 @@
     </div>
   </section>
 
-  <!-- STACK SECTION (updated) -->
+  <!-- STACK SECTION -->
   <section id="stack" class="py-32 px-4 max-w-7xl mx-auto">
     <div class="text-left mb-16 reveal">
       <span class="text-indigo-400 font-mono text-xs uppercase tracking-widest">[ Core Toolchain ]</span>
