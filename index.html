@@ -83,7 +83,10 @@
   </div>
 
   <!-- Toast for form feedback -->
-  <div id="form-toast">✨ Message sent (demo) – thanks!</div>
+  <div id="form-toast">✨ Message sent – thanks!</div>
+
+  <!-- Hidden iframe for form submission (prevents page reload) -->
+  <iframe name="hidden_iframe" style="display:none;"></iframe>
 
   <!-- ========== NAVBAR (Enhanced Mobile) ========== -->
   <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-4xl">
@@ -111,8 +114,8 @@
         </button>
       </div>
 
-      <!-- Mobile menu dropdown – each link has consistent padding -->
-      <div id="mobileMenu" class="mobile-menu-enter w-full md:hidden flex flex-col glass rounded-xl px-4 text-slate-400 font-medium" style="max-height:0; opacity:0; overflow:hidden;">
+      <!-- Mobile menu dropdown – now with proper vertical padding -->
+      <div id="mobileMenu" class="mobile-menu-enter w-full md:hidden flex flex-col glass rounded-xl px-4 py-3 text-slate-400 font-medium" style="max-height:0; opacity:0; overflow:hidden;">
         <a href="#services" class="py-3 border-b border-white/5 hover:text-white transition-colors">Services</a>
         <a href="#projects" class="py-3 border-b border-white/5 hover:text-white transition-colors">Work</a>
         <a href="#stack" class="py-3 border-b border-white/5 hover:text-white transition-colors">Stack</a>
@@ -122,14 +125,16 @@
     </div>
   </nav>
 
-  <header class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+  <!-- Fixed header: removed overflow-hidden and added larger line-height to prevent letter clipping -->
+  <header class="relative min-h-screen flex items-center justify-center pt-20">
     <div class="absolute inset-0 z-0">
       <div class="absolute top-[10%] left-[10%] w-96 h-96 bg-indigo-600/10 blur-[120px] rounded-full animate-float"></div>
       <div class="absolute bottom-[10%] right-[10%] w-96 h-96 bg-cyan-600/5 blur-[120px] rounded-full animate-float" style="animation-delay: -3s"></div>
     </div>
 
     <div class="relative z-10 text-center px-4 reveal-group active">
-      <h1 class="reveal-item font-heading text-6xl md:text-9xl font-bold tracking-tighter mb-6">
+      <!-- Added leading-[1.2] to give descenders like 'g' enough space -->
+      <h1 class="reveal-item font-heading text-6xl md:text-9xl font-bold tracking-tighter mb-6 leading-[1.2]">
         Modern <br />
         <!-- Typing effect container -->
         <span class="gradient-text inline-flex items-center">
@@ -404,11 +409,17 @@
                 </div>
             </div>
             
-            <!-- Contact form – functional with toast -->
-            <form id="contactForm" class="space-y-4">
-                <input type="text" id="name" placeholder="Full Name" required class="w-full bg-slate-900/50 border border-white/10 rounded-xl px-6 py-4 focus:outline-none focus:border-indigo-500 transition-all">
-                <input type="email" id="email" placeholder="Email Address" required class="w-full bg-slate-900/50 border border-white/10 rounded-xl px-6 py-4 focus:outline-none focus:border-indigo-500 transition-all">
-                <textarea id="message" placeholder="Tell me about your project stack..." rows="4" required class="w-full bg-slate-900/50 border border-white/10 rounded-xl px-6 py-4 focus:outline-none focus:border-indigo-500 transition-all"></textarea>
+            <!-- Contact form – fully functional with FormSubmit + hidden iframe -->
+            <form id="contactForm" action="https://formsubmit.co/contact@elvir.al" method="POST" target="hidden_iframe">
+                <!-- FormSubmit options: disable captcha, no redirect -->
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="about:blank">
+                <!-- Honeypot to avoid spam (optional) -->
+                <input type="text" name="_honey" style="display:none">
+                
+                <input type="text" name="name" placeholder="Full Name" required class="w-full bg-slate-900/50 border border-white/10 rounded-xl px-6 py-4 focus:outline-none focus:border-indigo-500 transition-all">
+                <input type="email" name="email" placeholder="Email Address" required class="w-full bg-slate-900/50 border border-white/10 rounded-xl px-6 py-4 focus:outline-none focus:border-indigo-500 transition-all">
+                <textarea name="message" placeholder="Tell me about your project stack..." rows="4" required class="w-full bg-slate-900/50 border border-white/10 rounded-xl px-6 py-4 focus:outline-none focus:border-indigo-500 transition-all"></textarea>
                 <button type="submit" id="submitBtn" class="w-full bg-white text-black font-bold py-4 rounded-xl hover:bg-indigo-500 hover:text-white transition-all">SEND DISCOVERY REQUEST</button>
             </form>
         </div>
@@ -447,7 +458,7 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal, .reveal-group').forEach(el => observer.observe(el));
 
-    // Mobile menu toggle (fixed bottom padding – now 0.1rem)
+    // Mobile menu toggle – cleaned up: no inline padding, uses CSS classes
     const menuBtn = document.getElementById('mobileMenuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
     let menuOpen = false;
@@ -457,8 +468,6 @@
       else menuOpen = !menuOpen;
       
       if (menuOpen) {
-        mobileMenu.style.paddingTop = '0.75rem';
-        mobileMenu.style.paddingBottom = '0.1rem';
         mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
         mobileMenu.style.opacity = '1';
         mobileMenu.style.marginTop = '1rem';
@@ -466,8 +475,6 @@
         mobileMenu.style.maxHeight = '0';
         mobileMenu.style.opacity = '0';
         mobileMenu.style.marginTop = '0';
-        mobileMenu.style.paddingTop = '0';
-        mobileMenu.style.paddingBottom = '0';
       }
     }
 
@@ -528,37 +535,52 @@
 
     setTimeout(typeEffect, 2000);
 
-    // Contact form handling (demo)
+    // Contact form handling – real submit via iframe, then show toast
     const form = document.getElementById('contactForm');
     const toast = document.getElementById('form-toast');
     const submitBtn = document.getElementById('submitBtn');
+    const iframe = document.querySelector('iframe[name="hidden_iframe"]');
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
+    form.addEventListener('submit', (e) => {
+      // Let the form submit normally (to iframe), but disable button and show optimistic toast
+      // We'll use iframe load to know it's done (though formsubmit returns 200 with blank page)
       const name = document.getElementById('name').value.trim();
       const email = document.getElementById('email').value.trim();
       const message = document.getElementById('message').value.trim();
 
       if (!name || !email || !message) {
+        e.preventDefault();
         toast.textContent = '⚠️ Please fill all fields';
         toast.classList.add('show');
         setTimeout(() => toast.classList.remove('show'), 3000);
         return;
       }
 
-      const originalText = submitBtn.textContent;
-      submitBtn.textContent = 'SENDING ...';
+      // Disable button to prevent double submission
       submitBtn.disabled = true;
+      submitBtn.textContent = 'SENDING ...';
 
-      setTimeout(() => {
-        toast.textContent = '✨ Message sent (demo) – I’ll get back to you soon!';
+      // We'll rely on iframe load to re-enable and show toast
+      // But if iframe doesn't load (e.g., network error), we need fallback
+      const iframeLoadHandler = () => {
+        toast.textContent = '✨ Message sent – thanks!';
         toast.classList.add('show');
         setTimeout(() => toast.classList.remove('show'), 4000);
         form.reset();
-        submitBtn.textContent = originalText;
         submitBtn.disabled = false;
-      }, 1200);
+        submitBtn.textContent = 'SEND DISCOVERY REQUEST';
+        iframe.removeEventListener('load', iframeLoadHandler);
+      };
+
+      iframe.addEventListener('load', iframeLoadHandler);
+
+      // Fallback in case iframe load doesn't fire within 5 seconds
+      setTimeout(() => {
+        if (submitBtn.disabled) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'SEND DISCOVERY REQUEST';
+        }
+      }, 8000);
     });
   </script>
 </body>
