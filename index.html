@@ -19,12 +19,12 @@
   <link href="https://cdn.tailwindcss.com" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   
-  <!-- Fallback inline styles in case external CSS fails (ensures basic layout) -->
+  <!-- Fallback inline styles + custom marquee animation -->
   <style>
     /* Ensure text is visible even if fonts fail */
     body { background-color: #030712; color: #f8fafc; overflow-x: hidden; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
     .font-heading { font-family: 'Space Grotesk', system-ui, sans-serif; }
-    /* All other custom styles (loader, glass, etc.) */
+    /* Loader */
     #loader { position: fixed; inset: 0; background: #030712; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.6s ease, visibility 0.6s; }
     .loader-line { width: 240px; height: 2px; background: rgba(255,255,255,0.05); position: relative; overflow: hidden; border-radius: 4px; }
     .loader-progress { position: absolute; left: 0; top: 0; height: 100%; background: #6366f1; width: 0%; transition: width 1.8s cubic-bezier(0.65, 0, 0.35, 1); }
@@ -36,16 +36,28 @@
     .reveal.active { opacity: 1; transform: translateY(0); }
     .reveal-group.active .reveal-item { opacity: 1; transform: translateY(0); }
     .reveal-item { opacity: 0; transform: translateY(20px); transition: 0.8s all cubic-bezier(0.22, 1, 0.36, 1); }
-    .marquee-container { display: flex; width: 200%; }
-    .marquee-content { display: flex; justify-content: space-around; width: 100%; }
     details > summary { list-style: none; }
     details > summary::-webkit-details-marker { display: none; }
     .mobile-menu-enter { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease; }
     .mobile-menu-enter.active { max-height: 300px; opacity: 1; margin-top: 1rem; }
     .typed-cursor { display: inline-block; width: 4px; height: 1em; background-color: #818cf8; margin-left: 4px; vertical-align: middle; animation: blink 0.7s infinite; }
     @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
-    #form-toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #1e293b; border: 1px solid #334155; color: white; padding: 12px 24px; border-radius: 60px; font-size: 14px; font-weight: 500; box-shadow: 0 20px 30px -10px rgba(0,0,0,0.5); z-index: 200; opacity: 0; transition: opacity 0.3s ease; pointer-events: none; backdrop-filter: blur(8px); }
-    #form-toast.show { opacity: 1; }
+
+    /* Fixed marquee animation – runs automatically */
+    .marquee-container {
+      display: flex;
+      width: 200%;
+      animation: marquee 30s linear infinite;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); } /* moves by half of container width (200% → -100% of parent) */
+    }
+    .marquee-content {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+    }
   </style>
   
   <!-- Defer Cloudflare email decoder script (non-critical) -->
@@ -59,16 +71,7 @@
         extend: {
           fontFamily: { sans: ['Inter', 'sans-serif'], heading: ['Space Grotesk', 'sans-serif'] },
           colors: { slate: { 950: '#030712' }, accent: { 500: '#6366f1', 400: '#818cf8' } },
-          animation: {
-            'shimmer': 'shimmer 2s linear infinite',
-            'float': 'float 6s ease-in-out infinite',
-            'marquee': 'marquee 40s linear infinite',
-          },
-          keyframes: {
-            shimmer: { '0%': { backgroundPosition: '-200% 0' }, '100%': { backgroundPosition: '200% 0' } },
-            float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-15px)' } },
-            marquee: { '0%': { transform: 'translateX(0%)' }, '100%': { transform: 'translateX(-100%)' } }
-          }
+          // marquee animation is now handled by custom CSS above, so we remove it from tailwind config to avoid confusion
         }
       }
     }
@@ -81,12 +84,6 @@
     <div class="loader-line"><div class="loader-progress" id="progress"></div></div>
     <div class="mt-4 font-mono text-[10px] text-slate-500 uppercase tracking-[0.4em]" id="loader-text">Initializing Backend...</div>
   </div>
-
-  <!-- Toast for form feedback -->
-  <div id="form-toast">✨ Message sent – thanks!</div>
-
-  <!-- Hidden iframe for form submission (prevents page reload) -->
-  <iframe name="hidden_iframe" style="display:none;"></iframe>
 
   <!-- ========== NAVBAR (Enhanced Mobile) ========== -->
   <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-4xl">
@@ -125,7 +122,7 @@
     </div>
   </nav>
 
-  <!-- Fixed header: removed overflow-hidden and added larger line-height to prevent letter clipping -->
+  <!-- Fixed header: added leading-[1.2] to prevent letter clipping (descenders like 'g' now fully visible) -->
   <header class="relative min-h-screen flex items-center justify-center pt-20">
     <div class="absolute inset-0 z-0">
       <div class="absolute top-[10%] left-[10%] w-96 h-96 bg-indigo-600/10 blur-[120px] rounded-full animate-float"></div>
@@ -133,7 +130,7 @@
     </div>
 
     <div class="relative z-10 text-center px-4 reveal-group active">
-      <!-- Added leading-[1.2] to give descenders like 'g' enough space -->
+      <!-- Leading increased to 1.2 so letters with descenders aren't cut off -->
       <h1 class="reveal-item font-heading text-6xl md:text-9xl font-bold tracking-tighter mb-6 leading-[1.2]">
         Modern <br />
         <!-- Typing effect container -->
@@ -152,9 +149,9 @@
     </div>
   </header>
 
-  <!-- Marquee text contrast improved -->
+  <!-- Marquee – now with fixed animation that runs automatically -->
   <div class="py-10 border-y border-white/5 bg-slate-950/30 overflow-hidden">
-    <div class="marquee-container animate-marquee">
+    <div class="marquee-container">
       <div class="marquee-content font-mono text-[10px] text-slate-300 flex items-center gap-12 uppercase tracking-[0.3em]">
         <span>PHP 8.3 CORE</span> <span>•</span> <span>MySQL Optimization</span> <span>•</span> <span>Tailwind CSS</span> <span>•</span> 
         <span>RESTful API Architecture</span> <span>•</span> <span>Secure Auth</span> <span>•</span> <span>AI-Assisted Workflow</span> <span>•</span>
@@ -393,6 +390,7 @@
     </div>
   </section>
 
+  <!-- CONTACT SECTION – replaced form with static contact info -->
   <section id="contact" class="py-32 px-4">
     <div class="max-w-5xl mx-auto glass p-8 md:p-16 rounded-[3rem] reveal relative overflow-hidden">
         <div class="absolute top-0 right-0 p-10 opacity-10">
@@ -402,26 +400,19 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 relative z-10">
             <div>
                 <h2 class="font-heading text-5xl font-bold mb-6 italic">Let's <span class="gradient-text">Build</span>.</h2>
-                <p class="text-slate-400 mb-8">Ready to transition from idea to deployment? Fill out the brief or reach out directly.</p>
+                <p class="text-slate-400 mb-8">Ready to transition from idea to deployment? Reach out directly – I typically respond within 24 hours.</p>
                 <div class="space-y-4 font-mono text-sm">
-                    <p class="flex items-center gap-3"><span class="text-indigo-400">@</span> contact@elvir.al</p>
-                    <p class="flex items-center gap-3"><span class="text-indigo-400">#</span> GitHub/elvir-k</p>
+                    <p class="flex items-center gap-3"><span class="text-indigo-400 text-lg">✉️</span> <a href="mailto:contact@elvir.al" class="hover:text-indigo-400 transition">contact@elvir.al</a></p>
+                    <p class="flex items-center gap-3"><span class="text-indigo-400 text-lg">⌨️</span> <a href="https://github.com/elvir-k" target="_blank" class="hover:text-indigo-400 transition">github.com/elvir-k</a></p>
+                    <p class="flex items-center gap-3"><span class="text-indigo-400 text-lg">🔗</span> <a href="#" class="hover:text-indigo-400 transition">linkedin.com/in/elvir-k</a></p>
                 </div>
             </div>
             
-            <!-- Contact form – fully functional with FormSubmit + hidden iframe -->
-            <form id="contactForm" action="https://formsubmit.co/contact@elvir.al" method="POST" target="hidden_iframe">
-                <!-- FormSubmit options: disable captcha, no redirect -->
-                <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_next" value="about:blank">
-                <!-- Honeypot to avoid spam (optional) -->
-                <input type="text" name="_honey" style="display:none">
-                
-                <input type="text" name="name" placeholder="Full Name" required class="w-full bg-slate-900/50 border border-white/10 rounded-xl px-6 py-4 focus:outline-none focus:border-indigo-500 transition-all">
-                <input type="email" name="email" placeholder="Email Address" required class="w-full bg-slate-900/50 border border-white/10 rounded-xl px-6 py-4 focus:outline-none focus:border-indigo-500 transition-all">
-                <textarea name="message" placeholder="Tell me about your project stack..." rows="4" required class="w-full bg-slate-900/50 border border-white/10 rounded-xl px-6 py-4 focus:outline-none focus:border-indigo-500 transition-all"></textarea>
-                <button type="submit" id="submitBtn" class="w-full bg-white text-black font-bold py-4 rounded-xl hover:bg-indigo-500 hover:text-white transition-all">SEND DISCOVERY REQUEST</button>
-            </form>
+            <!-- Simple visual: maybe a subtle illustration or just a call to action -->
+            <div class="flex flex-col items-center justify-center">
+                <div class="text-8xl opacity-20 select-none">{</div>
+                <p class="text-slate-500 text-center max-w-xs mt-4 italic">No forms – just human conversation. Send an email and let's discuss your project.</p>
+            </div>
         </div>
     </div>
   </section>
@@ -458,7 +449,7 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal, .reveal-group').forEach(el => observer.observe(el));
 
-    // Mobile menu toggle – cleaned up: no inline padding, uses CSS classes
+    // Mobile menu toggle – cleaned up: uses CSS classes, no inline padding manipulation
     const menuBtn = document.getElementById('mobileMenuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
     let menuOpen = false;
@@ -534,54 +525,6 @@
     }
 
     setTimeout(typeEffect, 2000);
-
-    // Contact form handling – real submit via iframe, then show toast
-    const form = document.getElementById('contactForm');
-    const toast = document.getElementById('form-toast');
-    const submitBtn = document.getElementById('submitBtn');
-    const iframe = document.querySelector('iframe[name="hidden_iframe"]');
-
-    form.addEventListener('submit', (e) => {
-      // Let the form submit normally (to iframe), but disable button and show optimistic toast
-      // We'll use iframe load to know it's done (though formsubmit returns 200 with blank page)
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const message = document.getElementById('message').value.trim();
-
-      if (!name || !email || !message) {
-        e.preventDefault();
-        toast.textContent = '⚠️ Please fill all fields';
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 3000);
-        return;
-      }
-
-      // Disable button to prevent double submission
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'SENDING ...';
-
-      // We'll rely on iframe load to re-enable and show toast
-      // But if iframe doesn't load (e.g., network error), we need fallback
-      const iframeLoadHandler = () => {
-        toast.textContent = '✨ Message sent – thanks!';
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 4000);
-        form.reset();
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'SEND DISCOVERY REQUEST';
-        iframe.removeEventListener('load', iframeLoadHandler);
-      };
-
-      iframe.addEventListener('load', iframeLoadHandler);
-
-      // Fallback in case iframe load doesn't fire within 5 seconds
-      setTimeout(() => {
-        if (submitBtn.disabled) {
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'SEND DISCOVERY REQUEST';
-        }
-      }, 8000);
-    });
   </script>
 </body>
 </html>
