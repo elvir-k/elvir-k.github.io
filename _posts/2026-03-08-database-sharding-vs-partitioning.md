@@ -7,7 +7,7 @@ categories:
 - Backend
 - System Design
 - Database Architecture
-date: 2026-03-15
+date: 2026-03-08
 description: Learn when to shard vs. partition your database from a seasoned backend engineer who's scaled systems beyond single servers.
 icon: 🗄️
 image: /assets/images/blog/database-sharding-partitioning.jpg
