@@ -1,4 +1,5 @@
 title: Elvir Portfolio
-description: My blog and projects
+description: My developer blog
 markdown: kramdown
+theme: minima
 permalink: /blog/:title/
