@@ -1,20 +1,52 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>{{ page.title }}</title>
-</head>
+---
+layout: default
+---
 
-<body>
+<div class="max-w-3xl mx-auto px-4 reveal">
+  <!-- Back to blog link -->
+  <a href="/blog/" class="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-indigo-400 transition-colors mb-8 group">
+    <svg class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+    </svg>
+    <span>Back to all posts</span>
+  </a>
 
-<h1>{{ page.title }}</h1>
-<p>{{ page.date }}</p>
+  <!-- Main content card -->
+  <article class="glass rounded-3xl p-8 md:p-12">
+    <!-- Header -->
+    <header class="mb-8">
+      <h1 class="font-heading text-4xl md:text-5xl font-bold mb-4">{{ page.title }}</h1>
+      
+      <!-- Post metadata -->
+      <div class="flex flex-wrap items-center gap-4 text-sm text-slate-400 font-mono">
+        <span class="flex items-center gap-1">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+          {{ page.date | date: "%B %d, %Y" }}
+        </span>
+        {% if page.categories %}
+        <span class="flex items-center gap-1">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l5 5a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-5-5A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+          </svg>
+          {{ page.categories | join: ', ' }}
+        </span>
+        {% endif %}
+        {% if page.reading_time %}
+        <span class="flex items-center gap-1">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          {{ page.reading_time }} min read
+        </span>
+        {% endif %}
+      </div>
+    </header>
 
-<div>
-{{ content }}
+    <!-- Post content (with prose styling for readability) -->
+    <div class="prose prose-invert prose-indigo max-w-none">
+      {{ content }}
+    </div>
+  </article>
 </div>
-
-<a href="/blog">Back to blog</a>
-
-</body>
-</html>
