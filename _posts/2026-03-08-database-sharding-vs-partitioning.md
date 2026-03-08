@@ -45,9 +45,6 @@ to decide between them.**
 
 ------------------------------------------------------------------------
 
-```{=html}
-<!--more-->
-```
 ## 1. Understand the Limits of Optimization
 
 Before introducing architectural complexity, ensure you've already
