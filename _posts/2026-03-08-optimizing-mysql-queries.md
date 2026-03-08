@@ -1,25 +1,14 @@
 ---
-author: Elvir Kaqanolli
-categories:
-- MySQL
-- Performance
-- Backend
-- Database Optimization
+layout: post
+title: "Optimizing MySQL Queries: 7 Battle-Tested Techniques"
 date: 2026-03-08
-description: Learn practical MySQL optimization techniques from a
-  seasoned backend engineer. Covers EXPLAIN, strategic indexing,
-  avoiding N+1 queries, and more -- with real‑world examples.
+categories: [MySQL, Performance, Backend, Database Optimization]
+tags: [mysql, query optimization, indexing, performance tuning, sql]
+description: "Learn practical MySQL optimization techniques from a seasoned backend engineer."
+author: Elvir Kaqanolli
+reading_time: 7
 icon: ⚡
 image: /assets/images/blog/mysql-optimization.jpg
-layout: post
-reading_time: 7
-tags:
-- mysql
-- query optimization
-- indexing
-- performance tuning
-- sql
-title: "Optimizing MySQL Queries: 7 Battle‑Tested Techniques"
 ---
 
 If your application feels sluggish, the database is often the culprit.
