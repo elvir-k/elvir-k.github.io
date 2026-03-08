@@ -29,4 +29,4 @@ Before you change anything, understand what MySQL is actually doing. Prefix your
 - **`rows`** – the number of rows examined. High numbers mean you're doing too much work.
 - **`Extra`** – `Using temporary` or `Using filesort` are red flags for complex operations.
 
-<pre>```sql EXPLAIN SELECT * FROM orders WHERE customer_id = 123 ORDER BY created_at DESC; ```</pre>
+<pre> EXPLAIN SELECT * FROM orders WHERE customer_id = 123 ORDER BY created_at DESC; </pre>
