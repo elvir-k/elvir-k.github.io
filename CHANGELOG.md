@@ -1,0 +1,1 @@
+Reverted changes related to the blog issue fix.
