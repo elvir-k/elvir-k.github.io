@@ -34,9 +34,6 @@ architecture**.
 
 Here's how to decide which strategy is right for your situation.
 
-```{=html}
-<!--more-->
-```
 > Already optimized your queries? Skip to the decision framework.
 
 ------------------------------------------------------------------------
