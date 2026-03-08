@@ -2,6 +2,7 @@ backend:
   name: github
   repo: elvir-k/elvir-k.github.io
   branch: main
+  auth_endpoint: https://api.netlify.com/auth
 
 media_folder: "assets/images"
 public_folder: "/assets/images"
