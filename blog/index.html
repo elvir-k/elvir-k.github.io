@@ -3,21 +3,78 @@ layout: default
 title: Blog
 ---
 
-<div class="max-w-3xl mx-auto">
-  <h1 class="text-4xl font-bold mb-8 text-gray-900">Blog</h1>
+<div class="max-w-4xl mx-auto px-4">
+  <!-- Header with gradient text -->
+  <div class="text-center mb-16 reveal">
+    <span class="text-indigo-400 font-mono text-xs uppercase tracking-widest">[ Thoughts & Notes ]</span>
+    <h1 class="font-heading text-5xl md:text-6xl font-bold mt-4">
+      The <span class="gradient-text">Blog</span>
+    </h1>
+    <p class="text-slate-400 mt-4 max-w-2xl mx-auto">
+      Deep dives into PHP, database optimization, AI integration, and the occasional tangent.
+    </p>
+  </div>
 
-  <ul class="space-y-6">
+  <!-- Blog posts grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 reveal-group">
     {% for post in site.posts %}
-    <li class="border-b border-gray-200 pb-4 last:border-0">
-      <a href="{{ post.url }}" class="block group">
-        <h2 class="text-xl font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">
+    <article class="reveal-item group">
+      <a href="{{ post.url }}" class="block glass rounded-3xl p-6 hover:bg-slate-900/50 transition-all border border-transparent hover:border-indigo-500/30 h-full">
+        <!-- Optional featured icon / emoji (can be customized per post) -->
+        <div class="text-4xl mb-4">
+          {% if post.icon %}
+            {{ post.icon }}
+          {% else %}
+            📝
+          {% endif %}
+        </div>
+        
+        <h2 class="font-heading text-2xl font-bold mb-3 group-hover:text-indigo-400 transition-colors">
           {{ post.title }}
         </h2>
-        <span class="text-sm text-gray-500 mt-1 block">
-          {{ post.date | date: "%B %d, %Y" }}
-        </span>
+        
+        <!-- Post metadata with icons -->
+        <div class="flex flex-wrap items-center gap-4 text-xs text-slate-500 font-mono mb-4">
+          <span class="flex items-center gap-1">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            {{ post.date | date: "%B %d, %Y" }}
+          </span>
+          {% if post.categories %}
+          <span class="flex items-center gap-1">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l5 5a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-5-5A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+            </svg>
+            {{ post.categories | join: ', ' }}
+          </span>
+          {% endif %}
+          {% if post.reading_time %}
+          <span class="flex items-center gap-1">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            {{ post.reading_time }} min read
+          </span>
+          {% endif %}
+        </div>
+        
+        <!-- Excerpt (if available) -->
+        {% if post.excerpt %}
+        <p class="text-slate-400 text-sm leading-relaxed line-clamp-3">
+          {{ post.excerpt | strip_html | truncatewords: 25 }}
+        </p>
+        {% endif %}
+        
+        <!-- Read more link -->
+        <div class="mt-4 text-indigo-400 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
+          Read article
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
       </a>
-    </li>
+    </article>
     {% endfor %}
-  </ul>
+  </div>
 </div>
