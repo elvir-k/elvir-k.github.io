@@ -2,7 +2,7 @@
 layout: default
 ---
 
-<div class="max-w-3xl mx-auto px-4 reveal">
+<div class="max-w-3xl mx-auto px-4 py-8 reveal">
   <!-- Back to blog link -->
   <a href="/blog/" class="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-indigo-400 transition-colors mb-8 group">
     <svg class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -45,8 +45,79 @@ layout: default
     </header>
 
     <!-- Post content (with prose styling for readability) -->
-    <div class="prose prose-invert prose-indigo max-w-none">
+    <div class="prose prose-invert prose-indigo max-w-none prose-headings:font-heading prose-headings:text-white prose-headings:font-bold prose-h1:text-4xl prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h3:text-xl prose-h3:mt-6 prose-p:text-slate-300 prose-p:leading-relaxed prose-a:text-indigo-400 prose-a:hover:text-indigo-300 prose-code:text-indigo-300 prose-code:bg-white/5 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-pre:bg-slate-900/50 prose-pre:border prose-pre:border-white/10 prose-pre:rounded-xl prose-pre:p-4 prose-blockquote:border-l-indigo-500 prose-blockquote:text-slate-400 prose-blockquote:italic prose-ul:my-4 prose-li:text-slate-300 prose-li:marker:text-indigo-400">
       {{ content }}
     </div>
+    
+    <!-- Tags section -->
+    {% if page.tags %}
+    <div class="mt-10 pt-6 border-t border-white/10">
+      <div class="flex flex-wrap gap-2">
+        {% for tag in page.tags %}
+        <span class="text-xs font-mono px-3 py-1 bg-white/5 rounded-full text-indigo-300 border border-white/5">#{{ tag }}</span>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
   </article>
 </div>
+
+<!-- Add these styles to enhance the prose rendering -->
+<style>
+  /* Additional prose enhancements for code blocks and lists */
+  .prose pre {
+    background: rgba(15, 23, 42, 0.6) !important;
+    backdrop-filter: blur(4px);
+  }
+  
+  .prose pre code {
+    background: transparent !important;
+    color: #e2e8f0 !important;
+    font-size: 0.9em;
+    padding: 0;
+  }
+  
+  .prose code {
+    font-family: 'Fira Code', monospace;
+  }
+  
+  .prose p code {
+    background: rgba(99, 102, 241, 0.1) !important;
+    color: #a5b4fc !important;
+    padding: 0.2em 0.4em;
+    border-radius: 0.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  
+  .prose img {
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .prose hr {
+    border-color: rgba(255, 255, 255, 0.1);
+    margin: 2rem 0;
+  }
+  
+  .prose table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+  
+  .prose th {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    color: white;
+  }
+  
+  .prose td {
+    padding: 0.75rem 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    color: #cbd5e1;
+  }
+</style>
