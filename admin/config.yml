@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: Yelvir-k/elvir-k.github.io
+  repo: elvir-k/elvir-k.github.io
   branch: main
 
 media_folder: "assets/images"
