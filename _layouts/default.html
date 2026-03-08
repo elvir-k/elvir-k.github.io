@@ -3,13 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ page.title }}</title>
+  <title>{{ page.title }} | {{ site.title }}</title>
   <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50 text-gray-800 antialiased">
+<body class="bg-white text-gray-800 antialiased">
+  <!-- Sticky dark navbar -->
+  <header class="bg-gray-900 text-white sticky top-0 z-10">
+    <div class="container mx-auto px-4 py-4 flex flex-wrap items-center justify-between">
+      <div class="text-xl font-bold">
+        <a href="{{ "/" | relative_url }}" class="hover:text-gray-300">
+          {{ site.title | default: "My Blog" }}
+        </a>
+      </div>
+      <nav class="flex space-x-4">
+        <a href="{{ "/" | relative_url }}" class="hover:text-gray-300">Home</a>
+        <a href="{{ "/blog/" | relative_url }}" class="hover:text-gray-300">Blog</a>
+        <a href="{{ "/about/" | relative_url }}" class="hover:text-gray-300">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main content area (consistent padding for all pages) -->
   <main class="container mx-auto px-4 py-8">
     {{ content }}
   </main>
+
+  <!-- Simple footer -->
+  <footer class="border-t border-gray-200 py-6 text-center text-gray-500 text-sm">
+    <div class="container mx-auto px-4">
+      &copy; {{ site.time | date: '%Y' }} {{ site.title | default: "My Blog" }}. All rights reserved.
+    </div>
+  </footer>
 </body>
 </html>
