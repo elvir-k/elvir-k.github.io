@@ -1,0 +1,9 @@
+title: My Portfolio
+description: My developer blog
+baseurl: ""
+url: ""
+
+permalink: /blog/:title/
+
+markdown: kramdown
+theme: minima
