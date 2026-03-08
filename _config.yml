@@ -1,5 +1,8 @@
 title: Elvir Portfolio
 description: My developer blog
+highlighter: rouge
 markdown: kramdown
+kramdown:
+  syntax_highlighter: rouge
 theme: minima
 permalink: /blog/:title/
