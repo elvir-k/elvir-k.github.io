@@ -1,14 +1,24 @@
 ---
-layout: post
-title: "Optimizing MySQL Queries: 7 Battle-Tested Techniques"
-date: 2026-03-08
-categories: [MySQL, Performance, Backend, Database Optimization]
-tags: [mysql, query optimization, indexing, performance tuning, sql]
-description: "Learn practical MySQL optimization techniques from a seasoned backend engineer."
 author: Elvir Kaqanolli
-reading_time: 7
+categories:
+- MySQL
+- Performance
+- Backend
+- Database Optimization
+date: 2026-03-08
+description: Learn practical MySQL optimization techniques from a
+  seasoned backend engineer.
 icon: ⚡
 image: /assets/images/blog/mysql-optimization.jpg
+layout: post
+reading_time: 7
+tags:
+- mysql
+- query optimization
+- indexing
+- performance tuning
+- sql
+title: "Optimizing MySQL Queries: 7 Battle-Tested Techniques"
 ---
 
 If your application feels sluggish, the database is often the culprit.
@@ -29,77 +39,89 @@ out of MySQL.
 ## 1. Always Use `EXPLAIN` First
 
 Before you change anything, understand what MySQL is actually doing.
-Prefix your query with `EXPLAIN` and look for:
+Prefix your query with `EXPLAIN` and inspect the execution plan.
 
--   **`type`** -- `ALL` means a full table scan (bad). `ref` or `range`
-    with an index is good.
--   **`rows`** -- the number of rows examined. High numbers mean you're
-    doing too much work.
--   **`Extra`** -- `Using temporary` or `Using filesort` are red flags
-    for complex operations.
-
-```{=html}
-<!-- -->
+``` sql
+EXPLAIN SELECT *
+FROM orders
+WHERE customer_id = 123
+ORDER BY created_at DESC;
 ```
-    EXPLAIN SELECT * FROM orders WHERE customer_id = 123 ORDER BY created_at DESC;
+
+Pay attention to:
+
+-   **type** -- `ALL` means a full table scan (bad). `ref`, `range`, or
+    `const` are usually good.
+-   **rows** -- how many rows MySQL expects to examine.
+-   **Extra** -- `Using temporary` or `Using filesort` can indicate
+    inefficiencies.
 
 If you see `type: ALL`, MySQL is scanning the entire table --- which
 becomes disastrous once your table reaches millions of rows.
 
-**Goal:** Ensure queries use indexes whenever possible.
+**Goal:** ensure your queries use indexes whenever possible.
 
 ------------------------------------------------------------------------
 
 ## 2. Create Strategic Indexes (Not Too Many)
 
-Indexes are the **#1 performance improvement tool**, but they must be
-used carefully.
+Indexes are the **single biggest performance improvement** you can make.
 
 Bad approach:
 
-    INDEX(name)
-    INDEX(email)
-    INDEX(created_at)
+``` sql
+INDEX(name)
+INDEX(email)
+INDEX(created_at)
+```
 
-Better approach --- **composite indexes** that match real queries:
+Better approach --- **composite indexes** designed around real queries:
 
-    INDEX(customer_id, created_at)
+``` sql
+INDEX(customer_id, created_at)
+```
 
-Why?
+Why this works:
 
-Because this query:
+``` sql
+SELECT *
+FROM orders
+WHERE customer_id = 123
+ORDER BY created_at DESC
+LIMIT 10;
+```
 
-    SELECT *
-    FROM orders
-    WHERE customer_id = 123
-    ORDER BY created_at DESC
-    LIMIT 10;
+MySQL can read directly from the index without additional sorting.
 
-can be resolved **directly from the index**, avoiding extra sorting and
-scanning.
+### Rule of thumb
 
-### Rule of Thumb
+Design indexes around the pattern:
 
-Indexes should match the **WHERE → ORDER BY → LIMIT** pattern of your
-most frequent queries.
+**WHERE → ORDER BY → LIMIT**
 
-But remember: every index slightly slows **INSERT / UPDATE**, so don't
-index everything blindly.
+But remember: every index slightly slows **INSERT** and **UPDATE**
+operations, so avoid indexing everything blindly.
 
 ------------------------------------------------------------------------
 
 ## 3. Avoid `SELECT *`
 
-`SELECT *` forces MySQL to read **every column**, even if you only need
-two.
+Using `SELECT *` forces MySQL to read every column even when you only
+need a few.
 
 Bad:
 
-    SELECT * FROM users WHERE id = 5;
+``` sql
+SELECT * FROM users WHERE id = 5;
+```
 
 Better:
 
-    SELECT id, name, email FROM users WHERE id = 5;
+``` sql
+SELECT id, name, email
+FROM users
+WHERE id = 5;
+```
 
 Benefits:
 
@@ -107,7 +129,7 @@ Benefits:
 -   Smaller result sets
 -   Better use of **covering indexes**
 
-In high-traffic systems this can shave **tens of milliseconds per
+On busy systems this can easily shave **tens of milliseconds per
 request**.
 
 ------------------------------------------------------------------------
@@ -119,26 +141,33 @@ applications.
 
 Example (bad):
 
-    SELECT * FROM orders;
+``` sql
+SELECT * FROM orders;
+```
 
-    -- then for each order
-    SELECT * FROM customers WHERE id = ?
+Then for each order:
 
-If you have 100 orders, you now run **101 queries**.
+``` sql
+SELECT * FROM customers WHERE id = ?;
+```
 
-Better approach --- use a **JOIN**:
+If you fetch 100 orders, you now execute **101 queries**.
 
-    SELECT
-        o.id,
-        o.total,
-        c.name
-    FROM orders o
-    JOIN customers c ON o.customer_id = c.id;
+Better solution: use a **JOIN**.
+
+``` sql
+SELECT
+    o.id,
+    o.total,
+    c.name
+FROM orders o
+JOIN customers c ON o.customer_id = c.id;
+```
 
 One query instead of hundreds.
 
-ORMs (Laravel, Django, etc.) often hide this problem --- so always
-inspect generated SQL.
+Many ORMs (Laravel, Django, Rails) can accidentally create N+1 queries,
+so always inspect the generated SQL.
 
 ------------------------------------------------------------------------
 
@@ -148,100 +177,118 @@ Never load thousands of rows if the user only sees 20.
 
 Bad:
 
-    SELECT * FROM products ORDER BY created_at DESC;
+``` sql
+SELECT *
+FROM products
+ORDER BY created_at DESC;
+```
 
 Better:
 
-    SELECT *
-    FROM products
-    ORDER BY created_at DESC
-    LIMIT 20;
+``` sql
+SELECT *
+FROM products
+ORDER BY created_at DESC
+LIMIT 20;
+```
 
 For pagination:
 
-    LIMIT 20 OFFSET 40
+``` sql
+LIMIT 20 OFFSET 40;
+```
 
-Even better for large datasets: **cursor-based pagination**.
+However, **large offsets become slow** on big tables.
 
-Example:
+A faster approach is **cursor-based pagination**:
 
-    SELECT *
-    FROM products
-    WHERE id < 1050
-    ORDER BY id DESC
-    LIMIT 20;
+``` sql
+SELECT *
+FROM products
+WHERE id < 1050
+ORDER BY id DESC
+LIMIT 20;
+```
 
-This avoids large offset scans.
+This avoids scanning large offsets.
 
 ------------------------------------------------------------------------
 
 ## 6. Optimize `COUNT(*)` Queries
 
-Counting rows in massive tables can be expensive.
+Counting rows in huge tables can be expensive.
 
-Instead of:
+Example:
 
-    SELECT COUNT(*) FROM orders;
+``` sql
+SELECT COUNT(*) FROM orders;
+```
 
-Consider:
+Instead consider:
 
--   caching counts
--   maintaining counters in another table
--   using approximate analytics tables
+-   Caching counts in Redis or memory
+-   Maintaining counters in a summary table
+-   Using approximate counts for dashboards
 
-For dashboards, **cached counts are usually more than enough**.
+For analytics dashboards, **cached counts are often perfectly
+acceptable**.
 
 ------------------------------------------------------------------------
 
 ## 7. Profile Slow Queries
 
-Enable MySQL slow query log:
+Enable MySQL's slow query log to find bottlenecks.
 
-    slow_query_log = 1
-    long_query_time = 1
+Example configuration:
 
-This logs queries taking longer than **1 second**.
+``` sql
+slow_query_log = 1
+long_query_time = 1
+```
 
-Then analyze them with tools like:
+This logs queries that take longer than **1 second**.
+
+Useful analysis tools include:
 
 -   `mysqldumpslow`
 -   `pt-query-digest`
 
-Often you'll discover that **one poorly written query is responsible for
-most of your load**.
+In many production systems, **a handful of bad queries cause the
+majority of performance issues**.
 
 ------------------------------------------------------------------------
 
-# Summary
+## Summary
 
 If you remember only a few things from this article:
 
--   Always run `EXPLAIN`
+-   Always run **EXPLAIN**
 -   Design **indexes around real queries**
--   Avoid `SELECT *`
+-   Avoid **SELECT **\* when possible
 -   Eliminate **N+1 queries**
--   Use `LIMIT`
+-   Use **LIMIT**
 -   Cache expensive counts
 -   Monitor slow queries
 
-These techniques have helped me improve database performance
-**10--100x** in production systems.
+These techniques have helped improve database performance **10--100×**
+in real production systems.
 
-Database optimization isn't about magic --- it's about **understanding
-how the engine executes your queries**.
+Database optimization isn't magic --- it's about **understanding how the
+database engine executes your queries**.
 
 ------------------------------------------------------------------------
 
 ## Final Tip
 
-Before scaling servers or upgrading hardware, **optimize the queries
-first**.
+Before upgrading servers or scaling infrastructure, **optimize the
+queries first**.
 
-A single index can save you **thousands of dollars in infrastructure**.
+A single well-designed index can save you **thousands of dollars in
+infrastructure costs**.
 
 ------------------------------------------------------------------------
 
-If you enjoyed this article, consider bookmarking it for future
-reference or sharing it with your team.
+If you enjoyed this article, consider bookmarking it or sharing it with
+your team.
 
 More backend engineering deep dives coming soon ⚡
