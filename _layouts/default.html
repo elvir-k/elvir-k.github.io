@@ -1,6 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  {% if page.url == "/" %}
+  <title>Elvir Kaqanolli | PHP Developer, AI Integrations &amp; Automation</title>
+  {% else %}
+  <title>{{ page.title }} | Elvir Kaqanolli</title>
+  {% endif %}
+  <meta name="description" content="{{ page.description | default: 'Elvir Kaqanolli is a PHP developer from Kosovo building web applications, e-commerce stores and AI-powered tools for businesses in the Balkans.' | strip_newlines | escape }}" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.elvir.pro{{ page.url }}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Elvir Kaqanolli" />
+  <meta property="og:title" content="{% if page.url == '/' %}Elvir Kaqanolli | PHP Developer{% else %}{{ page.title | escape }}{% endif %}" />
+  <meta property="og:url" content="https://www.elvir.pro{{ page.url }}" />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="stylesheet" href="/assets/css/site.css?v=3" />
+  <script>document.documentElement.className += ' js';</script>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-RHDH01B11E"></script>
   <script>
@@ -9,183 +27,57 @@
     gtag('js', new Date());
     gtag('config', 'G-RHDH01B11E');
   </script>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{{ page.title }} | Elvir Kaqanolli</title>
-  <!-- Meta Description (you can override in front matter) -->
-  <meta name="description" content="Elvir Kaqanolli: PHP & AI Engineer – blog about backends, databases, and AI integration." />
-  <meta name="robots" content="index, follow" />
-  
-  <!-- Preconnect to critical origins -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin />
-  
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@300..600&display=swap" rel="stylesheet" />
-  
-  <!-- Critical inline styles (keep from your portfolio) -->
-  <style>
-    /* Critical styles – keeps text visible and prevents massive layout shift */
-    body { background-color: #030712; color: #f8fafc; overflow-x: hidden; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; margin: 0; }
-    .font-heading { font-family: 'Space Grotesk', system-ui, sans-serif; }
-    #loader { position: fixed; inset: 0; background: #030712; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.6s ease, visibility 0.6s; }
-    .loader-line { width: 240px; height: 2px; background: rgba(255,255,255,0.05); position: relative; overflow: hidden; border-radius: 4px; }
-    .loader-progress { position: absolute; left: 0; top: 0; height: 100%; background: #6366f1; width: 0%; transition: width 1.8s cubic-bezier(0.65, 0, 0.35, 1); }
-    .glass { background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
-    .gradient-text { background: linear-gradient(to right, #818cf8, #22d3ee, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200% auto; animation: shimmer 4s linear infinite; }
-    @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
-    .reveal { opacity: 0; transform: translateY(30px); transition: 1s all cubic-bezier(0.22, 1, 0.36, 1); }
-    .reveal.active { opacity: 1; transform: translateY(0); }
-    .reveal-group.active .reveal-item { opacity: 1; transform: translateY(0); }
-    .reveal-item { opacity: 0; transform: translateY(20px); transition: 0.8s all cubic-bezier(0.22, 1, 0.36, 1); }
-    details > summary { list-style: none; }
-    details > summary::-webkit-details-marker { display: none; }
-    .typed-cursor { display: inline-block; width: 4px; height: 1em; background-color: #818cf8; margin-left: 4px; vertical-align: middle; animation: blink 0.7s infinite; }
-    @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
-
-    /* Mobile menu – now using class-based toggle without forced reflow */
-    .mobile-menu {
-      max-height: 0;
-      opacity: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease;
-    }
-    .mobile-menu.open {
-      max-height: 300px; /* fixed max-height, no measurement needed */
-      opacity: 1;
-      margin-top: 1rem;
-    }
-
-    /* Marquee animation – continuous */
-    .marquee-container {
-      display: flex;
-      width: 200%;
-      animation: marquee 30s linear infinite;
-    }
-    @keyframes marquee {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-    .marquee-content {
-      display: flex;
-      justify-content: space-around;
-      width: 100%;
-    }
-  </style>
-  <style>
-  /* Critical styles */
-  body { background-color: #030712; color: #f8fafc; overflow-x: hidden; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; margin: 0; }
-  .font-heading { font-family: 'Space Grotesk', system-ui, sans-serif; }
-  .glass { background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
-  .gradient-text { background: linear-gradient(to right, #818cf8, #22d3ee, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200% auto; animation: shimmer 4s linear infinite; }
-  @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
-  .reveal { opacity: 0; transform: translateY(30px); transition: 1s all cubic-bezier(0.22, 1, 0.36, 1); }
-  .reveal.active { opacity: 1; transform: translateY(0); }
-  
-  /* Prose styles (if not using Tailwind typography plugin) */
-  .prose { color: #e2e8f0; line-height: 1.75; }
-  .prose h1, .prose h2, .prose h3, .prose h4 { color: white; font-family: 'Space Grotesk', sans-serif; font-weight: 600; margin-top: 2em; margin-bottom: 0.5em; }
-  .prose p { margin-bottom: 1.25em; }
-  .prose a { color: #818cf8; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
-  .prose a:hover { color: #a5b4fc; }
-  .prose code { background: rgba(255,255,255,0.1); padding: 0.2em 0.4em; border-radius: 0.25rem; font-size: 0.875em; }
-  .prose pre { background: #0f172a; border: 1px solid rgba(255,255,255,0.1); border-radius: 1rem; padding: 1rem; overflow-x: auto; }
-  .prose blockquote { border-left-color: #4f46e5; color: #94a3b8; font-style: italic; }
-  .prose ul, .prose ol { padding-left: 1.5rem; margin-bottom: 1.25em; }
-  .prose li { margin-bottom: 0.5em; }
-</style>
-  <!-- Tailwind config (inline) -->
-  <script>
-    window.tailwind = window.tailwind || {};
-    window.tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { sans: ['Inter', 'sans-serif'], heading: ['Space Grotesk', 'sans-serif'] },
-          colors: { slate: { 950: '#030712' }, accent: { 500: '#6366f1', 400: '#818cf8' } }
-        }
-      }
-    }
-  </script>
 </head>
-<body class="selection:bg-indigo-500/30">
+<body>
+  <div class="progress" aria-hidden="true"></div>
+  <div class="gridlines" aria-hidden="true"><div class="wrap"><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i></div></div>
 
-  <!-- ========== NAVBAR (same as portfolio) ========== -->
-  <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-4xl">
-    <div class="glass px-6 py-3 rounded-2xl flex flex-wrap items-center justify-between shadow-2xl relative">
-      <a href="/" class="font-heading font-bold text-xl tracking-tighter">Elvir<span class="text-accent-400"> K</span></a>
-      
-      <!-- Desktop navigation -->
-      <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400">
-        <a href="/#services" class="hover:text-white transition-colors">Services</a>
-        <a href="/#projects" class="hover:text-white transition-colors">Work</a>
-        <a href="/#stack" class="hover:text-white transition-colors">Stack</a>
-        <a href="/#scripts-seo" class="hover:text-white transition-colors">Scripts/SEO</a>
-        <a href="/#faq" class="hover:text-white transition-colors">FAQ</a>
-        <a href="/blog/" class="text-white font-semibold">Blog</a>
-      </div>
-
-      <!-- Right side: CTA + mobile hamburger -->
-      <div class="flex items-center gap-3">
-        <a href="/#contact" class="bg-white text-black px-4 py-2 rounded-xl text-xs font-bold hover:bg-accent-400 transition-all whitespace-nowrap">LET'S TALK</a>
-        
-        <!-- Mobile menu button -->
-        <button id="mobileMenuBtn" aria-label="Toggle navigation menu" class="md:hidden w-10 h-10 flex items-center justify-center rounded-xl glass hover:bg-white/10 transition-all">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
-        </button>
-      </div>
-
-      <!-- Mobile menu dropdown -->
-      <div id="mobileMenu" class="mobile-menu w-full md:hidden flex flex-col glass rounded-xl px-4 text-slate-400 font-medium">
-        <a href="/#services" class="py-3 border-b border-white/5 hover:text-white transition-colors">Services</a>
-        <a href="/#projects" class="py-3 border-b border-white/5 hover:text-white transition-colors">Work</a>
-        <a href="/#stack" class="py-3 border-b border-white/5 hover:text-white transition-colors">Stack</a>
-        <a href="/#scripts-seo" class="py-3 border-b border-white/5 hover:text-white transition-colors">Scripts/SEO</a>
-        <a href="/#faq" class="py-3 hover:text-white transition-colors">FAQ</a>
-        <a href="/blog/" class="py-3 text-white font-semibold">Blog</a>
+  <header class="nav">
+    <div class="wrap">
+      <a class="brand" href="/">Elvir Kaqanolli<b>.</b></a>
+      <nav class="nav-links" aria-label="Main">
+        <a href="/#services">Services</a>
+        <a href="/#work">Work</a>
+        <a href="/#about">About</a>
+        <a href="/#experience">Experience</a>
+        <a href="/#faq">FAQ</a>
+        <a href="/blog/"{% if page.url contains '/blog' %} aria-current="page"{% endif %}>Blog</a>
+      </nav>
+      <div class="nav-side">
+        <span class="clock num">Podujevo <b id="clock"></b></span>
+        <a class="btn small" href="/#contact">Contact</a>
+        <button class="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
       </div>
     </div>
-  </nav>
+  </header>
 
-  <!-- Main content area (adds top padding to clear fixed navbar) -->
-  <main class="pt-32 pb-20">
+  <div class="menu" id="menu">
+    <nav aria-label="Mobile">
+      <a class="big" href="/#services"><small class="num">01</small>Services</a>
+      <a class="big" href="/#work"><small class="num">02</small>Work</a>
+      <a class="big" href="/#about"><small class="num">03</small>About</a>
+      <a class="big" href="/#experience"><small class="num">04</small>Experience</a>
+      <a class="big" href="/#faq"><small class="num">05</small>FAQ</a>
+      <a class="big" href="/blog/"><small class="num">06</small>Blog</a>
+      <a class="big" href="/#contact"><small class="num">07</small>Contact</a>
+    </nav>
+    <div class="menu-foot">
+      <a href="mailto:elvir.kaqanolli11@gmail.com">elvir.kaqanolli11@gmail.com</a>
+      <span>Podujevo, Kosovo</span>
+    </div>
+  </div>
+
+  <main>
     {{ content }}
   </main>
 
-  <!-- Footer (same as portfolio) -->
-  <footer class="py-12 border-t border-white/5 text-center">
-    <p class="text-[10px] text-slate-400 font-mono uppercase tracking-[0.5em]">© 2026 ELVIR KAQANOLLI • STACK: PHP 8.3 / MYSQL / TAILWIND / AI</p>
+  <footer class="foot">
+    <div class="wrap">
+      <span>&copy; 2026 Elvir Kaqanolli. Podujevo, Kosovo.</span>
+      <span><a href="https://github.com/elvir-k" target="_blank" rel="noopener">GitHub</a> &nbsp;/&nbsp; <a href="https://www.linkedin.com/in/elvirkaqanolli/" target="_blank" rel="noopener">LinkedIn</a> &nbsp;/&nbsp; <a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">Back to top</a></span>
+    </div>
   </footer>
 
-  <!-- Defer Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com" defer></script>
-
-  <!-- Mobile menu script (same as portfolio) -->
-  <script>
-    const menuBtn = document.getElementById('mobileMenuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    if (menuBtn && mobileMenu) {
-      menuBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        mobileMenu.classList.toggle('open');
-      });
-      mobileMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => mobileMenu.classList.remove('open'));
-      });
-      document.addEventListener('click', (e) => {
-        if (!menuBtn.contains(e.target) && !mobileMenu.contains(e.target) && mobileMenu.classList.contains('open')) {
-          mobileMenu.classList.remove('open');
-        }
-      });
-    }
-
-    // Intersection observer for reveal animations (optional, can be removed if not needed on blog)
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal, .reveal-group').forEach(el => observer.observe(el));
-  </script>
+  <script src="/assets/js/site.js?v=3" defer></script>
 </body>
 </html>

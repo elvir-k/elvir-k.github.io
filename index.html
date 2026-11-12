@@ -1,373 +1,234 @@
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-<head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-RHDH01B11E"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+---
+layout: default
+title: Elvir Kaqanolli
+description: Elvir Kaqanolli is a PHP developer from Kosovo building web applications, e-commerce stores and AI-powered tools for businesses in the Balkans.
+---
 
-  gtag('config', 'G-RHDH01B11E');
-</script>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Elvir Kaqanolli // PHP & AI Engineer</title>
-  <!-- Meta Description for SEO -->
-  <meta name="description" content="Elvir Kaqanolli: PHP & AI Engineer specializing in bespoke backends, database optimization, AI integration, custom scripting, and technical SEO audits. High-performance web development." />
-  <meta name="robots" content="index, follow" />
-  
-  <!-- Preconnect to critical origins (already good) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin />
-  
-  <!-- Google Fonts with display=swap to avoid layout shift -->
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@300..600&display=swap" rel="stylesheet" />
-  
-  <!-- Fallback inline styles (critical CSS) – ensures basic layout before Tailwind loads -->
-  <style>
-    /* Critical styles – keeps text visible and prevents massive layout shift */
-    body { background-color: #030712; color: #f8fafc; overflow-x: hidden; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; margin: 0; }
-    .font-heading { font-family: 'Space Grotesk', system-ui, sans-serif; }
-    #loader { position: fixed; inset: 0; background: #030712; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.6s ease, visibility 0.6s; }
-    .loader-line { width: 240px; height: 2px; background: rgba(255,255,255,0.05); position: relative; overflow: hidden; border-radius: 4px; }
-    .loader-progress { position: absolute; left: 0; top: 0; height: 100%; background: #6366f1; width: 0%; transition: width 1.8s cubic-bezier(0.65, 0, 0.35, 1); }
-    .glass { background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
-    .gradient-text { background: linear-gradient(to right, #818cf8, #22d3ee, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200% auto; animation: shimmer 4s linear infinite; }
-    @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
-    .reveal { opacity: 0; transform: translateY(30px); transition: 1s all cubic-bezier(0.22, 1, 0.36, 1); }
-    .reveal.active { opacity: 1; transform: translateY(0); }
-    .reveal-group.active .reveal-item { opacity: 1; transform: translateY(0); }
-    .reveal-item { opacity: 0; transform: translateY(20px); transition: 0.8s all cubic-bezier(0.22, 1, 0.36, 1); }
-    details > summary { list-style: none; }
-    details > summary::-webkit-details-marker { display: none; }
-    .typed-cursor { display: inline-block; width: 4px; height: 1em; background-color: #818cf8; margin-left: 4px; vertical-align: middle; animation: blink 0.7s infinite; }
-    @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
-
-    /* Mobile menu – now using class-based toggle without forced reflow */
-    .mobile-menu {
-      max-height: 0;
-      opacity: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease;
-    }
-    .mobile-menu.open {
-      max-height: 300px; /* fixed max-height, no measurement needed */
-      opacity: 1;
-      margin-top: 1rem;
-    }
-
-    /* Marquee animation – continuous */
-    .marquee-container {
-      display: flex;
-      width: 200%;
-      animation: marquee 30s linear infinite;
-    }
-    @keyframes marquee {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-    .marquee-content {
-      display: flex;
-      justify-content: space-around;
-      width: 100%;
-    }
-  </style>
-  
-  <!-- Defer non-critical scripts -->
-  <script src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js" defer></script>
-  
-  <!-- Tailwind config (inline, small) -->
-  <script>
-    window.tailwind = window.tailwind || {};
-    window.tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { sans: ['Inter', 'sans-serif'], heading: ['Space Grotesk', 'sans-serif'] },
-          colors: { slate: { 950: '#030712' }, accent: { 500: '#6366f1', 400: '#818cf8' } }
-        }
-      }
-    }
-  </script>
-</head>
-<body class="selection:bg-indigo-500/30">
-
-  <div id="loader">
-    <div class="font-heading font-bold text-3xl tracking-tighter mb-4">Elvir<span class="text-accent-400"> K</span></div>
-    <div class="loader-line"><div class="loader-progress" id="progress"></div></div>
-    <div class="mt-4 font-mono text-[10px] text-slate-500 uppercase tracking-[0.4em]" id="loader-text">Initializing Backend...</div>
+<section class="hero wrap" id="top">
+  <div class="hero-meta">
+    <span>Name<b>Elvir Kaqanolli</b></span>
+    <span>Role<b>Full-stack PHP developer</b></span>
+    <span>Based in<b>Podujevo, Kosovo</b></span>
+    <span class="status">Status<b>Open to new projects</b></span>
   </div>
 
-  <!-- ========== NAVBAR (Enhanced Mobile) ========== -->
-  <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-4xl">
-    <div class="glass px-6 py-3 rounded-2xl flex flex-wrap items-center justify-between shadow-2xl relative">
-      <a href="#" class="font-heading font-bold text-xl tracking-tighter">Elvir<span class="text-accent-400"> K</span></a>
-      
-      <!-- Desktop navigation (hidden on mobile) -->
-      <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400">
-        <a href="#services" class="hover:text-white transition-colors">Services</a>
-        <a href="#projects" class="hover:text-white transition-colors">Work</a>
-        <a href="#stack" class="hover:text-white transition-colors">Stack</a>
-        <a href="#scripts-seo" class="hover:text-white transition-colors">Scripts/SEO</a>
-        <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
-        <a href="/blog/" class="hover:text-white transition-colors">Blog</a>
-      </div>
+  <h1 aria-label="I build e-commerce, web apps, AI tools and backends in PHP.">
+    <span class="line" style="--i:0"><span>I build</span></span>
+    <span class="line" style="--i:1"><span><span class="ticker" aria-hidden="true"><span class="ticker-track"><span>e-commerce.</span><span>web apps.</span><span>AI tools.</span><span>backends.</span></span></span></span></span>
+    <span class="line" style="--i:2"><span>In PHP.</span></span>
+  </h1>
 
-      <!-- Right side: CTA + mobile hamburger -->
-      <div class="flex items-center gap-3">
-        <a href="#contact" class="bg-white text-black px-4 py-2 rounded-xl text-xs font-bold hover:bg-accent-400 transition-all whitespace-nowrap">LET'S TALK</a>
-        
-        <!-- Mobile menu button (hamburger) -->
-        <button id="mobileMenuBtn" aria-label="Toggle navigation menu" class="md:hidden w-10 h-10 flex items-center justify-center rounded-xl glass hover:bg-white/10 transition-all">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
-        </button>
-      </div>
-
-      <!-- Mobile menu dropdown – uses class-based toggle (no forced reflow) -->
-      <div id="mobileMenu" class="mobile-menu w-full md:hidden flex flex-col glass rounded-xl px-4 text-slate-400 font-medium">
-        <a href="#services" class="py-3 border-b border-white/5 hover:text-white transition-colors">Services</a>
-        <a href="#projects" class="py-3 border-b border-white/5 hover:text-white transition-colors">Work</a>
-        <a href="#stack" class="py-3 border-b border-white/5 hover:text-white transition-colors">Stack</a>
-        <a href="#scripts-seo" class="py-3 border-b border-white/5 hover:text-white transition-colors">Scripts/SEO</a>
-        <a href="#faq" class="py-3 hover:text-white transition-colors">FAQ</a>
-        <a href="/blog/" class="py-3 hover:text-white transition-colors">Blog</a>
-      </div>
+  <div class="hero-foot">
+    <p>Web applications, online stores and AI-powered tools for businesses in Kosovo and across the Balkans.</p>
+    <div class="hero-cta">
+      <a class="btn" href="#work">View work <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+      <a class="btn ghost" href="/resume.pdf" target="_blank" rel="noopener">Download resume <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
     </div>
-  </nav>
+  </div>
+</section>
 
-  <!-- Header with fixed line-height to avoid letter clipping (descenders fully visible) -->
-  <header class="relative min-h-screen flex items-center justify-center pt-20">
-    <div class="absolute inset-0 z-0">
-      <div class="absolute top-[10%] left-[10%] w-96 h-96 bg-indigo-600/10 blur-[120px] rounded-full animate-float"></div>
-      <div class="absolute bottom-[10%] right-[10%] w-96 h-96 bg-cyan-600/5 blur-[120px] rounded-full animate-float" style="animation-delay: -3s"></div>
-    </div>
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track"><span>PHP</span><span>MySQL</span><span>JavaScript</span><span>Tailwind CSS</span><span>REST APIs</span><span>OpenAI API</span><span>Linux</span><span>Bash</span><span>Cloudflare</span><span>Mailjet</span><span>OneSignal</span></div>
+</div>
 
-    <div class="relative z-10 text-center px-4 reveal-group active">
-      <h1 class="reveal-item font-heading text-6xl md:text-9xl font-bold tracking-tighter mb-6 leading-[1.2]">
-        Modern <br />
-        <span class="gradient-text inline-flex items-center">
-          <span id="typed-word"></span>
-          <span class="typed-cursor"></span>
-        </span>
-      </h1>
-      <p class="reveal-item max-w-2xl mx-auto text-slate-400 text-lg md:text-xl mb-10 leading-relaxed">
-        Bespoke PHP development fueled by AI-acceleration. High-performance backends meet surgical frontend precision.
-      </p>
-      <div class="reveal-item flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="#projects" class="bg-indigo-600 hover:bg-indigo-500 px-8 py-4 rounded-2xl font-bold transition-all shadow-xl shadow-indigo-500/20">View My Work</a>
-        <a href="#contact" class="glass px-8 py-4 rounded-2xl font-bold hover:bg-white/5 transition-all">Start a Project</a>
-      </div>
-    </div>
+<section class="sec wrap" id="services">
+  <header class="sec-head">
+    <span class="folio num">01</span>
+    <h2>Services</h2>
+    <p>What I build and run, from the database up to the inbox.</p>
   </header>
+  <div class="services" data-stagger>
+    <article class="service" data-up>
+      <span class="n num">01</span>
+      <h3>Web applications &amp; backends</h3>
+      <p>Custom PHP and MySQL applications: booking systems, dashboards, internal tools and the APIs behind them.</p>
+      <ul><li>PHP 8 &amp; MySQL</li><li>REST API development</li><li>Admin panels &amp; custom CMS</li></ul>
+    </article>
+    <article class="service" data-up>
+      <span class="n num">02</span>
+      <h3>E-commerce</h3>
+      <p>Online stores built for the Balkan market, connected to local couriers and suppliers so orders move without manual work.</p>
+      <ul><li>Catalog, cart &amp; checkout</li><li>Courier &amp; supplier integrations</li><li>Albanian &amp; English storefronts</li></ul>
+    </article>
+    <article class="service" data-up>
+      <span class="n num">03</span>
+      <h3>AI integrations</h3>
+      <p>LLM features built into existing platforms, such as generated content and automated customer replies.</p>
+      <ul><li>OpenAI API</li><li>Automation workflows</li><li>AI agents for support</li></ul>
+    </article>
+    <article class="service" data-up>
+      <span class="n num">04</span>
+      <h3>Servers &amp; scripting</h3>
+      <p>Linux server setup, security and the scripts that keep things running: cron jobs, data migrations and webhooks.</p>
+      <ul><li>Linux, Apache &amp; VPS</li><li>iptables &amp; Cloudflare</li><li>Bash &amp; Python scripts</li></ul>
+    </article>
+    <article class="service" data-up>
+      <span class="n num">05</span>
+      <h3>Email &amp; push marketing</h3>
+      <p>Sending infrastructure, domain warm-up and campaigns that bring customers back, for B2C and B2B.</p>
+      <ul><li>Mailjet &amp; OneSignal</li><li>Deliverability setup</li><li>Campaign planning</li></ul>
+    </article>
+    <article class="service" data-up>
+      <span class="n num">06</span>
+      <h3>Technical SEO</h3>
+      <p>Audits that look past keywords at what search engines actually see: structure, speed and crawlability.</p>
+      <ul><li>Structured data</li><li>Core Web Vitals</li><li>Site structure &amp; meta</li></ul>
+    </article>
+  </div>
+</section>
 
-  <!-- Marquee – continuous animation -->
-  <div class="py-10 border-y border-white/5 bg-slate-950/30 overflow-hidden">
-    <div class="marquee-container">
-      <div class="marquee-content font-mono text-[10px] text-slate-300 flex items-center gap-12 uppercase tracking-[0.3em]">
-        <span>PHP 8.3 CORE</span> <span>•</span> <span>MySQL Optimization</span> <span>•</span> <span>Tailwind CSS</span> <span>•</span> 
-        <span>RESTful API Architecture</span> <span>•</span> <span>Secure Auth</span> <span>•</span> <span>AI-Assisted Workflow</span> <span>•</span>
+<section class="sec wrap" id="work">
+  <header class="sec-head">
+    <span class="folio num">02</span>
+    <h2>Selected work</h2>
+    <p>Live stores, platforms and tools. Hover a row to preview it.</p>
+  </header>
+  <ul class="rows">
+    <li><a class="row" href="https://ebleva.com" target="_blank" rel="noopener" data-name="eBleva" data-shot="/images/ebleva.webp">
+      <div class="row-main"><span class="n num">01</span><h3>eBleva</h3></div>
+      <div class="row-type">E-commerce platform with supplier and courier integrations</div>
+      <div class="row-end"><span class="stack">PHP / MySQL / APIs</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
+      <div class="row-shot"><img src="/images/ebleva.webp" alt="eBleva online store homepage" loading="lazy" width="1200" height="750"></div>
+    </a></li>
+    <li><a class="row" href="https://chilia4kids.com" target="_blank" rel="noopener" data-name="Chilia4Kids">
+      <div class="row-main"><span class="n num">02</span><h3>Chilia4Kids</h3></div>
+      <div class="row-type">Bilingual children's fashion store</div>
+      <div class="row-end"><span class="stack">PHP / MySQL</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
+    </a></li>
+    <li><a class="row" href="https://bigmallcenter.com" target="_blank" rel="noopener" data-name="Big Mall Center" data-shot="/images/bigmallcenter.webp">
+      <div class="row-main"><span class="n num">03</span><h3>Big Mall Center</h3></div>
+      <div class="row-type">Children's products store for Kosovo, Albania and North Macedonia</div>
+      <div class="row-end"><span class="stack">PHP / MySQL</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
+      <div class="row-shot"><img src="/images/bigmallcenter.webp" alt="Big Mall Center homepage" loading="lazy" width="1200" height="750"></div>
+    </a></li>
+    <li><a class="row" href="https://ambrenoir.net" target="_blank" rel="noopener" data-name="Ambre Noir" data-shot="/images/ambrenoir.webp">
+      <div class="row-main"><span class="n num">04</span><h3>Ambre Noir</h3></div>
+      <div class="row-type">Perfume store with collections, cart and discount codes</div>
+      <div class="row-end"><span class="stack">PHP / Tailwind</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
+      <div class="row-shot"><img src="/images/ambrenoir.webp" alt="Ambre Noir perfume store homepage" loading="lazy" width="1200" height="750"></div>
+    </a></li>
+    <li><div class="row" data-name="Auction House" data-shot="/images/auctionhouse.webp">
+      <div class="row-main"><span class="n num">05</span><h3>Auction House</h3></div>
+      <div class="row-type">Online auction platform with live bidding</div>
+      <div class="row-end"><span class="stack">PHP / Dashboard</span></div>
+      <div class="row-shot"><img src="/images/auctionhouse.webp" alt="Auction House platform homepage" loading="lazy" width="1200" height="596"></div>
+    </div></li>
+    <li><a class="row" href="https://idltrading.com" target="_blank" rel="noopener" data-name="IDL Capital" data-shot="/images/idlcapital.webp">
+      <div class="row-main"><span class="n num">06</span><h3>IDL Capital</h3></div>
+      <div class="row-type">Landing page and SEO blog for a trading community</div>
+      <div class="row-end"><span class="stack">Web / SEO</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
+      <div class="row-shot"><img src="/images/idlcapital.webp" alt="IDL Capital homepage" loading="lazy" width="1200" height="750"></div>
+    </a></li>
+    <li><a class="row" href="https://qkllup.com" target="_blank" rel="noopener" data-name="qkllup" data-shot="/images/qkllup.webp">
+      <div class="row-main"><span class="n num">07</span><h3>qkllup</h3></div>
+      <div class="row-type">Bilingual website for a digital agency in Prishtina</div>
+      <div class="row-end"><span class="stack">PHP / SEO</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
+      <div class="row-shot"><img src="/images/qkllup.webp" alt="qkllup agency homepage" loading="lazy" width="1200" height="750"></div>
+    </a></li>
+    <li><div class="row" data-name="Matrix Gaming Center">
+      <div class="row-main"><span class="n num">08</span><h3>Matrix Gaming Center</h3></div>
+      <div class="row-type">Business management system: shifts, staff, sales, stock and reports</div>
+      <div class="row-end"><span class="stack">PHP / MySQL</span><em>Internal tool</em></div>
+    </div></li>
+    <li><div class="row" data-name="TitanHost.al">
+      <div class="row-main"><span class="n num">09</span><h3>TitanHost.al</h3></div>
+      <div class="row-type">Game server and VPS hosting platform with a customer control panel</div>
+      <div class="row-end"><span class="stack">Linux / Networking</span><em class="num">2021 to 2023</em></div>
+    </div></li>
+    <li><a class="row" href="https://github.com/elvir-k/lamp-ubuntu" target="_blank" rel="noopener" data-name="LAMP Stack Installer">
+      <div class="row-main"><span class="n num">10</span><h3>LAMP Stack Installer</h3></div>
+      <div class="row-type">Open-source script that sets up Apache, MySQL and PHP on Ubuntu</div>
+      <div class="row-end"><span class="stack">Bash / GitHub</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
+    </a></li>
+    <li><a class="row" href="https://github.com/elvir-k/webserver-simple-security" target="_blank" rel="noopener" data-name="Webserver Simple Security">
+      <div class="row-main"><span class="n num">11</span><h3>Webserver Simple Security</h3></div>
+      <div class="row-type">Open-source script that limits a web server to Cloudflare traffic</div>
+      <div class="row-end"><span class="stack">Bash / iptables</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
+    </a></li>
+  </ul>
+</section>
+<div class="peek" aria-hidden="true"><div class="peek-name"></div></div>
+
+<section class="sec wrap" id="about">
+  <header class="sec-head">
+    <span class="folio num">03</span>
+    <h2>About</h2>
+    <p>Developer and marketer, working in Albanian and English.</p>
+  </header>
+  <div class="about">
+    <div class="portrait">
+      <figure><img src="/images/elvir.webp" alt="Portrait of Elvir Kaqanolli" width="800" height="960" loading="lazy"></figure>
+          </div>
+    <div class="about-text" data-stagger>
+      <p class="lead" data-up>I'm a PHP developer who builds web applications and brings AI into products that businesses use every day.</p>
+      <p data-up>Most of my work is on the backend: databases, APIs, integrations and automation that removes repetitive work. I started in 2021 by founding TitanHost, a game server hosting company, and I've been building for clients since.</p>
+      <p data-up>Alongside development I run email marketing and push notifications for VIA eSIM and Ofertoj.com, so I see both how a product is built and how it reaches people.</p>
+    </div>
+    <dl class="facts" data-up>
+      <div><dt>Location</dt><dd>Podujevo, Kosovo</dd></div>
+      <div><dt>Languages</dt><dd>Albanian, English, German (elementary)</dd></div>
+      <div><dt>Education</dt><dd>Bachelor of Laws, University of Prishtina (in progress)</dd></div>
+      <div><dt>Certifications</dt><dd>AI Foundations (OpenAI); Claude 101, Claude Code 101, Claude Platform 101 (Anthropic)</dd></div>
+    </dl>
+  </div>
+  <div class="stats">
+    <div class="stat"><b class="num"><span data-count="5">5</span><sup>+</sup></b><span>years building for the web, since 2021</span></div>
+    <div class="stat"><b class="num"><span data-count="11">11</span></b><span>projects in the index above</span></div>
+    <div class="stat"><b class="num"><span data-count="3">3</span></b><span>languages spoken</span></div>
+    <div class="stat"><b class="num"><span data-count="4">4</span></b><span>AI certifications from OpenAI and Anthropic</span></div>
+  </div>
+</section>
+
+<section class="sec wrap" id="experience">
+  <header class="sec-head">
+    <span class="folio num">04</span>
+    <h2>Experience</h2>
+    <p>Roles marked with a square are current.</p>
+  </header>
+  <ol class="xp" data-stagger>
+    <li data-up><span class="when num"><i class="now"></i>Sep 2026 to now</span><span class="role">Email Marketing Manager<small>Email and push campaigns, B2B outreach, influencer collaborations and the affiliate program.</small></span><span class="org">VIA eSIM</span></li>
+    <li data-up><span class="when num"><i class="now"></i>Sep 2026 to now</span><span class="role">Email Marketing Manager<small>Sending infrastructure, domain warm-up and Albanian-language campaigns for an online auction platform.</small></span><span class="org">Ofertoj.com</span></li>
+    <li data-up><span class="when num"><i class="now"></i>May 2026 to now</span><span class="role">Customer Service Specialist<small>eSIM installation, activation and connectivity troubleshooting for travelers.</small></span><span class="org">VIA eSIM</span></li>
+    <li data-up><span class="when num"><i class="now"></i>Jan 2026 to now</span><span class="role">Web Developer<small>Websites and e-commerce stores for agency clients, plus hosting and maintenance.</small></span><span class="org">Qkllup Agency</span></li>
+    <li data-up><span class="when num"><i class="now"></i>Jan 2021 to now</span><span class="role">Full Stack Engineer<small>E-commerce platforms, booking and management systems, and AI features for clients.</small></span><span class="org">Self-employed</span></li>
+    <li data-up><span class="when num">Jun 2023 to Sep 2026</span><span class="role">General Manager<small>Operations, finances and technical fixes. Built the center's business management system.</small></span><span class="org">Matrix Gaming Center</span></li>
+    <li data-up><span class="when num">Jan 2021 to Dec 2023</span><span class="role">Founder<small>Counter-Strike game servers and VPS hosting, from server setup to sales and support.</small></span><span class="org">TitanHost.al</span></li>
+  </ol>
+</section>
+
+<section class="sec wrap" id="faq">
+  <header class="sec-head">
+    <span class="folio num">05</span>
+    <h2>FAQ</h2>
+    <p>Three questions clients ask first.</p>
+  </header>
+  <div class="faq">
+    <div class="faq-list">
+      <div class="faq-item open">
+        <button class="faq-q" aria-expanded="true">Why PHP instead of Node.js?<i aria-hidden="true"></i></button>
+        <div class="faq-a"><div><p>Modern PHP 8 is fast, cheap to host and has mature libraries for business logic and databases. For e-commerce and data-heavy business apps it is often the most reliable choice and the easiest to deploy.</p></div></div>
       </div>
-      <div class="marquee-content font-mono text-[10px] text-slate-300 flex items-center gap-12 uppercase tracking-[0.3em]">
-        <span>PHP 8.3 CORE</span> <span>•</span> <span>MySQL Optimization</span> <span>•</span> <span>Tailwind CSS</span> <span>•</span> 
-        <span>RESTful API Architecture</span> <span>•</span> <span>Secure Auth</span> <span>•</span> <span>AI-Assisted Workflow</span> <span>•</span>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How does AI factor into your development?<i aria-hidden="true"></i></button>
+        <div class="faq-a"><div><p>In two ways. I use AI tools for tests, boilerplate and refactoring, so more of my time goes to architecture and logic. I also build AI features into products, such as generated content and automated support replies.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Do you work with existing MySQL databases?<i aria-hidden="true"></i></button>
+        <div class="faq-a"><div><p>Yes. I take slow or legacy databases and improve them through indexing, normalization and query refactoring, without data loss.</p></div></div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- Services, Projects, Stack, Scripts/SEO, FAQ sections (unchanged, just included for completeness) -->
-  <section id="services" class="py-32 px-4 max-w-7xl mx-auto">
-    <div class="text-left mb-16 reveal">
-      <span class="text-indigo-400 font-mono text-xs uppercase tracking-widest">[ Capabilities ]</span>
-      <h2 class="font-heading text-4xl md:text-5xl font-bold mt-4">The Custom <span class="text-slate-500 italic">Built</span> Edge.</h2>
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="folio-line"><span class="num">06</span><span>Contact</span></div>
+    <a class="talk" href="mailto:elvir.kaqanolli11@gmail.com">Let's talk.</a>
+    <div class="contact-grid">
+      <a href="mailto:elvir.kaqanolli11@gmail.com"><small>Email</small><b>elvir.kaqanolli11@gmail.com</b></a>
+      <a href="https://github.com/elvir-k" target="_blank" rel="noopener"><small>GitHub</small><b>github.com/elvir-k</b></a>
+      <a href="https://www.linkedin.com/in/elvirkaqanolli/" target="_blank" rel="noopener"><small>LinkedIn</small><b>linkedin.com/in/elvirkaqanolli</b></a>
+      <a href="/resume.pdf" target="_blank" rel="noopener"><small>Resume</small><b>Download PDF</b></a>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal-group reveal">
-      <div class="reveal-item glass p-10 rounded-[2.5rem] glass-hover">
-        <h3 class="text-xl font-bold mb-4">Enterprise Backends</h3>
-        <p class="text-slate-400 text-sm leading-relaxed mb-6">Scalable PHP engines built for heavy traffic. Custom routing, multi-tenant databases, and sub-second execution.</p>
-        <ul class="text-[11px] font-mono text-indigo-300 space-y-2"><li>+ MVC ARCHITECTURE</li><li>+ API DEVELOPMENT</li><li>+ CUSTOM CMS</li></ul>
-      </div>
-      <div class="reveal-item glass p-10 rounded-[2.5rem] glass-hover">
-        <h3 class="text-xl font-bold mb-4">Database Mastery</h3>
-        <p class="text-slate-400 text-sm leading-relaxed mb-6">Optimized MySQL schemas and complex query tuning. I handle millions of rows without breaking a sweat.</p>
-        <ul class="text-[11px] font-mono text-cyan-300 space-y-2"><li>+ DATA NORMALIZATION</li><li>+ QUERY OPTIMIZATION</li><li>+ SECURE BACKUPS</li></ul>
-      </div>
-      <div class="reveal-item glass p-10 rounded-[2.5rem] glass-hover">
-        <h3 class="text-xl font-bold mb-4">AI Integration</h3>
-        <p class="text-slate-400 text-sm leading-relaxed mb-6">Integrating LLM capabilities directly into your web applications for automated content or data processing.</p>
-        <ul class="text-[11px] font-mono text-purple-300 space-y-2"><li>+ LLM API HOOKS</li><li>+ AUTOMATED WORKFLOWS</li><li>+ AI AGENT LOGIC</li></ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="py-32 bg-slate-950/50">
-    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-      <div class="reveal">
-        <h2 class="font-heading text-4xl font-bold mb-8">Modern PHP is <span class="gradient-text">Fast</span>.</h2>
-        <p class="text-slate-400 mb-6 text-lg leading-relaxed">While others chase the latest hype, I leverage the stability and speed of modern PHP 8.x. It powers 77% of the web for a reason—it's battle-tested and lightning-fast when engineered correctly.</p>
-        <div class="space-y-4"><div class="flex items-start gap-4"><div class="w-6 h-6 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400 mt-1">✓</div><div><span class="font-bold text-white">Native Speed:</span> PHP 8's JIT compiler rivals traditional compiled languages.</div></div><div class="flex items-start gap-4"><div class="w-6 h-6 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400 mt-1">✓</div><div><span class="font-bold text-white">Cost Effective:</span> Deployment is simpler, cheaper, and more reliable.</div></div></div>
-      </div>
-      <div class="reveal relative">
-        <div class="glass p-8 rounded-3xl font-mono text-sm text-indigo-300 relative z-10 overflow-hidden">
-          <div class="flex gap-2 mb-4"><div class="w-3 h-3 rounded-full bg-red-500/50"></div><div class="w-3 h-3 rounded-full bg-yellow-500/50"></div><div class="w-3 h-3 rounded-full bg-green-500/50"></div></div>
-          <p class="text-slate-500 mb-2">// Optimizing query for Website...</p>
-          <p><span class="text-purple-400">SELECT</span> * <span class="text-purple-400">FROM</span> products</p>
-          <p><span class="text-purple-400">JOIN</span> vendors <span class="text-purple-400">ON</span> vendors.id = products.v_id</p>
-          <p><span class="text-purple-400">WHERE</span> status = <span class="text-green-400">'active'</span></p>
-          <p><span class="text-purple-400">ORDER BY</span> created_at <span class="text-purple-400">DESC</span>;</p>
-          <p class="mt-4 text-emerald-400">// Result: 0.0004s execution time</p>
-        </div>
-        <div class="absolute -inset-4 bg-indigo-500/20 blur-3xl -z-10 rounded-full"></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="projects" class="py-32 px-4 max-w-7xl mx-auto">
-    <div class="flex flex-col md:flex-row justify-between mb-16 reveal gap-4"><h2 class="font-heading text-4xl font-bold">Last 3 Deployments</h2></div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal-group reveal">
-      <div class="reveal-item group cursor-pointer"><div class="glass rounded-[2rem] p-4 group-hover:bg-slate-900/50 transition-all border border-transparent group-hover:border-indigo-500/30"><div class="aspect-video bg-slate-900 rounded-2xl mb-6 flex items-center justify-center font-bold text-slate-800 text-4xl"><img class="w-full h-full rounded-2xl" src="https://raw.githubusercontent.com/elvir-k/elvir-k.github.io/refs/heads/main/images/bigmallcenter.webp" alt="BigMall Center"></div><h3 class="font-bold text-xl mb-2">BigMall Center</h3><p class="text-slate-500 text-sm mb-6">An online baby shop offering clothing, toys, and everyday essentials for newborns and toddlers.</p><div class="flex gap-2"><span class="bg-indigo-500/10 text-indigo-400 text-[10px] px-3 py-1 rounded-full font-mono">PHP-CORE</span><span class="bg-cyan-500/10 text-cyan-400 text-[10px] px-3 py-1 rounded-full font-mono">SQL-MAX</span></div></div></div>
-      <div class="reveal-item group cursor-pointer"><div class="glass rounded-[2rem] p-4 group-hover:bg-slate-900/50 transition-all border border-transparent group-hover:border-cyan-500/30"><div class="aspect-video bg-slate-900 rounded-2xl mb-6 flex items-center justify-center font-bold text-slate-800 text-4xl"><img class="w-full h-full rounded-2xl" src="https://raw.githubusercontent.com/elvir-k/elvir-k.github.io/refs/heads/main/images/ambrenoir.webp" alt="Ambre Noir"></div><h3 class="font-bold text-xl mb-2">Ambre Noir</h3><p class="text-slate-500 text-sm mb-6">A fragrance e-commerce store where you can explore and shop perfumes for men and women from top brands.</p><div class="flex gap-2"><span class="bg-cyan-500/10 text-cyan-400 text-[10px] px-3 py-1 rounded-full font-mono">PHP</span><span class="bg-purple-500/10 text-purple-400 text-[10px] px-3 py-1 rounded-full font-mono">TailwindCSS</span></div></div></div>
-      <div class="reveal-item group cursor-pointer"><div class="glass rounded-[2rem] p-4 group-hover:bg-slate-900/50 transition-all border border-transparent group-hover:border-purple-500/30"><div class="aspect-video bg-slate-900 rounded-2xl mb-6 flex items-center justify-center font-bold text-slate-800 text-4xl"><img class="w-full h-full rounded-2xl" src="https://raw.githubusercontent.com/elvir-k/elvir-k.github.io/refs/heads/main/images/auctionhouse.webp" alt="Auction House"></div><h3 class="font-bold text-xl mb-2">Auction House</h3><p class="text-slate-500 text-sm mb-6">An online auction platform where users can bid on a variety of products and discover great deals in real time.</p><div class="flex gap-2"><span class="bg-purple-500/10 text-purple-400 text-[10px] px-3 py-1 rounded-full font-mono">PHP</span><span class="bg-indigo-500/10 text-indigo-400 text-[10px] px-3 py-1 rounded-full font-mono">Dashboard</span></div></div></div>
-    </div>
-  </section>
-
-  <section id="stack" class="py-32 px-4 max-w-7xl mx-auto">
-    <div class="text-left mb-16 reveal"><span class="text-indigo-400 font-mono text-xs uppercase tracking-widest">[ Core Toolchain ]</span><h2 class="font-heading text-4xl md:text-5xl font-bold mt-4">Precision <span class="text-slate-500 italic">stack</span> for every layer.</h2><p class="text-slate-400 mt-4 max-w-2xl">Modern PHP, optimized databases, and AI-assisted workflows — these are the tools I use to ship fast, reliable systems.</p></div>
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 reveal-group">
-      <div class="reveal-item glass p-5 rounded-2xl text-center font-medium hover:border-indigo-500/50 transition-all">PHP 8.3 / 8.4</div>
-      <div class="reveal-item glass p-5 rounded-2xl text-center font-medium hover:border-indigo-500/50 transition-all">MySQL / MariaDB</div>
-      <div class="reveal-item glass p-5 rounded-2xl text-center font-medium hover:border-indigo-500/50 transition-all">Python / Bash</div>
-      <div class="reveal-item glass p-5 rounded-2xl text-center font-medium hover:border-indigo-500/50 transition-all">Tailwind / Alpine</div>
-      <div class="reveal-item glass p-5 rounded-2xl text-center font-medium hover:border-indigo-500/50 transition-all">REST / GraphQL</div>
-      <div class="reveal-item glass p-5 rounded-2xl text-center font-medium hover:border-indigo-500/50 transition-all">AI SDKs (OpenAI, etc)</div>
-      <div class="reveal-item glass p-5 rounded-2xl text-center font-medium hover:border-indigo-500/50 transition-all">Docker / Forge</div>
-      <div class="reveal-item glass p-5 rounded-2xl text-center font-medium hover:border-indigo-500/50 transition-all">Git / CI/CD</div>
-    </div>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12 reveal-group">
-      <div class="reveal-item text-center"><div class="text-4xl font-heading font-bold gradient-text">7+</div><div class="text-xs text-slate-500 uppercase tracking-wider mt-2">Years PHP depth</div></div>
-      <div class="reveal-item text-center"><div class="text-4xl font-heading font-bold gradient-text">50+</div><div class="text-xs text-slate-500 uppercase tracking-wider mt-2">Projects shipped</div></div>
-      <div class="reveal-item text-center"><div class="text-4xl font-heading font-bold gradient-text">0.2s</div><div class="text-xs text-slate-500 uppercase tracking-wider mt-2">Avg query time</div></div>
-      <div class="reveal-item text-center"><div class="text-4xl font-heading font-bold gradient-text">24/7</div><div class="text-xs text-slate-500 uppercase tracking-wider mt-2">AI assistance</div></div>
-    </div>
-  </section>
-
-  <section id="scripts-seo" class="py-32 px-4 max-w-7xl mx-auto bg-slate-950/30">
-    <div class="text-left mb-16 reveal"><span class="text-indigo-400 font-mono text-xs uppercase tracking-widest">[ Specialized Services ]</span><h2 class="font-heading text-4xl md:text-5xl font-bold mt-4">Custom Scripting <span class="text-slate-500 italic">&</span> SEO Audits.</h2><p class="text-slate-400 mt-4 max-w-2xl">Beyond full‑stack development: bespoke automation scripts and deep technical SEO analysis to make your site faster, smarter, and visible.</p></div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 reveal-group">
-      <div class="reveal-item glass p-10 rounded-[2.5rem] glass-hover h-full flex flex-col"><div class="text-5xl mb-6">⚙️</div><h3 class="text-2xl font-bold mb-4">Bespoke Scripting</h3><p class="text-slate-400 text-sm leading-relaxed mb-6">Tailored PHP scripts, cron jobs, and CLI tools to automate your workflows, migrate legacy data, or integrate third‑party APIs seamlessly.</p><ul class="text-[11px] font-mono text-indigo-300 space-y-2 mt-auto"><li>+ ETL PIPELINES & DATA PARSING</li><li>+ PYTHON / BATCH SCRIPTING</li><li>+ WEBHOOK HANDLERS & API PROXIES</li></ul></div>
-      <div class="reveal-item glass p-10 rounded-[2.5rem] glass-hover h-full flex flex-col"><div class="text-5xl mb-6">🔍</div><h3 class="text-2xl font-bold mb-4">Technical SEO Audits</h3><p class="text-slate-400 text-sm leading-relaxed mb-6">I look beyond keywords – analyze site structure, meta tags, schema, page speed, and crawlability to boost your organic rankings.</p><ul class="text-[11px] font-mono text-cyan-300 space-y-2 mt-auto"><li>+ STRUCTURED DATA (SCHEMA.ORG)</li><li>+ CORE WEB VITALS OPTIMIZATION</li><li>+ LOG FILE ANALYSIS & CRAWL BUDGET</li></ul></div>
-    </div>
-    <div class="mt-12 text-center reveal"><p class="text-slate-500 text-sm max-w-2xl mx-auto italic">“Scripting and SEO are force multipliers. I automate the boring and fix what search engines actually see.”</p></div>
-  </section>
-
-  <section id="faq" class="py-32 px-4 max-w-4xl mx-auto reveal">
-    <div class="text-center mb-16"><h2 class="font-heading text-4xl font-bold">Frequently Asked</h2></div>
-    <div class="space-y-4">
-      <details class="group glass p-6 rounded-2xl"><summary class="flex justify-between items-center cursor-pointer font-bold">Why use PHP instead of Node.js?<span class="text-indigo-400 group-open:rotate-180 transition-transform">↓</span></summary><p class="text-slate-400 mt-4 text-sm leading-relaxed">Modern PHP (8.3) is exceptionally fast and has more mature libraries for stable business logic and database management. For enterprise CRUD apps and e-commerce, it's often the superior choice for reliability and deployment ease.</p></details>
-      <details class="group glass p-6 rounded-2xl"><summary class="flex justify-between items-center cursor-pointer font-bold">How does AI factor into your development?<span class="text-indigo-400 group-open:rotate-180 transition-transform">↓</span></summary><p class="text-slate-400 mt-4 text-sm leading-relaxed">I use AI to handle the "grunt work"—unit testing, boilerplate generation, and initial refactoring. This allows me to focus 100% on the architecture and high-level logic, delivering weeks of work in days.</p></details>
-      <details class="group glass p-6 rounded-2xl"><summary class="flex justify-between items-center cursor-pointer font-bold">Do you work with existing MySQL databases?<span class="text-indigo-400 group-open:rotate-180 transition-transform">↓</span></summary><p class="text-slate-400 mt-4 text-sm leading-relaxed">Yes. I specialize in taking legacy, slow databases and optimizing them via indexing, normalization, and query refactoring without data loss.</p></details>
-    </div>
-  </section>
-
-  <!-- CONTACT SECTION – static info (no form) -->
-  <section id="contact" class="py-32 px-4">
-    <div class="max-w-5xl mx-auto glass p-8 md:p-16 rounded-[3rem] reveal relative overflow-hidden">
-        <div class="absolute top-0 right-0 p-10 opacity-10">
-            <svg class="w-40 h-40" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-        </div>
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 relative z-10">
-            <div>
-                <h2 class="font-heading text-5xl font-bold mb-6 italic">Let's <span class="gradient-text">Build</span>.</h2>
-                <p class="text-slate-400 mb-8">Ready to transition from idea to deployment? Reach out directly – I typically respond within 24 hours.</p>
-                <div class="space-y-4 font-mono text-sm">
-                    <p class="flex items-center gap-3"><span class="text-indigo-400 text-lg">✉️</span> <a href="mailto:contact@elvir.al" class="hover:text-indigo-400 transition">elvir.kaqanolli11@gmail.com</a></p>
-                    <p class="flex items-center gap-3"><span class="text-indigo-400 text-lg">⌨️</span> <a href="https://github.com/elvir-k" target="_blank" class="hover:text-indigo-400 transition">github.com/elvir-k</a></p>
-                    <p class="flex items-center gap-3"><span class="text-indigo-400 text-lg">🔗</span> <a href="#" class="hover:text-indigo-400 transition">linkedin.com/in/elvirkaqanolli</a></p>
-                </div>
-            </div>
-            <div class="flex flex-col items-center justify-center">
-            </div>
-        </div>
-    </div>
-  </section>
-
-
-  <!-- Footer -->
-  <footer class="py-12 border-t border-white/5 text-center">
-    <p class="text-[10px] text-slate-400 font-mono uppercase tracking-[0.5em]">© 2026 ELVIR KAQANOLLI • STACK: PHP 8.3 / MYSQL / TAILWIND / AI</p>
-  </footer>
-
-  <!-- Defer Tailwind CSS (render-blocking removed) -->
-  <script src="https://cdn.tailwindcss.com" defer></script>
-
-  <script>
-    // Loader
-    window.addEventListener('load', () => {
-      const progress = document.getElementById('progress');
-      const loaderText = document.getElementById('loader-text');
-      const loader = document.getElementById('loader');
-      progress.style.width = '100%';
-      setTimeout(() => { loaderText.innerText = 'Analyzing SQL Schemas...'; }, 600);
-      setTimeout(() => { loaderText.innerText = 'Optimizing UI Assets...'; }, 1200);
-      setTimeout(() => {
-        loader.style.opacity = '0';
-        loader.style.visibility = 'hidden';
-      }, 1900);
-    });
-
-    // Intersection observer for reveals
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal, .reveal-group').forEach(el => observer.observe(el));
-
-    // Mobile menu toggle – using classList, no forced reflow
-    const menuBtn = document.getElementById('mobileMenuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    menuBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      mobileMenu.classList.toggle('open');
-    });
-    mobileMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => mobileMenu.classList.remove('open'));
-    });
-    document.addEventListener('click', (e) => {
-      if (!menuBtn.contains(e.target) && !mobileMenu.contains(e.target) && mobileMenu.classList.contains('open')) {
-        mobileMenu.classList.remove('open');
-      }
-    });
-
-    // Typing effect
-    const words = ["Engineering", "Backends", "APIs", "Solutions", "Performance"];
-    const typedWordSpan = document.getElementById('typed-word');
-    let wordIndex = 0, charIndex = 0, isDeleting = false;
-    const typingDelay = 150, eraseDelay = 80, newWordDelay = 2000;
-    function typeEffect() {
-      const currentWord = words[wordIndex];
-      if (isDeleting) {
-        typedWordSpan.textContent = currentWord.substring(0, charIndex - 1);
-        charIndex--;
-      } else {
-        typedWordSpan.textContent = currentWord.substring(0, charIndex + 1);
-        charIndex++;
-      }
-      if (!isDeleting && charIndex === currentWord.length) {
-        isDeleting = true;
-        setTimeout(typeEffect, newWordDelay);
-        return;
-      }
-      if (isDeleting && charIndex === 0) {
-        isDeleting = false;
-        wordIndex = (wordIndex + 1) % words.length;
-        setTimeout(typeEffect, typingDelay);
-        return;
-      }
-      const speed = isDeleting ? eraseDelay : typingDelay;
-      setTimeout(typeEffect, speed);
-    }
-    setTimeout(typeEffect, 2000);
-  </script>
-</body>
-</html>
+  </div>
+</section>

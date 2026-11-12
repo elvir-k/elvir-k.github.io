@@ -29,9 +29,7 @@ a rewritten query can turn a 5‑second page load into 200ms.**
 Here are the battle‑tested techniques I use to squeeze every millisecond
 out of MySQL.
 
-```{=html}
 <!--more-->
-```
 *→ Want to jump ahead?* [Skip to the summary](#summary)
 
 ------------------------------------------------------------------------
